@@ -14,6 +14,13 @@ config/name="Informatica Eindopdracht"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/size/mode=3
+window/stretch/mode="viewport"
+
 [rendering]
 
 renderer/rendering_method="mobile"
