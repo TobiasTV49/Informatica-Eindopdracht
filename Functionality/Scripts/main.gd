@@ -9,9 +9,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Global.player_health > 0 and Global.player_death == false: #player is alive
-		if player.position.y > 0: #this is for testing the following system
-			$Player.position.y -= 1
-	elif Global.player_health <= 0 and Global.player_death == false: #player is about to die
+	if Global.player_health <= 0 and Global.player_death == false: #player is about to die
 		Global.player_death = true
 		player.queue_free()

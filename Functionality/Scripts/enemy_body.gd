@@ -10,13 +10,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if Global.player_death == false:
-		look_at(player.position)
+		#look_at(player.position)
 		if attacking == false:
 			velocity = (player.position - position).normalized() * SPEED
 		elif attacking == true:
 			velocity = Vector2(0, 0)
 			await get_tree().create_timer(1).timeout
-			Global.player_health -= 50
+			Global.player_health -= 25
 
 	move_and_slide()
 

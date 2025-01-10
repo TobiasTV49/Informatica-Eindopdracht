@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://2bkx1y5hcu02"]
+[gd_scene load_steps=5 format=3 uid="uid://2bkx1y5hcu02"]
 
 [ext_resource type="PackedScene" uid="uid://dlsjc0570kmji" path="res://Functionality/Scenes/enemy.tscn" id="1_hes87"]
 [ext_resource type="Script" path="res://Functionality/Scripts/main.gd" id="1_oydpu"]
 [ext_resource type="PackedScene" uid="uid://ghvrtut8se0h" path="res://Functionality/Scenes/player.tscn" id="2_d5emv"]
+[ext_resource type="PackedScene" uid="uid://d4h3a3t6r5e0v" path="res://Functionality/Scenes/bullet.tscn" id="4_44lj5"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_oydpu")
@@ -10,10 +11,13 @@ script = ExtResource("1_oydpu")
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 322.0
 offset_bottom = 180.0
-color = Color(0.322648, 0.254459, 0.123765, 1)
+color = Color(0.178436, 0.138157, 0.228629, 1)
 
 [node name="EnemyBody" parent="." instance=ExtResource("1_hes87")]
 position = Vector2(83, 55)
 
 [node name="Player" parent="." instance=ExtResource("2_d5emv")]
 position = Vector2(207, 141)
+
+[node name="Area2D" parent="." instance=ExtResource("4_44lj5")]
+position = Vector2(250, 30)
