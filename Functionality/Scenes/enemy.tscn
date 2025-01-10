@@ -1,3 +1,29 @@
-[gd_scene format=3 uid="uid://dlsjc0570kmji"]
+[gd_scene load_steps=5 format=3 uid="uid://dlsjc0570kmji"]
 
-[node name="Enemy" type="Node2D"]
+[ext_resource type="Script" path="res://Functionality/Scripts/enemy_body.gd" id="1_jfa1j"]
+[ext_resource type="Texture2D" uid="uid://c4snuhiqix0ih" path="res://icon.svg" id="1_oxsr4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gphb"]
+size = Vector2(30, 30)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gcqi8"]
+radius = 38.0
+
+[node name="EnemyBody" type="CharacterBody2D"]
+position = Vector2(23, 23)
+script = ExtResource("1_jfa1j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_oxsr4")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3gphb")
+
+[node name="AttackRange" type="Area2D" parent="."]
+
+[node name="RangeShape" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_gcqi8")
+
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
