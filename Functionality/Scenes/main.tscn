@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://2bkx1y5hcu02"]
+[gd_scene load_steps=6 format=3 uid="uid://2bkx1y5hcu02"]
 
 [ext_resource type="PackedScene" uid="uid://dlsjc0570kmji" path="res://Functionality/Scenes/enemy.tscn" id="1_hes87"]
 [ext_resource type="Script" path="res://Functionality/Scripts/main.gd" id="1_oydpu"]
 [ext_resource type="PackedScene" uid="uid://ghvrtut8se0h" path="res://Functionality/Scenes/player.tscn" id="2_d5emv"]
 [ext_resource type="PackedScene" uid="uid://d4h3a3t6r5e0v" path="res://Functionality/Scenes/bullet.tscn" id="4_44lj5"]
+[ext_resource type="PackedScene" uid="uid://bxotcyclcovoj" path="res://Functionality/Scenes/SpellMenu.tscn" id="5_ipgrs"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_oydpu")
@@ -21,3 +22,6 @@ position = Vector2(207, 141)
 
 [node name="Area2D" parent="." instance=ExtResource("4_44lj5")]
 position = Vector2(250, 30)
+
+[node name="SpellMenu" parent="." instance=ExtResource("5_ipgrs")]
+visible = false

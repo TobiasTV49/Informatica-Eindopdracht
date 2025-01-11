@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxotcyclcovoj"]
+
+[ext_resource type="Script" path="res://Functionality/Scripts/spell_menu.gd" id="1_d2hj5"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_d2hj5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.784314)
+offset_left = 80.0
+offset_top = 45.0
+offset_right = 240.0
+offset_bottom = 135.0
+color = Color(0.151276, 0.151276, 0.151276, 1)
