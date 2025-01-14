@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://2bkx1y5hcu02"]
+[gd_scene load_steps=7 format=3 uid="uid://2bkx1y5hcu02"]
 
 [ext_resource type="PackedScene" uid="uid://dlsjc0570kmji" path="res://Functionality/Scenes/enemy.tscn" id="1_hes87"]
 [ext_resource type="Script" path="res://Functionality/Scripts/main.gd" id="1_oydpu"]
 [ext_resource type="PackedScene" uid="uid://ghvrtut8se0h" path="res://Functionality/Scenes/player.tscn" id="2_d5emv"]
 [ext_resource type="PackedScene" uid="uid://d4h3a3t6r5e0v" path="res://Functionality/Scenes/bullet.tscn" id="4_44lj5"]
 [ext_resource type="PackedScene" uid="uid://bxotcyclcovoj" path="res://Functionality/Scenes/SpellMenu.tscn" id="5_ipgrs"]
+[ext_resource type="PackedScene" uid="uid://53grnwnr4rie" path="res://Functionality/Scenes/ranged_enemy.tscn" id="6_e8do6"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_oydpu")
@@ -18,10 +19,13 @@ color = Color(0.178436, 0.138157, 0.228629, 1)
 position = Vector2(83, 55)
 
 [node name="Player" parent="." instance=ExtResource("2_d5emv")]
-position = Vector2(207, 141)
+position = Vector2(272, 106)
 
 [node name="Area2D" parent="." instance=ExtResource("4_44lj5")]
 position = Vector2(250, 30)
 
 [node name="SpellMenu" parent="." instance=ExtResource("5_ipgrs")]
 visible = false
+
+[node name="EnemyBody2" parent="." instance=ExtResource("6_e8do6")]
+position = Vector2(76, 139)

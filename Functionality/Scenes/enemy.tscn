@@ -21,9 +21,12 @@ texture = ExtResource("1_oxsr4")
 shape = SubResource("RectangleShape2D_3gphb")
 
 [node name="AttackRange" type="Area2D" parent="."]
+scale = Vector2(0.760001, 0.760001)
 
 [node name="RangeShape" type="CollisionShape2D" parent="AttackRange"]
 shape = SubResource("CircleShape2D_gcqi8")
+
+[node name="Attacktimer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
