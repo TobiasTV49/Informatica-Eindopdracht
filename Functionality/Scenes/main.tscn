@@ -29,3 +29,5 @@ visible = false
 
 [node name="EnemyBody2" parent="." instance=ExtResource("6_e8do6")]
 position = Vector2(76, 139)
+
+[node name="Bullet" parent="." instance=ExtResource("4_44lj5")]

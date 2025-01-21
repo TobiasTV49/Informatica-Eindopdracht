@@ -1,4 +1,4 @@
 extends Area2D
 
-var used
+var shot
 var speed = 150
