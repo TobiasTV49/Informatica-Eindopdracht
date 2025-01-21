@@ -12,5 +12,7 @@ func _process(delta: float) -> void:
 	if Global.player_health <= 0 and Global.player_death == false: #player is about to die
 		Global.player_death = true
 		player.queue_free()
-	if Global.battle == false:
+	if Global.WaveCompleted == true:
 		$SpellMenu.show()
+	else:
+		$SpellMenu.hide()

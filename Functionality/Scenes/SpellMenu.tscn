@@ -2,13 +2,36 @@
 
 [ext_resource type="Script" path="res://Functionality/Scripts/spell_menu.gd" id="1_d2hj5"]
 
-[node name="Node2D" type="Node2D"]
+[node name="SpellMenu" type="Node2D"]
 script = ExtResource("1_d2hj5")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="SpellMenu_BG" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0.784314)
 offset_left = 80.0
 offset_top = 45.0
 offset_right = 240.0
 offset_bottom = 135.0
 color = Color(0.151276, 0.151276, 0.151276, 1)
+
+[node name="Spell1" type="Button" parent="SpellMenu_BG"]
+offset_left = 15.0
+offset_top = 35.0
+offset_right = 45.0
+offset_bottom = 75.0
+
+[node name="Spell2" type="Button" parent="SpellMenu_BG"]
+offset_left = 65.0
+offset_top = 35.0
+offset_right = 95.0
+offset_bottom = 75.0
+
+[node name="Spell3" type="Button" parent="SpellMenu_BG"]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 35.0
+offset_right = 145.0
+offset_bottom = 75.0
+
+[connection signal="pressed" from="SpellMenu_BG/Spell1" to="." method="_on_spell_1_pressed"]
+[connection signal="pressed" from="SpellMenu_BG/Spell2" to="." method="_on_spell_2_pressed"]
+[connection signal="pressed" from="SpellMenu_BG/Spell3" to="." method="_on_spell_3_pressed"]
