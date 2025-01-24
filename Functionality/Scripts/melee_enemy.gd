@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 var attacking
-@onready var player: CharacterBody2D = $"../Player"
+@onready var player: CharacterBody2D = $PlayerBody
 
 const SPEED = 25
+var damage = 10
 
 func _ready() -> void:
 	attacking = false
@@ -11,10 +12,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if Global.player_death == false:
 		#look_at(player.position)
-		if attacking == false:
-			velocity = (player.position - position).normalized() * SPEED
-		else:
-			velocity = Vector2(0, 0)
+		print(player)
+		#if attacking == false:
+		#	velocity = (player.position - position).normalized() * SPEED
+		#else:
+		#	velocity = Vector2(0, 0)
 
 	move_and_slide()
 
@@ -32,3 +34,4 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 
 func _on_attacktimer_timeout() -> void:
 	print("meleeAttack")
+	Global.player_health -= damage
