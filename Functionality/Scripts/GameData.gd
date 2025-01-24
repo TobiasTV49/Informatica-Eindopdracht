@@ -1,15 +1,23 @@
 extends Node
 var Spells = {
-	"Magic missile"  = {
+	0: {
 		"Name" = "Magic missile",
 		"Damage" = 30,
 	},
-	"Divine protection" = {
+	1: {
 		"Name" = "Divine protection",
 		"Damage" = 0,
 	},
-	"Arcane shove" = {
+	2: {
 		"Name" = "Arcane shove",
 		"Damage" = 5,
+	},
+	3: {
+		"Name" = "Arcane construct",
+		"Damage" = 0,
+	},
+	4: {
+		"Name" = "Summon golem",
+		"Damage" = 0,
 	},
 }

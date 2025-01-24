@@ -1,8 +1,15 @@
 extends Node2D
-var ChosenSpell = 0
+var ChosenSpell = null
+var Spell = null
+var Spells = []
 
 func _ready():
-	RandomizeChoices()
+	var x = 0
+	Spells.size = 3
+	while Spells.count(0) < 3:
+		RandomizeChoices(x)
+		x += 1
+	print(Spells)
 
 
 func _process(delta):
@@ -10,21 +17,24 @@ func _process(delta):
 
 
 func _on_spell_1_pressed() -> void:
-	ChosenSpell = 1
+	ChosenSpell = 0
 	GoBack()
 	
 
 
 func _on_spell_2_pressed() -> void:
-	ChosenSpell = 2
+	ChosenSpell = 1
 	GoBack()
 
 func _on_spell_3_pressed() -> void:
-	ChosenSpell = 3
+	ChosenSpell = 2
 	GoBack()
 
-func RandomizeChoices():
-	pass
+func RandomizeChoices(x):
+	var count = GameData.Spells.size() - 1
+	var check = randi_range(0, count)
+	if check not in Spells:
+		Spells[x] = check
 
 func GoBack():
 	Global.WaveCompleted = false
