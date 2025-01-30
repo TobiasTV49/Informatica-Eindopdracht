@@ -9,6 +9,9 @@ func get_input(): #Pulls input directions and sets the velocity using them.
 	velocity = input_direction * speed
 
 func _physics_process(delta):
+	if Global.player_death == true:
+		self.queue_free()
 	get_input() #I wonder what this could do, i really have no clue.
 	move_and_slide() #Special function for characterbody2D that makes it schmove.
 	Global.player_position = self
+	$ProgressBar.value = Global.player_health

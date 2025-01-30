@@ -1,10 +1,9 @@
 extends CharacterBody2D
 
 var attacking
-@onready var player: CharacterBody2D = $PlayerBody
-
 const SPEED = 25
 var damage = 10
+@onready var player = get_tree().get_nodes_in_group("Player")[0]
 
 func _ready() -> void:
 	attacking = false
@@ -12,11 +11,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if Global.player_death == false:
 		#look_at(player.position)
-		print(player)
-		#if attacking == false:
-		#	velocity = (player.position - position).normalized() * SPEED
-		#else:
-		#	velocity = Vector2(0, 0)
+		if attacking == false:
+			velocity = (player.position - position).normalized() * SPEED
+		else:
+			velocity = Vector2(0, 0)
 
 	move_and_slide()
 

@@ -8,23 +8,28 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_oydpu")
 
+[node name="Player" parent="." instance=ExtResource("2_d5emv")]
+position = Vector2(275, 142)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
 [node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
 offset_right = 322.0
 offset_bottom = 180.0
+scale = Vector2(2, 2)
 color = Color(0.178436, 0.138157, 0.228629, 1)
-
-[node name="PlayerBody" parent="." instance=ExtResource("2_d5emv")]
-position = Vector2(232, 91)
 
 [node name="Area2D" parent="." instance=ExtResource("4_44lj5")]
 position = Vector2(250, 30)
 
-[node name="SpellMenu" parent="." instance=ExtResource("5_ipgrs")]
-visible = false
-
 [node name="Bullet" parent="." instance=ExtResource("4_44lj5")]
 
-[node name="Button" type="Button" parent="."]
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
 offset_left = 123.0
 offset_top = 1.0
 offset_right = 211.0
@@ -32,6 +37,7 @@ offset_bottom = 21.0
 theme_override_font_sizes/font_size = 8
 text = "Spawn Melee Enemy"
 
-[node name="Enemies" type="Node2D" parent="."]
+[node name="SpellMenu" parent="CanvasLayer" instance=ExtResource("5_ipgrs")]
+visible = false
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

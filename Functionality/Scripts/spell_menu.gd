@@ -5,8 +5,8 @@ var Spells = []
 
 func _ready():
 	var x = 0
-	Spells.size = 3
-	while Spells.count(0) < 3:
+	#Spells.size = 3
+	while Spells.count(0) < Spells.size():
 		RandomizeChoices(x)
 		x += 1
 	print(Spells)

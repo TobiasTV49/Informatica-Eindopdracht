@@ -1,6 +1,8 @@
 extends Node2D
-@onready var player: CharacterBody2D = $PlayerBody
 const MELEE_ENEMY = preload("res://Functionality/Scenes/enemy.tscn")
+@onready var player: CharacterBody2D = $PlayerBody
+@onready var spell_menu: Node2D = $CanvasLayer/SpellMenu
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,9 +15,9 @@ func _process(delta: float) -> void:
 		Global.player_death = true
 		#player.queue_free()
 	if Global.WaveCompleted == true:
-		$SpellMenu.show()
+		spell_menu.show()
 	else:
-		$SpellMenu.hide()
+		spell_menu.hide()
 
 
 func _on_button_pressed() -> void:
