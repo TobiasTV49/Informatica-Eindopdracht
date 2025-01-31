@@ -24,6 +24,7 @@ color = Color(0.178436, 0.138157, 0.228629, 1)
 position = Vector2(250, 30)
 
 [node name="Bullet" parent="." instance=ExtResource("4_44lj5")]
+z_index = 1
 
 [node name="Enemies" type="Node2D" parent="."]
 
