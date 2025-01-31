@@ -2,8 +2,8 @@ extends Area2D
 
 var enemy_array: Array
 var shot: bool = true #i made it true to make the code runnable for now
-var enemy
 var direction
+@export var speed = 150
 
 func _process(delta: float) -> void:
 	enemy_array = get_tree().get_nodes_in_group("enemies") #dit is denk ik beter dan: = []
