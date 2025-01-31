@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxotcyclcovoj"]
+[gd_scene load_steps=3 format=3 uid="uid://bxotcyclcovoj"]
 
 [ext_resource type="Script" path="res://Functionality/Scripts/spell_menu.gd" id="1_d2hj5"]
+
+[sub_resource type="Theme" id="Theme_bbvsk"]
 
 [node name="SpellMenu" type="Node2D"]
 script = ExtResource("1_d2hj5")
@@ -19,6 +21,8 @@ offset_left = 15.0
 offset_top = 35.0
 offset_right = 45.0
 offset_bottom = 75.0
+theme = SubResource("Theme_bbvsk")
+theme_override_font_sizes/font_size = 8
 
 [node name="Spell2" type="Button" parent="SpellMenu_BG"]
 layout_mode = 0
@@ -26,6 +30,7 @@ offset_left = 65.0
 offset_top = 35.0
 offset_right = 95.0
 offset_bottom = 75.0
+theme_override_font_sizes/font_size = 8
 
 [node name="Spell3" type="Button" parent="SpellMenu_BG"]
 layout_mode = 0
@@ -33,6 +38,7 @@ offset_left = 115.0
 offset_top = 35.0
 offset_right = 145.0
 offset_bottom = 75.0
+theme_override_font_sizes/font_size = 8
 
 [connection signal="pressed" from="SpellMenu_BG/Spell1" to="." method="_on_spell_1_pressed"]
 [connection signal="pressed" from="SpellMenu_BG/Spell2" to="." method="_on_spell_2_pressed"]

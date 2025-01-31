@@ -22,3 +22,7 @@ func _process(delta: float) -> void:
 func _on_button_pressed() -> void:
 	var melee_enemy = MELEE_ENEMY.instantiate()
 	$Enemies.add_child(melee_enemy)
+
+
+func _on_temporary_button_pressed():
+	Global.WaveCompleted = true
