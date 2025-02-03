@@ -10,7 +10,12 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if Global.player_death == false:
-		#look_at(player.position)
+		var direction = player.position.x - position.x
+		if direction > 0:
+			$enemy_sprite.flip_h = false
+		else:
+			$enemy_sprite.flip_h = true
+			
 		if attacking == false:
 			velocity = (player.position - position).normalized() * SPEED
 		else:

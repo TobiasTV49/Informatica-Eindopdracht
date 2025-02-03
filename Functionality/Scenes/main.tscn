@@ -41,7 +41,7 @@ text = "Spawn Melee Enemy"
 [node name="SpellMenu" parent="CanvasLayer" instance=ExtResource("5_ipgrs")]
 visible = false
 
-[node name="Temporary button" type="Button" parent="."]
+[node name="Temporary button" type="Button" parent="CanvasLayer"]
 offset_left = 123.0
 offset_top = 134.0
 offset_right = 230.0
@@ -50,4 +50,4 @@ theme_override_font_sizes/font_size = 8
 text = "click for wave completion"
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Temporary button" to="." method="_on_temporary_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Temporary button" to="." method="_on_temporary_button_pressed"]

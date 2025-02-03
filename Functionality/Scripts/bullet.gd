@@ -1,7 +1,7 @@
 extends Area2D
 
 var enemy_array: Array
-var shot: bool = true #i made it true to make the code runnable for now
+var shot: bool = false
 var enemy
 var direction
 var nearest_enemy = null
@@ -15,13 +15,17 @@ func _process(delta: float) -> void:
 		for i in enemy_array:
 			var temp_distance = position.distance_to(i.position)
 			if temp_distance < position.distance_to(nearest_enemy.position):
+				nearest_enemy.scale = Vector2(1, 1)
 				nearest_enemy = i
 		
 		if nearest_enemy != null:
-			self.position = nearest_enemy.position
+			pass
+			nearest_enemy.scale = Vector2(0.75, 0.75)
 	
 	if shot == false:
-		direction = Global.player_position - Global.enemy_position
+		if Global.player_health > 0:
+			position = $"../Player".position
+		#direction = Global.player_position - Global.enemy_position
 
 func bullet() -> void:
 	shot = true

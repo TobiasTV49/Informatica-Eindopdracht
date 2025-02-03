@@ -1,10 +1,82 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlsjc0570kmji"]
+[gd_scene load_steps=15 format=3 uid="uid://dlsjc0570kmji"]
 
 [ext_resource type="Script" path="res://Functionality/Scripts/melee_enemy.gd" id="1_jfa1j"]
-[ext_resource type="Texture2D" uid="uid://c4snuhiqix0ih" path="res://icon.svg" id="1_oxsr4"]
+[ext_resource type="Texture2D" uid="uid://cbs3mvlkaowvo" path="res://Assets/pixilart-sprite.png" id="2_qtmnn"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gphb"]
-size = Vector2(30, 30)
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdv6v"]
+atlas = ExtResource("2_qtmnn")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n3m7"]
+atlas = ExtResource("2_qtmnn")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n20mr"]
+atlas = ExtResource("2_qtmnn")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mi1i7"]
+atlas = ExtResource("2_qtmnn")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tovx"]
+atlas = ExtResource("2_qtmnn")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5ho5"]
+atlas = ExtResource("2_qtmnn")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k4r7"]
+atlas = ExtResource("2_qtmnn")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xh6it"]
+atlas = ExtResource("2_qtmnn")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqis4"]
+atlas = ExtResource("2_qtmnn")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sfigl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdv6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n3m7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n20mr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mi1i7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tovx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5ho5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k4r7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xh6it")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqis4")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7d4ii"]
+radius = 6.0
+height = 24.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gcqi8"]
 radius = 38.0
@@ -13,17 +85,21 @@ radius = 38.0
 position = Vector2(23, 23)
 script = ExtResource("1_jfa1j")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_oxsr4")
+[node name="enemy_sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_sfigl")
+animation = &"walking"
+autoplay = "walking"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_3gphb")
+position = Vector2(-2, -1)
+shape = SubResource("CapsuleShape2D_7d4ii")
 
 [node name="AttackRange" type="Area2D" parent="."]
+position = Vector2(-6, -1)
 scale = Vector2(0.760001, 0.760001)
 
 [node name="RangeShape" type="CollisionShape2D" parent="AttackRange"]
+position = Vector2(3.94736, 0)
 shape = SubResource("CircleShape2D_gcqi8")
 
 [node name="Attacktimer" type="Timer" parent="."]
