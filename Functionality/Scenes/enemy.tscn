@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dlsjc0570kmji"]
+[gd_scene load_steps=16 format=3 uid="uid://dlsjc0570kmji"]
 
 [ext_resource type="Script" path="res://Functionality/Scripts/melee_enemy.gd" id="1_jfa1j"]
 [ext_resource type="Texture2D" uid="uid://cbs3mvlkaowvo" path="res://Assets/pixilart-sprite.png" id="2_qtmnn"]
@@ -75,11 +75,14 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7d4ii"]
-radius = 6.0
-height = 24.0
+height = 44.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gcqi8"]
 radius = 38.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1mqi6"]
+radius = 14.0
+height = 46.0
 
 [node name="melee_enemy" type="CharacterBody2D" groups=["enemies"]]
 position = Vector2(23, 23)
@@ -91,20 +94,28 @@ animation = &"walking"
 autoplay = "walking"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(-2, -1)
+position = Vector2(-3, 0)
 shape = SubResource("CapsuleShape2D_7d4ii")
 
 [node name="AttackRange" type="Area2D" parent="."]
-position = Vector2(-6, -1)
-scale = Vector2(0.760001, 0.760001)
+position = Vector2(-4, -1)
+scale = Vector2(0.720001, 0.720001)
 
 [node name="RangeShape" type="CollisionShape2D" parent="AttackRange"]
-position = Vector2(3.94736, 0)
 shape = SubResource("CircleShape2D_gcqi8")
 
 [node name="Attacktimer" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="HitBoxShape" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-3, 0)
+shape = SubResource("CapsuleShape2D_1mqi6")
+
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
 [connection signal="timeout" from="Attacktimer" to="." method="_on_attacktimer_timeout"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

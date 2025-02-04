@@ -38,3 +38,9 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 func _on_attacktimer_timeout() -> void:
 	print("meleeAttack")
 	Global.player_health -= damage
+
+
+func _on_hit_box_body_entered(body: Node2D) -> void:
+	print("oy to the vay")
+	if body.name == "bullet":
+		self.queue_free()

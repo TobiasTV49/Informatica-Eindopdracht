@@ -14,6 +14,9 @@ position = Vector2(275, 142)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(1.5, 1.5)
 
+[node name="bullet" parent="." instance=ExtResource("4_44lj5")]
+position = Vector2(139, 20)
+
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
 offset_right = 322.0
@@ -21,21 +24,15 @@ offset_bottom = 180.0
 scale = Vector2(2, 2)
 color = Color(0.178436, 0.138157, 0.228629, 1)
 
-[node name="Area2D" parent="." instance=ExtResource("4_44lj5")]
-position = Vector2(250, 30)
-
-[node name="Bullet" parent="." instance=ExtResource("4_44lj5")]
-z_index = 1
-
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 223.0
-offset_top = 2.0
-offset_right = 390.0
-offset_bottom = 33.0
+offset_left = 228.0
+offset_top = 1.0
+offset_right = 395.0
+offset_bottom = 32.0
 theme_override_font_sizes/font_size = 16
 text = "Spawn Melee Enemy"
 
@@ -43,6 +40,7 @@ text = "Spawn Melee Enemy"
 visible = false
 
 [node name="Temporary button" type="Button" parent="CanvasLayer"]
+texture_filter = 1
 offset_left = 203.0
 offset_top = 328.0
 offset_right = 408.0

@@ -5,7 +5,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x5uif"]
 
-[node name="bullet" type="Area2D"]
+[node name="bullet" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_vt3w6")
 
 [node name="bulletTexture" type="Sprite2D" parent="."]
