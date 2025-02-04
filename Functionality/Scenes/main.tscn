@@ -12,6 +12,7 @@ script = ExtResource("1_oydpu")
 position = Vector2(275, 142)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(1.5, 1.5)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
@@ -31,22 +32,22 @@ z_index = 1
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 123.0
-offset_top = 1.0
-offset_right = 211.0
-offset_bottom = 21.0
-theme_override_font_sizes/font_size = 8
+offset_left = 223.0
+offset_top = 2.0
+offset_right = 390.0
+offset_bottom = 33.0
+theme_override_font_sizes/font_size = 16
 text = "Spawn Melee Enemy"
 
 [node name="SpellMenu" parent="CanvasLayer" instance=ExtResource("5_ipgrs")]
 visible = false
 
 [node name="Temporary button" type="Button" parent="CanvasLayer"]
-offset_left = 123.0
-offset_top = 134.0
-offset_right = 230.0
-offset_bottom = 154.0
-theme_override_font_sizes/font_size = 8
+offset_left = 203.0
+offset_top = 328.0
+offset_right = 408.0
+offset_bottom = 359.0
+theme_override_font_sizes/font_size = 16
 text = "click for wave completion"
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

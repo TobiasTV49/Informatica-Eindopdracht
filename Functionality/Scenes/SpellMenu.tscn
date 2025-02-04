@@ -6,7 +6,7 @@
 
 [node name="SpellMenu" type="Node2D"]
 z_index = 1
-position = Vector2(160, 85)
+position = Vector2(118, 55)
 script = ExtResource("1_d2hj5")
 
 [node name="SpellMenu_BG" type="ColorRect" parent="."]
@@ -15,37 +15,35 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -110.0
-offset_top = -64.0
-offset_right = 110.0
-offset_bottom = 64.0
+offset_right = 418.0
+offset_bottom = 248.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.116948, 0.123036, 0.314042, 1)
 
 [node name="Spell1" type="Button" parent="SpellMenu_BG"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 45.0
-offset_right = 45.0
-offset_bottom = 85.0
+offset_left = 38.0
+offset_top = 102.0
+offset_right = 68.0
+offset_bottom = 142.0
 theme = SubResource("Theme_bbvsk")
 theme_override_font_sizes/font_size = 8
 
 [node name="Spell2" type="Button" parent="SpellMenu_BG"]
 layout_mode = 0
-offset_left = 91.0
-offset_top = 45.0
-offset_right = 121.0
-offset_bottom = 85.0
+offset_left = 179.0
+offset_top = 103.0
+offset_right = 209.0
+offset_bottom = 143.0
 theme_override_font_sizes/font_size = 8
 
 [node name="Spell3" type="Button" parent="SpellMenu_BG"]
 layout_mode = 0
-offset_left = 166.0
-offset_top = 46.0
-offset_right = 196.0
-offset_bottom = 86.0
+offset_left = 297.0
+offset_top = 104.0
+offset_right = 327.0
+offset_bottom = 144.0
 theme_override_font_sizes/font_size = 8
 
 [connection signal="pressed" from="SpellMenu_BG/Spell1" to="." method="_on_spell_1_pressed"]
