@@ -5,8 +5,11 @@ var shot: bool = false
 var enemy
 var direction
 var nearest_enemy = null
-const SPEED = 50
+const SPEED = 200
 
+func _ready():
+	Global.shoot.connect(shot_fired)
+	visible = false
 
 func _process(delta: float) -> void:
 	enemy_array = get_tree().get_nodes_in_group("enemies")
@@ -19,26 +22,23 @@ func _process(delta: float) -> void:
 				nearest_enemy.scale = Vector2(1, 1)
 				nearest_enemy = i
 		
-		if nearest_enemy != null:
-			nearest_enemy.scale = Vector2(0.75, 0.75)
-			
-		if Input.is_action_just_pressed("temp_fire"):
-			shot = true
-		
-		if shot == false:
-			look_at(nearest_enemy.position)
-			if Global.player_health > 0:
-				position = $"../Player".position
-		
-	if shot == true:
-		print(rotation)
-		var move_vector = Vector2(1, 0).rotated(rotation)
-		velocity = move_vector * SPEED
-	
+		if shot == true:
+			var move_vector = Vector2(1, 0).rotated(rotation)
+			velocity = move_vector * SPEED
+	else:
+		queue_free()
 	move_and_slide()
 			
 		#direction = Global.player_position - Global.enemy_position
 
+func shot_fired():
+	if Global.player_health > 0:
+		position = $"../Player".position
+	if nearest_enemy != null:
+		look_at(nearest_enemy.position)
+		visible = true
+		shot = true
+		Global.shoot.disconnect(shot_fired)
 
 
 func bullet() -> void:

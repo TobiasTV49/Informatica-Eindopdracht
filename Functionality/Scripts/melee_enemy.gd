@@ -3,12 +3,14 @@ extends CharacterBody2D
 var attacking
 const SPEED = 25
 var damage = 10
+var health = 50
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
 
 func _ready() -> void:
 	attacking = false
 
 func _physics_process(delta: float) -> void:
+	$ProgressBar.value = health
 	if Global.player_death == false:
 		var direction = player.position.x - position.x
 		if direction > 0:
@@ -41,6 +43,9 @@ func _on_attacktimer_timeout() -> void:
 
 
 func _on_hit_box_body_entered(body: Node2D) -> void:
-	print("oy to the vay")
-	if body.name == "bullet":
-		self.queue_free()
+	print("oy to the vey")
+	if body.is_in_group("bullets"):
+		body.queue_free()
+		health -= 10
+		if health < 1:
+			self.queue_free()

@@ -15,6 +15,7 @@ position = Vector2(275, 142)
 zoom = Vector2(1.5, 1.5)
 
 [node name="bullet" parent="." instance=ExtResource("4_44lj5")]
+visible = false
 position = Vector2(139, 20)
 
 [node name="ColorRect" type="ColorRect" parent="."]

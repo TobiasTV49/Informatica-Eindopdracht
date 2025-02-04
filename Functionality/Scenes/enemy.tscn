@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dlsjc0570kmji"]
+[gd_scene load_steps=18 format=3 uid="uid://dlsjc0570kmji"]
 
 [ext_resource type="Script" path="res://Functionality/Scripts/melee_enemy.gd" id="1_jfa1j"]
 [ext_resource type="Texture2D" uid="uid://cbs3mvlkaowvo" path="res://Assets/pixilart-sprite.png" id="2_qtmnn"]
+[ext_resource type="FontFile" uid="uid://crm5aodm5xa2d" path="res://at01.ttf" id="3_bkdgu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tdv6v"]
 atlas = ExtResource("2_qtmnn")
@@ -84,6 +85,9 @@ radius = 38.0
 radius = 14.0
 height = 46.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fav23"]
+bg_color = Color(1, 0, 0, 1)
+
 [node name="melee_enemy" type="CharacterBody2D" groups=["enemies"]]
 position = Vector2(23, 23)
 script = ExtResource("1_jfa1j")
@@ -114,6 +118,18 @@ collision_mask = 2
 [node name="HitBoxShape" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-3, 0)
 shape = SubResource("CapsuleShape2D_1mqi6")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -11.0
+offset_top = -32.0
+offset_right = 36.0
+offset_bottom = -15.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("3_bkdgu")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/fill = SubResource("StyleBoxFlat_fav23")
+max_value = 50.0
+show_percentage = false
 
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
