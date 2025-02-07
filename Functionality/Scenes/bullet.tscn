@@ -7,8 +7,9 @@
 
 [node name="bullet" type="CharacterBody2D" groups=["bullets"]]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("1_vt3w6")
+metadata/bullet_type = ""
 
 [node name="bulletTexture" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)

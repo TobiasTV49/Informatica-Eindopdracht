@@ -31,11 +31,17 @@ func _process(delta: float) -> void:
 			
 		#direction = Global.player_position - Global.enemy_position
 
-func shot_fired():
-	if Global.player_health > 0:
-		position = $"../Player".position
-	if nearest_enemy != null:
+func shot_fired(bullet_target, source):
+	position = source
+	if bullet_target == "enemy" and nearest_enemy != null:
+		self.set_meta("bullet_type", "player bullet")
 		look_at(nearest_enemy.position)
+		visible = true
+		shot = true
+		Global.shoot.disconnect(shot_fired)
+	elif bullet_target == "player":
+		look_at($"../Player".position)
+		self.set_meta("bullet_type", "enemy bullet")
 		visible = true
 		shot = true
 		Global.shoot.disconnect(shot_fired)
