@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://2bkx1y5hcu02"]
+[gd_scene load_steps=6 format=3 uid="uid://2bkx1y5hcu02"]
 
-[ext_resource type="Script" path="res://Functionality/Scripts/main.gd" id="1_oydpu"]
+[ext_resource type="Script" path="res://Assets/Scripts/main.gd" id="1_oydpu"]
 [ext_resource type="PackedScene" uid="uid://ghvrtut8se0h" path="res://Functionality/Scenes/player.tscn" id="2_d5emv"]
 [ext_resource type="PackedScene" uid="uid://d4h3a3t6r5e0v" path="res://Functionality/Scenes/bullet.tscn" id="4_44lj5"]
 [ext_resource type="PackedScene" uid="uid://bxotcyclcovoj" path="res://Functionality/Scenes/SpellMenu.tscn" id="5_ipgrs"]
+[ext_resource type="PackedScene" uid="uid://og50mlvkyoml" path="res://Assets/Scripts/druid_menu.tscn" id="5_k2n5o"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_oydpu")
@@ -39,6 +40,10 @@ text = "Spawn Melee Enemy"
 
 [node name="SpellMenu" parent="CanvasLayer" instance=ExtResource("5_ipgrs")]
 visible = false
+
+[node name="DruidMenu" parent="CanvasLayer" instance=ExtResource("5_k2n5o")]
+visible = false
+position = Vector2(118, 55)
 
 [node name="Temporary button" type="Button" parent="CanvasLayer"]
 texture_filter = 1

@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://dlsjc0570kmji"]
 
-[ext_resource type="Script" path="res://Functionality/Scripts/melee_enemy.gd" id="1_jfa1j"]
+[ext_resource type="Script" path="res://Assets/Scripts/melee_enemy.gd" id="1_jfa1j"]
 [ext_resource type="Texture2D" uid="uid://cbs3mvlkaowvo" path="res://Assets/pixilart-sprite.png" id="2_qtmnn"]
 [ext_resource type="FontFile" uid="uid://crm5aodm5xa2d" path="res://at01.ttf" id="3_bkdgu"]
 
