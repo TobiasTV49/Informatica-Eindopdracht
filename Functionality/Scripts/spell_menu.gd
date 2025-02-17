@@ -1,7 +1,8 @@
 extends Node2D
 var ChosenSpell = null
 var Spell = null
-var Spells = [-1, -2, -1, -2, -1, -2]
+var Spells = [-1, -1, -1]
+var Sideupgrades = [null, null, null]
 var Level = null
 var lock = false
 var UpgradeSpells = []
@@ -34,11 +35,11 @@ func _on_spell_1_pressed() -> void:
 	GoBack()
 
 func _on_spell_2_pressed() -> void:
-	ChosenSpell = Spells[2]
+	ChosenSpell = Spells[1]
 	GoBack()
 
 func _on_spell_3_pressed() -> void:
-	ChosenSpell = Spells[4]
+	ChosenSpell = Spells[2]
 	GoBack()
 
 func RandomizeChoices(x):
@@ -47,67 +48,76 @@ func RandomizeChoices(x):
 		check = randi_range(0, UpgradeSpells.size() - 1)
 		if check not in Spells:
 			Spells[x] = check
-			CheckSideupgrades()
+			CheckSideupgrades(x)
 			GetSpellIndex(Spells[x])
 			var i = index
 			CheckPlayerSpells(i)
+			print("balls")
 			if 1 == 1 and sideupgrade == false and inside == true:
-				Spells[x + 1] = randi_range(1, 2)
+				Sideupgrades[x] = randi_range(1, 2)
 	else:
 		check = randi_range(0, NewSpells.size() - 1)
 		if check not in Spells:
+			print("balls1")
 			Spells[x] = check
 
 func GoBack():
 	var gotten = null
 	var sideupgrade = 0
 	lock = false
+	print(UpgradeSpells)
+	print(NewSpells)
 	UpgradeSpells = []
 	NewSpells = []
 	Global.WaveCompleted = false
 	for i in Global.PlayerSpells.size():
 		if Global.PlayerSpells[i][0] == ChosenSpell:
 			var x = 0
-			while x < 6:
-				if Spells[x] == ChosenSpell and Spells[x + 1] != -2:
+			while x < 3:
+				if Spells[x] == ChosenSpell and Sideupgrades[x] != null:
 					sideupgrade = x
-				x += 2
+				x += 1
 			if sideupgrade == 0:
 				Global.PlayerSpells[i][1] += 1
 			else:
-				Global.PlayerSpells[i][2] = Spells[Spells.find(ChosenSpell) + 1]
+				Global.PlayerSpells[i][2] = Sideupgrades[Spells.find(ChosenSpell)]
 			gotten = true
 	if gotten != true:
 		Global.PlayerSpells.append([ChosenSpell, 0, 0])
-	print(Spells)
 	print(Global.PlayerSpells)
-	Spells = [-1, -2, -1, -2, -1, -2]
+	Spells = [-1, -1, -1]
+	Sideupgrades = [null, null, null]
 									#spell, level, sideupgrade
 
 func UpdateNames():
 	$SpellMenu_BG/Spell1.text = GameData.Spells[Spells[0]]["Name"]
-	if Spells[1] != -2:
+	if Sideupgrades[0] != null:
 		$SpellMenu_BG/Spell1.text += "\n sidegrade"
-	$SpellMenu_BG/Spell2.text = GameData.Spells[Spells[2]]["Name"]
-	if Spells[3] != -2:
+	$SpellMenu_BG/Spell2.text = GameData.Spells[Spells[1]]["Name"]
+	if Sideupgrades[1] != null:
 		$SpellMenu_BG/Spell2.text += "\n sidegrade"
-	$SpellMenu_BG/Spell3.text = GameData.Spells[Spells[4]]["Name"]
-	if Spells[5] != -2:
+	$SpellMenu_BG/Spell3.text = GameData.Spells[Spells[2]]["Name"]
+	if Sideupgrades[2] != null:
 		$SpellMenu_BG/Spell3.text += "\n sidegrade"
 
 func CheckPlayerSpells(i):
+	var lock = false
 	for x in Global.PlayerSpells.size():
-		if i in Global.PlayerSpells[x]:
+		if i == Global.PlayerSpells[x][0] and lock == false:
 			inside = true
+			lock = true
 		else:
 			inside = false
 
-func CheckSideupgrades():
+func CheckSideupgrades(x):
+	var lock = false
 	for i in Global.PlayerSpells.size():
-		if Global.PlayerSpells[i][2] == 0:
-			sideupgrade = false
-		else:
-			sideupgrade = true
+		if Global.PlayerSpells[i][0] == Spells[x] and lock == false:
+			lock = true
+			if Global.PlayerSpells[i][2] == 0:
+				sideupgrade = false
+			else:
+				sideupgrade = true
 
 func GetSpellIndex(spell):
 	for i in GameData.Spells:
