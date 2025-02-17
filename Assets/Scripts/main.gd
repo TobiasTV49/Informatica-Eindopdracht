@@ -17,6 +17,7 @@ func _process(delta: float) -> void:
 		spell_menu.show()
 	else:
 		spell_menu.hide()
+	$Player/Coins.text = str(Global.PlayerCoins) + " Coins"
 
 
 func _on_button_pressed() -> void:

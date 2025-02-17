@@ -44,22 +44,20 @@ func _on_spell_3_pressed() -> void:
 
 func RandomizeChoices(x):
 	var check = null
-	if randi_range(1, 10) > 4:
+	if randi_range(1, 10) > 4 and UpgradeSpells.size() != 0:
 		check = randi_range(0, UpgradeSpells.size() - 1)
 		if check not in Spells:
-			Spells[x] = check
+			Spells[x] = UpgradeSpells[check]
 			CheckSideupgrades(x)
 			GetSpellIndex(Spells[x])
 			var i = index
 			CheckPlayerSpells(i)
-			print("balls")
-			if 1 == 1 and sideupgrade == false and inside == true:
+			if randi_range(1, 10) == 1 and sideupgrade == false and inside == true:
 				Sideupgrades[x] = randi_range(1, 2)
 	else:
 		check = randi_range(0, NewSpells.size() - 1)
 		if check not in Spells:
-			print("balls1")
-			Spells[x] = check
+			Spells[x] = NewSpells[check]
 
 func GoBack():
 	var gotten = null
@@ -106,6 +104,7 @@ func CheckPlayerSpells(i):
 		if i == Global.PlayerSpells[x][0] and lock == false:
 			inside = true
 			lock = true
+			return inside
 		else:
 			inside = false
 

@@ -6,4 +6,5 @@ var player_death: bool
 var player_position = null
 var enemy_position = null
 var PlayerSpells = []
+var PlayerCoins = 300
 signal shoot

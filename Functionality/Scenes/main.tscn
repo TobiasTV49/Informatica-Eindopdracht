@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://2bkx1y5hcu02"]
+[gd_scene load_steps=7 format=3 uid="uid://2bkx1y5hcu02"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/main.gd" id="1_oydpu"]
 [ext_resource type="PackedScene" uid="uid://ghvrtut8se0h" path="res://Functionality/Scenes/player.tscn" id="2_d5emv"]
+[ext_resource type="FontFile" uid="uid://crm5aodm5xa2d" path="res://at01.ttf" id="3_bg0tj"]
 [ext_resource type="PackedScene" uid="uid://d4h3a3t6r5e0v" path="res://Functionality/Scenes/bullet.tscn" id="4_44lj5"]
 [ext_resource type="PackedScene" uid="uid://bxotcyclcovoj" path="res://Functionality/Scenes/SpellMenu.tscn" id="5_ipgrs"]
 [ext_resource type="PackedScene" uid="uid://og50mlvkyoml" path="res://Assets/Scripts/druid_menu.tscn" id="5_k2n5o"]
@@ -14,6 +15,17 @@ position = Vector2(275, 142)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(1.5, 1.5)
+
+[node name="Coins" type="Label" parent="Player"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 158.0
+offset_top = -120.0
+offset_right = 214.0
+offset_bottom = -94.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_bg0tj")
 
 [node name="bullet" parent="." instance=ExtResource("4_44lj5")]
 visible = false

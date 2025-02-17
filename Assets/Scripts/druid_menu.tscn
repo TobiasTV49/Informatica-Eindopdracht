@@ -43,6 +43,7 @@ offset_bottom = 105.0
 grow_horizontal = 2
 
 [node name="Button4" type="Button" parent="ColorRect"]
+layout_mode = 0
 offset_left = 60.0
 offset_top = 140.0
 offset_right = 125.0
