@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://Functionality/Scripts/Global.gd"
-GameData="*res://Functionality/Scripts/GameData.gd"
+Global="*res://Assets/Scripts/Global.gd"
+GameData="*res://Assets/Scripts/GameData.gd"
 
 [display]
 

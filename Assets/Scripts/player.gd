@@ -23,5 +23,7 @@ func _physics_process(delta):
 
 func _on_attack_timer_timeout() -> void:
 	var bullet = bullet_load.instantiate()
+	var bullet_target = "enemy"
+	var source = self.position
 	get_parent().add_child(bullet)
-	Global.shoot.emit()
+	Global.shoot.emit(bullet_target, source)

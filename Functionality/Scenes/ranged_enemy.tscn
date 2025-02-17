@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://53grnwnr4rie"]
+[gd_scene load_steps=6 format=3 uid="uid://53grnwnr4rie"]
 
 [ext_resource type="Texture2D" uid="uid://c4snuhiqix0ih" path="res://icon.svg" id="2_0qmmn"]
 
@@ -7,7 +7,7 @@ script/source = "extends CharacterBody2D
 
 var attacking
 @onready var player: CharacterBody2D = $\"../Player\"
-
+var bullet_load = preload(\"res://Functionality/Scenes/bullet.tscn\")
 const SPEED = 25
 
 func _ready() -> void:
@@ -35,7 +35,9 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 
 
 func _on_attacktimer_timeout() -> void:
-	print(\"RangedAttack\")
+	var bullet = bullet_load.instantiate()
+	get_parent().add_child(bullet)
+	Global.shoot.emit(\"player\")
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gphb"]
@@ -43,6 +45,10 @@ size = Vector2(30, 30)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gcqi8"]
 radius = 181.069
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ghn0n"]
+radius = 14.0
+height = 46.0
 
 [node name="RangedEnemy" type="CharacterBody2D"]
 position = Vector2(23, 23)
@@ -59,6 +65,14 @@ shape = SubResource("RectangleShape2D_3gphb")
 
 [node name="RangeShape" type="CollisionShape2D" parent="AttackRange"]
 shape = SubResource("CircleShape2D_gcqi8")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="HitBoxShape" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-3, 0)
+shape = SubResource("CapsuleShape2D_ghn0n")
 
 [node name="Attacktimer" type="Timer" parent="."]
 
