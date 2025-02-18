@@ -66,5 +66,20 @@ offset_bottom = 359.0
 theme_override_font_sizes/font_size = 16
 text = "click for wave completion"
 
+[node name="Temporary button2" type="Button" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -205.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "click for druid shop"
+
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Temporary button" to="." method="_on_temporary_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Temporary button2" to="." method="_on_temporary_button_2_pressed"]

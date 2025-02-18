@@ -63,8 +63,6 @@ func GoBack():
 	var gotten = null
 	var sideupgrade = 0
 	lock = false
-	print(UpgradeSpells)
-	print(NewSpells)
 	UpgradeSpells = []
 	NewSpells = []
 	Global.WaveCompleted = false
@@ -82,7 +80,6 @@ func GoBack():
 			gotten = true
 	if gotten != true:
 		Global.PlayerSpells.append([ChosenSpell, 0, 0])
-	print(Global.PlayerSpells)
 	Spells = [-1, -1, -1]
 	Sideupgrades = [null, null, null]
 									#spell, level, sideupgrade

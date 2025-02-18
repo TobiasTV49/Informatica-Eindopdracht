@@ -17,6 +17,10 @@ func _process(delta: float) -> void:
 		spell_menu.show()
 	else:
 		spell_menu.hide()
+	if Global.DruidMenu == true:
+		$CanvasLayer/DruidMenu.show()
+	else:
+		$CanvasLayer/DruidMenu.hide()
 	$Player/Coins.text = str(Global.PlayerCoins) + " Coins"
 
 
@@ -27,3 +31,6 @@ func _on_button_pressed() -> void:
 
 func _on_temporary_button_pressed():
 	Global.WaveCompleted = true
+
+func _on_temporary_button_2_pressed():
+	Global.DruidMenu = true

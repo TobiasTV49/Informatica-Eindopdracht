@@ -5,7 +5,7 @@
 [node name="DruidMenu" type="Node2D"]
 script = ExtResource("1_yk1t5")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="DruidMenu_BG" type="ColorRect" parent="."]
 self_modulate = Color(1, 1, 1, 0.588235)
 offset_left = 69.0
 offset_top = 43.0
@@ -13,14 +13,24 @@ offset_right = 554.0
 offset_bottom = 297.0
 color = Color(0.428237, 0.204973, 0.0406361, 1)
 
-[node name="Button" type="Button" parent="ColorRect"]
+[node name="Close" type="Button" parent="DruidMenu_BG"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -93.0
+offset_bottom = 36.0
+grow_horizontal = 0
+text = "Close"
+
+[node name="Item1" type="Button" parent="DruidMenu_BG"]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 40.0
 offset_right = 125.0
 offset_bottom = 105.0
 
-[node name="Button2" type="Button" parent="ColorRect"]
+[node name="Item2" type="Button" parent="DruidMenu_BG"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -31,7 +41,7 @@ offset_right = 32.5
 offset_bottom = 105.0
 grow_horizontal = 2
 
-[node name="Button3" type="Button" parent="ColorRect"]
+[node name="Item3" type="Button" parent="DruidMenu_BG"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -42,14 +52,14 @@ offset_right = 182.5
 offset_bottom = 105.0
 grow_horizontal = 2
 
-[node name="Button4" type="Button" parent="ColorRect"]
+[node name="Item4" type="Button" parent="DruidMenu_BG"]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 140.0
 offset_right = 125.0
 offset_bottom = 205.0
 
-[node name="Button5" type="Button" parent="ColorRect"]
+[node name="Item5" type="Button" parent="DruidMenu_BG"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -60,7 +70,7 @@ offset_right = 32.5
 offset_bottom = 205.0
 grow_horizontal = 2
 
-[node name="Button6" type="Button" parent="ColorRect"]
+[node name="Item6" type="Button" parent="DruidMenu_BG"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -71,9 +81,10 @@ offset_right = 182.5
 offset_bottom = 205.0
 grow_horizontal = 2
 
-[connection signal="pressed" from="ColorRect/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="ColorRect/Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="ColorRect/Button3" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="ColorRect/Button4" to="." method="_on_button_4_pressed"]
-[connection signal="pressed" from="ColorRect/Button5" to="." method="_on_button_5_pressed"]
-[connection signal="pressed" from="ColorRect/Button6" to="." method="_on_button_6_pressed"]
+[connection signal="pressed" from="DruidMenu_BG/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="DruidMenu_BG/Item1" to="." method="_on_item_1_pressed"]
+[connection signal="pressed" from="DruidMenu_BG/Item2" to="." method="_on_item_2_pressed"]
+[connection signal="pressed" from="DruidMenu_BG/Item3" to="." method="_on_item_3_pressed"]
+[connection signal="pressed" from="DruidMenu_BG/Item4" to="." method="_on_item_4_pressed"]
+[connection signal="pressed" from="DruidMenu_BG/Item5" to="." method="_on_item_5_pressed"]
+[connection signal="pressed" from="DruidMenu_BG/Item6" to="." method="_on_item_6_pressed"]

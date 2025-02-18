@@ -24,25 +24,26 @@ var Spells = {
 var Items = {
 	0: {
 		"Name" = "Healing Balm",
-		"Damage" = 30,
+		"Cost" = 10,
 	},
 	1: {
 		"Name" = "Hawk's sight",
-		"Damage" = 0,
+		"Cost" = 20,
 	},
 	2: {
 		"Name" = "Panther's dexterity",
-		"Damage" = 5,
+		"Cost" = 25,
 	},
 	3: {
 		"Name" = "Armadillo's resistance",
-		"Damage" = 0,
+		"Cost" = 15,
 	},
 	4: {
 		"Name" = "Hummingbird's haste",
-		"Damage" = 0,
+		"Cost" = 10,
 	},
 	5: {
-		"Name" = "Gorilla's brawn"
+		"Name" = "Gorilla's brawn",
+		"Cost" = 30,
 	}
 }
