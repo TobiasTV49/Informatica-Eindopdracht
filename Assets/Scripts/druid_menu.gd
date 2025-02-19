@@ -2,14 +2,14 @@ extends Node2D
 var lock = false
 var ChosenItem = null
 var Item = null
-var Items = [-1, -1, -1, -1, -1, -1]
+var Items = [0, -1, -1, -1, -1, -1]
 var Bought = [false, false, false, false, false, false]
 
 func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	var x = 0
+	var x = Items.find(-1)
 	if Global.DruidMenu == true and lock == false:
 		while Items.count(-1) > 0:
 			RandomizeChoices(x)
@@ -52,7 +52,7 @@ func _on_item_6_pressed() -> void:
 func _on_close_pressed():
 	Global.DruidMenu = false
 	lock = false
-	Items = [-1, -1, -1, -1, -1, -1]
+	Items = [0, -1, -1, -1, -1, -1]
 	Bought = [false, false, false, false, false, false]
 
 func RandomizeChoices(x):
