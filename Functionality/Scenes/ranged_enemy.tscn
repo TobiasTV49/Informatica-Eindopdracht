@@ -1,20 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://53grnwnr4rie"]
+[gd_scene load_steps=8 format=3 uid="uid://53grnwnr4rie"]
 
 [ext_resource type="Texture2D" uid="uid://c4snuhiqix0ih" path="res://icon.svg" id="2_0qmmn"]
+[ext_resource type="FontFile" uid="uid://crm5aodm5xa2d" path="res://at01.ttf" id="2_qckd4"]
 
 [sub_resource type="GDScript" id="GDScript_3cn3p"]
 script/source = "extends CharacterBody2D
 
 var attacking
-@onready var player: CharacterBody2D = $\"../Player\"
-var bullet_load = preload(\"res://Functionality/Scenes/bullet.tscn\")
 const SPEED = 25
+var damage = 10
+var health = 50
+@onready var player = get_tree().get_nodes_in_group(\"Player\")[0]
+var bullet_load = preload(\"res://Functionality/Scenes/bullet.tscn\")
 
 func _ready() -> void:
 	attacking = false
 
 func _physics_process(delta: float) -> void:
+	$ProgressBar.value = health
 	if Global.player_death == false:
+		var direction = player.position.x - position.x
+		if direction > 0:
+			$enemy_sprite.flip_h = false
+		else:
+			$enemy_sprite.flip_h = true
+			
 		if attacking == false:
 			velocity = (player.position - position).normalized() * SPEED
 		else:
@@ -34,10 +44,26 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 		$Attacktimer.stop()
 
 
-func _on_attacktimer_timeout() -> void:
-	var bullet = bullet_load.instantiate()
-	get_parent().add_child(bullet)
-	Global.shoot.emit(\"player\")
+func _on_attacktimer_timeout() -> void: #temp inactive because it breaks alot
+	pass
+	#var bullet = bullet_load.instantiate()
+	#var enemy_bullets = get_tree().current_scene.get_node(\"enemy_bullets\")
+	#enemy_bullets.add_child(bullet)
+	#Global.enemy_shoot.emit(\"player\", self.position, bullet.name)
+	
+
+
+func _on_hit_box_body_entered(body: Node2D) -> void:
+	if body.get_meta(\"bullet_type\") == \"player bullet\":
+		body.queue_free()
+		health -= 10
+		if health < 1:
+			self.queue_free()
+			Global.enemy_killed.emit(self)
+
+
+func _on_tree_exited() -> void:
+	Global.enemy_killed.emit()
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gphb"]
@@ -50,11 +76,14 @@ radius = 181.069
 radius = 14.0
 height = 46.0
 
-[node name="RangedEnemy" type="CharacterBody2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nxvyk"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="RangedEnemy" type="CharacterBody2D" groups=["enemies"]]
 position = Vector2(23, 23)
 script = SubResource("GDScript_3cn3p")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="enemy_sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_0qmmn")
 
@@ -75,7 +104,22 @@ position = Vector2(-3, 0)
 shape = SubResource("CapsuleShape2D_ghn0n")
 
 [node name="Attacktimer" type="Timer" parent="."]
+wait_time = 1.5
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -12.0
+offset_top = -21.0
+offset_right = 35.0
+offset_bottom = -4.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("2_qckd4")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/fill = SubResource("StyleBoxFlat_nxvyk")
+max_value = 50.0
+show_percentage = false
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="Attacktimer" to="." method="_on_attacktimer_timeout"]

@@ -89,12 +89,29 @@ text = "start_wave"
 [node name="enemy spawners" type="Node2D" parent="."]
 
 [node name="spawner1" type="Node2D" parent="enemy spawners" groups=["enemy_spawners"]]
+position = Vector2(2, 50)
 
 [node name="ColorRect" type="ColorRect" parent="enemy spawners/spawner1"]
-offset_left = 1.0
-offset_top = 55.0
-offset_right = 34.0
-offset_bottom = 87.0
+offset_right = 33.0
+offset_bottom = 32.0
+
+[node name="spawner2" type="Node2D" parent="enemy spawners" groups=["enemy_spawners"]]
+position = Vector2(1, 154)
+
+[node name="ColorRect" type="ColorRect" parent="enemy spawners/spawner2"]
+offset_right = 33.0
+offset_bottom = 32.0
+
+[node name="spawner3" type="Node2D" parent="enemy spawners" groups=["enemy_spawners"]]
+position = Vector2(0, 258)
+
+[node name="ColorRect" type="ColorRect" parent="enemy spawners/spawner3"]
+offset_right = 33.0
+offset_bottom = 32.0
+
+[node name="player_bullets" type="Node2D" parent="."]
+
+[node name="enemy_bullets" type="Node2D" parent="."]
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Temporary button" to="." method="_on_temporary_button_pressed"]

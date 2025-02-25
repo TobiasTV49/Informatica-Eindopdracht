@@ -23,7 +23,9 @@ func _physics_process(delta):
 
 func _on_attack_timer_timeout() -> void:
 	var bullet = bullet_load.instantiate()
+	var player_bullets = get_tree().current_scene.get_node("player_bullets")
 	var bullet_target = "enemy"
 	var source = self.position
-	get_parent().add_child(bullet)
+	player_bullets.add_child(bullet)
+	bullet.position = position
 	Global.shoot.emit(bullet_target, source)

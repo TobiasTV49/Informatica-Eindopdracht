@@ -131,6 +131,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_fav23")
 max_value = 50.0
 show_percentage = false
 
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
 [connection signal="timeout" from="Attacktimer" to="." method="_on_attacktimer_timeout"]

@@ -43,10 +43,12 @@ func _on_attacktimer_timeout() -> void:
 
 
 func _on_hit_box_body_entered(body: Node2D) -> void:
-	print("oy to the vey")
-	Global.shoot.emit("player", self.position)
 	if body.get_meta("bullet_type") == "player bullet":
 		body.queue_free()
 		health -= 10
 		if health < 1:
 			self.queue_free()
+
+
+func _on_tree_exited() -> void:
+	Global.enemy_killed.emit()
