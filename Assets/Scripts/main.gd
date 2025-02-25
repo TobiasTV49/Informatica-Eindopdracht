@@ -1,5 +1,6 @@
 extends Node2D
 const MELEE_ENEMY = preload("res://Functionality/Scenes/enemy.tscn")
+const RANGED_ENEMY = preload("res://Functionality/Scenes/ranged_enemy.tscn")
 @onready var player: CharacterBody2D = $PlayerBody
 @onready var spell_menu: Node2D = $CanvasLayer/SpellMenu
 
@@ -23,6 +24,30 @@ func _process(delta: float) -> void:
 		$CanvasLayer/DruidMenu.hide()
 	$Player/Coins.text = str(Global.PlayerCoins) + " Coins"
 
+func start_wave(wave_number):
+	var wave_array: Array
+	var enemy
+	for i in GameData.Waves[wave_number]:
+		while i[1] > 0:
+			wave_array.append(i[0])
+			i[1] -= 1
+	print(wave_array)
+	while wave_array.size() > 0:
+		await get_tree().create_timer(2).timeout
+		match wave_array[0]:
+			"melee_enemy":
+				enemy = MELEE_ENEMY.instantiate()
+			"ranged_enemy":
+				enemy = RANGED_ENEMY.instantiate()
+		spawn_enemy(enemy)
+		wave_array.erase(0)
+		
+	
+func spawn_enemy(enemy):
+	$Enemies.add_child(enemy)
+	var enemy_spawners = get_tree().get_nodes_in_group("enemy_spawners")
+	var spawner = enemy_spawners.pick_random()
+	enemy.position = spawner.position
 
 func _on_button_pressed() -> void:
 	var melee_enemy = MELEE_ENEMY.instantiate()
@@ -34,3 +59,7 @@ func _on_temporary_button_pressed():
 
 func _on_temporary_button_2_pressed():
 	Global.DruidMenu = true
+
+
+func _on_wave_starter_pressed() -> void:
+	start_wave(0)

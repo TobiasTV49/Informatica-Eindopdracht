@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://crm5aodm5xa2d" path="res://at01.ttf" id="3_bg0tj"]
 [ext_resource type="PackedScene" uid="uid://d4h3a3t6r5e0v" path="res://Functionality/Scenes/bullet.tscn" id="4_44lj5"]
 [ext_resource type="PackedScene" uid="uid://bxotcyclcovoj" path="res://Functionality/Scenes/SpellMenu.tscn" id="5_ipgrs"]
-[ext_resource type="PackedScene" uid="uid://og50mlvkyoml" path="res://Assets/Scripts/druid_menu.tscn" id="5_k2n5o"]
+[ext_resource type="PackedScene" uid="uid://og50mlvkyoml" path="res://Functionality/Scenes/druid_menu.tscn" id="5_k2n5o"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_oydpu")
@@ -80,6 +80,23 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 16
 text = "click for druid shop"
 
+[node name="WaveStarter" type="Button" parent="CanvasLayer"]
+offset_left = 120.0
+offset_right = 228.0
+offset_bottom = 31.0
+text = "start_wave"
+
+[node name="enemy spawners" type="Node2D" parent="."]
+
+[node name="spawner1" type="Node2D" parent="enemy spawners" groups=["enemy_spawners"]]
+
+[node name="ColorRect" type="ColorRect" parent="enemy spawners/spawner1"]
+offset_left = 1.0
+offset_top = 55.0
+offset_right = 34.0
+offset_bottom = 87.0
+
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Temporary button" to="." method="_on_temporary_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Temporary button2" to="." method="_on_temporary_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/WaveStarter" to="." method="_on_wave_starter_pressed"]

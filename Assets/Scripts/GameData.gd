@@ -47,3 +47,7 @@ var Items = {
 		"Cost" = 30,
 	}
 }
+
+var Waves = {
+	0: [["melee_enemy", 3], ["ranged_enemy", 2]]
+}
