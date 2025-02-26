@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://og50mlvkyoml"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/druid_menu.gd" id="1_yk1t5"]
+[ext_resource type="Script" path="res://Functionality/Scripts/druid_menu.gd" id="1_yk1t5"]
 
 [node name="DruidMenu" type="Node2D"]
 script = ExtResource("1_yk1t5")

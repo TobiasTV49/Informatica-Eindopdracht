@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://dlsjc0570kmji"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/melee_enemy.gd" id="1_jfa1j"]
+[ext_resource type="Script" path="res://Functionality/Scripts/melee_enemy.gd" id="1_jfa1j"]
 [ext_resource type="Texture2D" uid="uid://cbs3mvlkaowvo" path="res://Assets/pixilart-sprite.png" id="2_qtmnn"]
 [ext_resource type="FontFile" uid="uid://crm5aodm5xa2d" path="res://at01.ttf" id="3_bkdgu"]
 
@@ -113,7 +113,7 @@ wait_time = 0.5
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 6
 
 [node name="HitBoxShape" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-3, 0)

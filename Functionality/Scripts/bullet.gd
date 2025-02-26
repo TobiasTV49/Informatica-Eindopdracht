@@ -9,7 +9,6 @@ const SPEED = 200
 
 func _ready():
 	Global.shoot.connect(shot_fired)
-	Global.enemy_shoot.connect(enemy_shot_fired)
 	visible = false
 
 func _process(delta: float) -> void:
@@ -37,6 +36,7 @@ func get_nearest_enemy():
 
 func shot_fired(bullet_target, source):
 	position = source
+	Global.shoot.disconnect(shot_fired)
 	get_nearest_enemy()
 	if bullet_target == "enemy" and Global.nearest_enemy != null:
 		self.set_meta("bullet_type", "player bullet")
@@ -45,15 +45,3 @@ func shot_fired(bullet_target, source):
 		shot = true
 	else:
 		pass
-	Global.shoot.disconnect(shot_fired)
-
-func enemy_shot_fired(bullet_target, source, bullet_name):
-	position = source
-	Global.shoot.disconnect(shot_fired)
-	if bullet_target == "player" and get_parent().name == "enemy_bullets":
-		look_at(player.position)
-		self.set_meta("bullet_type", "enemy bullet")
-		visible = true
-		shot = true
-	else:
-		queue_free()

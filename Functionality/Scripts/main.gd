@@ -8,13 +8,17 @@ const RANGED_ENEMY = preload("res://Functionality/Scenes/ranged_enemy.tscn")
 func _ready() -> void:
 	Global.player_death = false
 	Global.enemy_killed.connect(enemy_killed)
+	for i in $"enemy spawners".get_children(): #Hides the enemy spawners when starting
+		i.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Global.player_health <= 0 and Global.player_death == false: #player is about to die
 		Global.player_death = true
-		#player.queue_free()
+	
+	if Global.player_death == false:
+		$CanvasLayer/Coins.text = str(Global.PlayerCoins) + " Coins"
 	
 	if Global.WaveCompleted == true:
 		spell_menu.show()
@@ -24,7 +28,6 @@ func _process(delta: float) -> void:
 		$CanvasLayer/DruidMenu.show()
 	else:
 		$CanvasLayer/DruidMenu.hide()
-	$Player/Coins.text = str(Global.PlayerCoins) + " Coins"
 
 #Function that makes the waves
 func start_wave(wave_number):
@@ -34,6 +37,8 @@ func start_wave(wave_number):
 		while i[1] > 0:
 			wave_array.append(i[0])
 			i[1] -= 1
+	
+	wave_array.shuffle()
 
 	while wave_array.size() > 0: #Sets up all the enemies and calls the spawn_enemy function
 		await get_tree().create_timer(2).timeout

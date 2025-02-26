@@ -1,13 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://ghvrtut8se0h"]
+[gd_scene load_steps=7 format=3 uid="uid://ghvrtut8se0h"]
 
 [ext_resource type="Texture2D" uid="uid://c4snuhiqix0ih" path="res://icon.svg" id="1_lyy2g"]
-[ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_oo448"]
+[ext_resource type="Script" path="res://Functionality/Scripts/player.gd" id="1_oo448"]
 [ext_resource type="FontFile" uid="uid://crm5aodm5xa2d" path="res://at01.ttf" id="3_pb475"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m4wlj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iunqm"]
 bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1dgia"]
+radius = 14.0357
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_oo448")
@@ -16,7 +19,7 @@ script = ExtResource("1_oo448")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_lyy2g")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="playerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_m4wlj")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
@@ -33,4 +36,11 @@ show_percentage = false
 
 [node name="AttackTimer" type="Timer" parent="."]
 
+[node name="playerHitBox" type="Area2D" parent="."]
+collision_mask = 5
+
+[node name="playerHitBoxShape" type="CollisionShape2D" parent="playerHitBox"]
+shape = SubResource("CircleShape2D_1dgia")
+
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="body_entered" from="playerHitBox" to="." method="_on_player_hit_box_body_entered"]

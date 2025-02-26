@@ -29,3 +29,11 @@ func _on_attack_timer_timeout() -> void:
 	player_bullets.add_child(bullet)
 	bullet.position = position
 	Global.shoot.emit(bullet_target, source)
+
+
+func _on_player_hit_box_body_entered(body: Node2D) -> void:
+	if body.is_in_group("damages_player"):
+		body.queue_free()
+		Global.player_health -= 10
+		if Global.player_health < 1:
+			self.queue_free()

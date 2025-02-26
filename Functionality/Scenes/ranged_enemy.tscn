@@ -11,7 +11,7 @@ const SPEED = 25
 var damage = 10
 var health = 50
 @onready var player = get_tree().get_nodes_in_group(\"Player\")[0]
-var bullet_load = preload(\"res://Functionality/Scenes/bullet.tscn\")
+var bullet_load = preload(\"res://Functionality/Scenes/enemy_bullet.tscn\")
 
 func _ready() -> void:
 	attacking = false
@@ -46,10 +46,10 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 
 func _on_attacktimer_timeout() -> void: #temp inactive because it breaks alot
 	pass
-	#var bullet = bullet_load.instantiate()
-	#var enemy_bullets = get_tree().current_scene.get_node(\"enemy_bullets\")
-	#enemy_bullets.add_child(bullet)
-	#Global.enemy_shoot.emit(\"player\", self.position, bullet.name)
+	var bullet = bullet_load.instantiate()
+	var enemy_bullets = get_tree().current_scene.get_node(\"enemy_bullets\")
+	enemy_bullets.add_child(bullet)
+	Global.enemy_shoot.emit(\"player\", self.position, bullet.name)
 	
 
 
@@ -97,7 +97,7 @@ shape = SubResource("CircleShape2D_gcqi8")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 6
 
 [node name="HitBoxShape" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-3, 0)

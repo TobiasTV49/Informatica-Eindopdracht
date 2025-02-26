@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://duaa741y2hmtc"]
+
+[ext_resource type="Script" path="res://Functionality/Scripts/enemy_bullet.gd" id="1_p1bwa"]
+[ext_resource type="Texture2D" uid="uid://c4snuhiqix0ih" path="res://icon.svg" id="2_irwr3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4e1k5"]
+size = Vector2(50, 50)
+
+[node name="enemy_bullet" type="CharacterBody2D" groups=["damages_player"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_p1bwa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("2_irwr3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.19209e-07)
+scale = Vector2(0.2, 0.2)
+shape = SubResource("RectangleShape2D_4e1k5")
