@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var attacking
-const SPEED = 25
+var SPEED = 25
 var damage = 10
 var health = 50
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
@@ -18,10 +18,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			$enemy_sprite.flip_h = true
 			
-		if attacking == false:
-			velocity = (player.position - position).normalized() * SPEED
-		else:
-			velocity = Vector2(0, 0)
+		velocity = (player.position - position).normalized() * SPEED
 
 	move_and_slide()
 
@@ -29,6 +26,7 @@ func _physics_process(delta: float) -> void:
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		attacking = true
+		#velocity = Vector2(0, 0)
 		$Attacktimer.start()
 
 func _on_attack_range_body_exited(body: Node2D) -> void:

@@ -61,7 +61,7 @@ func spawn_enemy(enemy):
 func _on_button_pressed() -> void:
 	var melee_enemy = MELEE_ENEMY.instantiate()
 	var ranged_enemy = RANGED_ENEMY.instantiate()
-	$Enemies.add_child(ranged_enemy)
+	$Enemies.add_child(melee_enemy)
 
 func enemy_killed():
 	if get_node("Enemies").get_child_count() < 1:

@@ -7,14 +7,14 @@
 script/source = "extends CharacterBody2D
 
 var attacking
-const SPEED = 25
+var SPEED = 25
 var damage = 10
 var health = 50
 @onready var player = get_tree().get_nodes_in_group(\"Player\")[0]
 var bullet_load = preload(\"res://Functionality/Scenes/enemy_bullet.tscn\")
 
 func _ready() -> void:
-	attacking = false
+	$ProgressBar.max_value = health
 
 func _physics_process(delta: float) -> void:
 	$ProgressBar.value = health
@@ -27,8 +27,6 @@ func _physics_process(delta: float) -> void:
 			
 		if attacking == false:
 			velocity = (player.position - position).normalized() * SPEED
-		else:
-			velocity = Vector2(0, 0)
 
 	move_and_slide()
 
@@ -36,6 +34,7 @@ func _physics_process(delta: float) -> void:
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.name == \"Player\":
 		attacking = true
+		velocity = Vector2(0, 0)
 		$Attacktimer.start()
 
 func _on_attack_range_body_exited(body: Node2D) -> void:
