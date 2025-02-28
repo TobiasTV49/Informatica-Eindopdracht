@@ -49,5 +49,6 @@ var Items = {
 }
 
 var Waves = {
-	0: [["melee_enemy", 3], ["ranged_enemy", 2]]
+	0: [["melee_enemy", 3], ["ranged_enemy", 2]],
+	1: [["melee_enemy", 5], ["ranged_enemy", 1]]
 }
