@@ -24,6 +24,7 @@ func _process(delta: float) -> void:
 		spell_menu.show()
 	else:
 		spell_menu.hide()
+		
 	if Global.DruidMenu == true:
 		$CanvasLayer/DruidMenu.show()
 	else:
@@ -60,12 +61,13 @@ func spawn_enemy(enemy):
 
 func _on_button_pressed() -> void:
 	var melee_enemy = MELEE_ENEMY.instantiate()
-	var ranged_enemy = RANGED_ENEMY.instantiate()
 	$Enemies.add_child(melee_enemy)
 
 func enemy_killed():
+	Global.PlayerCoins += Global.coinsPerEnemy
 	if get_node("Enemies").get_child_count() < 1:
 		Global.WaveCompleted = true
+		Global.current_wave += 1
 
 func _on_temporary_button_pressed():
 	Global.WaveCompleted = true
@@ -75,4 +77,10 @@ func _on_temporary_button_2_pressed():
 
 
 func _on_wave_starter_pressed() -> void:
+	print(Global.current_wave)
 	start_wave(Global.current_wave)
+
+
+func _on_button_2_pressed() -> void:
+	var ranged_enemy = RANGED_ENEMY.instantiate()
+	$Enemies.add_child(ranged_enemy)

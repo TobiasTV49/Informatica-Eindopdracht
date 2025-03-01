@@ -1,0 +1,50 @@
+extends CharacterBody2D
+
+
+var SPEED = 20
+var attacking = false
+var nearest_enemy
+var target
+var damage = 15
+
+
+func _physics_process(delta: float) -> void:
+	if Global.player_death == false:
+		get_nearest_enemy()
+		if nearest_enemy != null:
+			var direction = nearest_enemy.position.x - position.x
+			if direction > 0:
+				$golem_sprite.flip_h = false
+			else:
+				$golem_sprite.flip_h = true
+			
+			if attacking == false:
+				velocity = (nearest_enemy.position - position).normalized() * SPEED
+
+	move_and_slide()
+
+func get_nearest_enemy():
+	var enemy_array = get_tree().get_nodes_in_group("enemies")
+	if enemy_array.size() > 0:
+		if nearest_enemy == null:
+			nearest_enemy = enemy_array[0]
+		for i in enemy_array:
+			var temp_distance = position.distance_to(i.position)
+			if temp_distance < position.distance_to(nearest_enemy.position):
+				nearest_enemy = i
+
+
+func _on_attack_range_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemies"):
+		attacking = true
+		target = body
+		$Attacktimer.start()
+
+func _on_attack_range_body_exited(body: Node2D) -> void:
+	if body == target:
+		attacking = false
+		$Attacktimer.stop()
+
+func _on_attacktimer_timeout() -> void:
+	print("golem_attack")
+	Global.damage_enemy.emit(damage, target)

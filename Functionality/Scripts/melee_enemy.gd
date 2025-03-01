@@ -8,6 +8,8 @@ var health = 50
 
 func _ready() -> void:
 	attacking = false
+	Global.knockback.connect(knocked_back)
+	Global.damage_enemy.connect(damaged)
 
 func _physics_process(delta: float) -> void:
 	$ProgressBar.value = health
@@ -17,8 +19,9 @@ func _physics_process(delta: float) -> void:
 			$enemy_sprite.flip_h = false
 		else:
 			$enemy_sprite.flip_h = true
-			
-		velocity = (player.position - position).normalized() * SPEED
+		
+		if attacking == false:
+			velocity = (player.position - position).normalized() * SPEED
 
 	move_and_slide()
 
@@ -26,7 +29,6 @@ func _physics_process(delta: float) -> void:
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		attacking = true
-		#velocity = Vector2(0, 0)
 		$Attacktimer.start()
 
 func _on_attack_range_body_exited(body: Node2D) -> void:
@@ -43,10 +45,23 @@ func _on_attacktimer_timeout() -> void:
 func _on_hit_box_body_entered(body: Node2D) -> void:
 	if body.get_meta("bullet_type") == "player bullet":
 		body.queue_free()
-		health -= 10
+		damaged(10, self)
+
+func knocked_back(knockback, length, body):
+	if body == self:
+		var temp_s = SPEED
+		var temp_a = attacking
+		SPEED = knockback
+		attacking = false
+		await get_tree().create_timer(length).timeout
+		SPEED = temp_s
+		attacking = temp_a
+
+func damaged(damage, target):
+	if target == self:
+		health -= damage
 		if health < 1:
 			self.queue_free()
-
 
 func _on_tree_exited() -> void:
 	Global.enemy_killed.emit()
