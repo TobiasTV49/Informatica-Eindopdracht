@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 	if Global.player_death == false:
 		$CanvasLayer/Coins.text = str(Global.PlayerCoins) + " Coins"
 	
-	if Global.WaveCompleted == true:
+	if Global.WaveCompleted == true or Global.BossWaveCompleted == true:
 		spell_menu.show()
 	else:
 		spell_menu.hide()

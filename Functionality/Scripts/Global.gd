@@ -1,6 +1,7 @@
 extends Node
 
-var WaveCompleted = true
+var WaveCompleted = false
+var BossWaveCompleted = true
 var current_wave = 0
 var player_health: int = 50
 var player_death: bool
