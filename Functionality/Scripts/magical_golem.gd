@@ -6,12 +6,16 @@ var attacking = false
 var nearest_enemy
 var target
 var damage = 15
+var player
+
+func _ready() -> void:
+	player = get_tree().get_nodes_in_group("Player")[0]
 
 
 func _physics_process(delta: float) -> void:
 	if Global.player_death == false:
 		get_nearest_enemy()
-		if nearest_enemy != null:
+		if nearest_enemy != null and player.enemies_in_range > 0:
 			var direction = nearest_enemy.position.x - position.x
 			if direction > 0:
 				$golem_sprite.flip_h = false
@@ -20,6 +24,16 @@ func _physics_process(delta: float) -> void:
 			
 			if attacking == false:
 				velocity = (nearest_enemy.position - position).normalized() * SPEED
+		else:
+			var direction = player.position.x - position.x
+			if direction > 0:
+				$golem_sprite.flip_h = false
+			else:
+				$golem_sprite.flip_h = true
+			
+			if position.distance_to(player.position) > 50:
+				print(position.distance_to(player.position))
+				velocity = (player.position - position).normalized() * SPEED
 
 	move_and_slide()
 

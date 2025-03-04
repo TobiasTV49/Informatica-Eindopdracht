@@ -4,6 +4,7 @@ var attacking
 var SPEED = 25
 var damage = 10
 var health = 50
+var kback = false
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
 
 func _ready() -> void:
@@ -48,12 +49,14 @@ func _on_hit_box_body_entered(body: Node2D) -> void:
 		damaged(10, self)
 
 func knocked_back(knockback, length, body):
-	if body == self:
+	if body == self and kback == false:
+		kback = true
 		var temp_s = SPEED
 		var temp_a = attacking
 		SPEED = knockback
 		attacking = false
 		await get_tree().create_timer(length).timeout
+		kback = false
 		SPEED = temp_s
 		attacking = temp_a
 
