@@ -10,6 +10,7 @@ var NewSpells = []
 var inside = false
 var sideupgrade = false
 var index = null
+var active = true
 
 
 func _ready():
@@ -18,7 +19,21 @@ func _ready():
 func _process(delta):
 	var x = 0
 	if Global.WaveCompleted == true and lock == false:
+		active = false
 		for i in GameData.Spells:
+			CheckPlayerSpells(i)
+			if inside == true:
+				UpgradeSpells.append(i)
+			else:
+				NewSpells.append(i)
+		while Spells.count(-1) > 0: #returns three random spells to the array Spells
+			RandomizeChoices(x)
+			x = Spells.find(-1) # x = the first -1 in the array
+		UpdateNames()
+		lock = true
+	if Global.BossWaveCompleted == true and lock == false:
+		active = true
+		for i in GameData.ActiveSpells:
 			CheckPlayerSpells(i)
 			if inside == true:
 				UpgradeSpells.append(i)
@@ -46,7 +61,7 @@ func RandomizeChoices(x):
 	var check = null
 	if randi_range(1, 10) > 4 and UpgradeSpells.size() != 0:
 		check = randi_range(0, UpgradeSpells.size() - 1)
-		if check not in Spells:
+		if UpgradeSpells[check] not in Spells:
 			Spells[x] = UpgradeSpells[check]
 			CheckSideupgrades(x)
 			GetSpellIndex(Spells[x])
@@ -56,7 +71,7 @@ func RandomizeChoices(x):
 				Sideupgrades[x] = randi_range(1, 2)
 	else:
 		check = randi_range(0, NewSpells.size() - 1)
-		if check not in Spells:
+		if NewSpells[check] not in Spells:
 			Spells[x] = NewSpells[check]
 
 func GoBack():
@@ -65,7 +80,10 @@ func GoBack():
 	lock = false
 	UpgradeSpells = []
 	NewSpells = []
-	Global.WaveCompleted = false
+	if active == false:
+		Global.WaveCompleted = false
+	else:
+		Global.BossWaveCompleted = false
 	for i in Global.PlayerSpells.size():
 		if Global.PlayerSpells[i][0] == ChosenSpell:
 			var x = 0
@@ -85,15 +103,26 @@ func GoBack():
 									#spell, level, sideupgrade
 
 func UpdateNames():
-	$SpellMenu_BG/Spell1.text = GameData.Spells[Spells[0]]["Name"]
-	if Sideupgrades[0] != null:
-		$SpellMenu_BG/Spell1.text += "\n sidegrade"
-	$SpellMenu_BG/Spell2.text = GameData.Spells[Spells[1]]["Name"]
-	if Sideupgrades[1] != null:
-		$SpellMenu_BG/Spell2.text += "\n sidegrade"
-	$SpellMenu_BG/Spell3.text = GameData.Spells[Spells[2]]["Name"]
-	if Sideupgrades[2] != null:
-		$SpellMenu_BG/Spell3.text += "\n sidegrade"
+	if active == false:
+		$SpellMenu_BG/Spell1.text = GameData.Spells[Spells[0]]["Name"]
+		if Sideupgrades[0] != null:
+			$SpellMenu_BG/Spell1.text += "\n sidegrade"
+		$SpellMenu_BG/Spell2.text = GameData.Spells[Spells[1]]["Name"]
+		if Sideupgrades[1] != null:
+			$SpellMenu_BG/Spell2.text += "\n sidegrade"
+		$SpellMenu_BG/Spell3.text = GameData.Spells[Spells[2]]["Name"]
+		if Sideupgrades[2] != null:
+			$SpellMenu_BG/Spell3.text += "\n sidegrade"
+	else:
+		$SpellMenu_BG/Spell1.text = GameData.ActiveSpells[Spells[0]]["Name"]
+		if Sideupgrades[0] != null:
+			$SpellMenu_BG/Spell1.text += "\n sidegrade"
+		$SpellMenu_BG/Spell2.text = GameData.ActiveSpells[Spells[1]]["Name"]
+		if Sideupgrades[1] != null:
+			$SpellMenu_BG/Spell2.text += "\n sidegrade"
+		$SpellMenu_BG/Spell3.text = GameData.ActiveSpells[Spells[2]]["Name"]
+		if Sideupgrades[2] != null:
+			$SpellMenu_BG/Spell3.text += "\n sidegrade"
 
 func CheckPlayerSpells(i):
 	var lock = false
@@ -116,6 +145,11 @@ func CheckSideupgrades(x):
 				sideupgrade = true
 
 func GetSpellIndex(spell):
-	for i in GameData.Spells:
-		if i == spell:
-			index = i
+	if active == false:
+		for i in GameData.Spells:
+			if i == spell:
+				index = i
+	else:
+		for i in GameData.ActiveSpells:
+			if i == spell:
+				index = i

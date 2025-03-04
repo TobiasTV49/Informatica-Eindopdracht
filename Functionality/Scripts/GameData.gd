@@ -21,6 +21,20 @@ var Spells = {
 		"Damage" = 0,
 	},
 }
+var ActiveSpells = {
+	5: {
+		"Name" = "Meteor strike",
+		"Damage" = 50,
+	},
+	6: {
+		"Name" = "Time stop",
+		"Damage" = 0,
+	},
+	7: {
+		"Name" = "Ray of annihilation",
+		"Damage" = 5,
+	},
+}
 var Items = {
 	0: {
 		"Name" = "Healing Balm",
