@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-var SPEED = 20
+var SPEED = 50
 var attacking = false
 var nearest_enemy
 var target
@@ -32,6 +32,8 @@ func get_nearest_enemy():
 			var temp_distance = position.distance_to(i.position)
 			if temp_distance < position.distance_to(nearest_enemy.position):
 				nearest_enemy = i
+	else:
+		velocity = Vector2(0, 0)
 
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
@@ -46,5 +48,4 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 		$Attacktimer.stop()
 
 func _on_attacktimer_timeout() -> void:
-	print("golem_attack")
 	Global.damage_enemy.emit(damage, target)

@@ -7,11 +7,12 @@ var magical_golem_load = preload("res://Functionality/Scenes/magical_golem.tscn"
 var spell_list: Array
 var shove_active = false
 var golem_active = false
+var enemies_in_range = 0
 
 func _ready():
 	$AttackTimer.start()
 	Global.PlayerSpells.append([2, 0, 0]) #adding the arcane shove spell for testing
-	Global.PlayerSpells.append([4, 0, 0])
+	Global.PlayerSpells.append([4, 0, 0]) #adding the summon golem spell for testing
 
 func get_input(): #Pulls input directions and sets the velocity using them.
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -38,15 +39,15 @@ func _physics_process(delta):
 	
 
 
-
 func _on_attack_timer_timeout() -> void:
-	var bullet = bullet_load.instantiate()
-	var player_bullets = get_tree().current_scene.get_node("player_bullets")
-	var bullet_target = "enemy"
-	var source = self.position
-	player_bullets.add_child(bullet)
-	bullet.position = position
-	Global.shoot.emit(bullet_target, source)
+	if enemies_in_range > 0: #only shoots when there are enemies in attack range
+		var bullet = bullet_load.instantiate()
+		var player_bullets = get_tree().current_scene.get_node("player_bullets")
+		var bullet_target = "enemy"
+		var source = self.position
+		player_bullets.add_child(bullet)
+		bullet.position = position
+		Global.shoot.emit(bullet_target, source)
 
 
 func _on_player_hit_box_body_entered(body: Node2D) -> void:
@@ -71,6 +72,16 @@ func summon_golem():
 	if golem_active == false:
 		golem_active = true
 		var golem = magical_golem_load.instantiate()
-		add_child(golem)
+		get_parent().add_child(golem) #spawns the golem as a child of the main scene
 		golem.position = position
-		golem.position.y -= 16
+		golem.position.y += 50
+
+
+func _on_attack_range_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemies"):
+		enemies_in_range += 1
+
+
+func _on_attack_range_body_exited(body: Node2D) -> void:
+	if body.is_in_group("enemies"):
+		enemies_in_range -= 1
