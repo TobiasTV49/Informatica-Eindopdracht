@@ -3,36 +3,42 @@ var Spells = {
 	0: {
 		"Name" = "Magic missile",
 		"Damage" = 30,
+		"Active" = false,
 	},
 	1: {
 		"Name" = "Divine protection",
 		"Damage" = 0,
+		"Active" = false,
 	},
 	2: {
 		"Name" = "Arcane shove",
 		"Damage" = 5,
+		"Active" = false,
 	},
 	3: {
 		"Name" = "Arcane construct",
 		"Damage" = 0,
+		"Active" = false,
 	},
 	4: {
 		"Name" = "Summon golem",
 		"Damage" = 0,
+		"Active" = false,
 	},
-}
-var ActiveSpells = {
 	5: {
 		"Name" = "Meteor strike",
 		"Damage" = 50,
+		"Active" = true,
 	},
 	6: {
 		"Name" = "Time stop",
 		"Damage" = 0,
+		"Active" = true,
 	},
 	7: {
 		"Name" = "Ray of annihilation",
 		"Damage" = 5,
+		"Active" = true,
 	},
 }
 var Items = {
