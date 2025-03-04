@@ -24,7 +24,7 @@ func _process(delta):
 			CheckPlayerSpells(i)
 			if inside == true:
 				UpgradeSpells.append(i)
-			else:
+			elif inside == false:
 				NewSpells.append(i)
 		while Spells.count(-1) > 0: #returns three random spells to the array Spells
 			RandomizeChoices(x)
@@ -37,7 +37,7 @@ func _process(delta):
 			CheckPlayerSpells(i)
 			if inside == true:
 				UpgradeSpells.append(i)
-			else:
+			elif inside == false:
 				NewSpells.append(i)
 		while Spells.count(-1) > 0: #returns three random spells to the array Spells
 			RandomizeChoices(x)
@@ -115,13 +115,16 @@ func UpdateNames():
 
 func CheckPlayerSpells(i):
 	var lock = false
-	for x in Global.PlayerSpells.size():
-		if i == Global.PlayerSpells[x][0] and lock == false:
-			inside = true
-			lock = true
-			return inside
-		else:
-			inside = false
+	if GameData.Spells[i]["Active"] == active:
+		for x in Global.PlayerSpells.size():
+			if i == Global.PlayerSpells[x][0] and lock == false:
+				inside = true
+				lock = true
+				return inside
+			else:
+				inside = false
+	else:
+		inside = null
 
 func CheckSideupgrades(x):
 	var lock = false
