@@ -4,6 +4,7 @@ extends CharacterBody2D
 var bullet_load = preload("res://Functionality/Scenes/bullet.tscn")
 var arcane_shove_load = preload("res://Functionality/Scenes/arcane_shove.tscn")
 var magical_golem_load = preload("res://Functionality/Scenes/magical_golem.tscn")
+var meteor_strike_load = preload("res://Functionality/Scenes/meteor_strike.tscn")
 var spell_list: Array
 var shove_active = false
 var golem_active = false
@@ -35,6 +36,10 @@ func _physics_process(delta):
 	if spell_list.has("Summon golem"):
 		summon_golem()
 	
+	if Input.is_action_just_pressed("1"):
+		var UsedActive = Global.ActivePlayerSpells[0][0]
+		if UsedActive == 5:  
+			get_tree().current_scene.add_child(meteor_strike_load.instantiate())
 	move_and_slide() #Special function for characterbody2D that makes it schmove.
 	
 
