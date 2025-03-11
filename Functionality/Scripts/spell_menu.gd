@@ -84,8 +84,8 @@ func GoBack():
 		Global.WaveCompleted = false
 	else:
 		Global.BossWaveCompleted = false
-	for i in Global.PlayerSpells.size():
-		if active == false:
+	if active == false:
+		for i in Global.PlayerSpells.size():
 			if Global.PlayerSpells[i][0] == ChosenSpell:
 				var x = 0
 				while x < 3:
@@ -97,18 +97,19 @@ func GoBack():
 				else:
 					Global.PlayerSpells[i][2] = Sideupgrades[Spells.find(ChosenSpell)]
 				gotten = true
-		#else:
-			#if Global.ActivePlayerSpells[i][0] == ChosenSpell:
-				#var x = 0
-				#while x < 3:
-					#if Spells[x] == ChosenSpell and Sideupgrades[x] != null:
-						#sideupgrade = x
-					#x += 1
-				#if sideupgrade == 0:
-					#Global.ActivePlayerSpells[i][1] += 1
-				#else:
-					#Global.ActivePlayerSpells[i][2] = Sideupgrades[Spells.find(ChosenSpell)]
-				#gotten = true
+	else:
+		for i in Global.ActivePlayerSpells.size():
+			if Global.ActivePlayerSpells[i][0] == ChosenSpell:
+				var x = 0
+				while x < 3:
+					if Spells[x] == ChosenSpell and Sideupgrades[x] != null:
+						sideupgrade = x
+					x += 1
+				if sideupgrade == 0:
+					Global.ActivePlayerSpells[i][1] += 1
+				else:
+					Global.ActivePlayerSpells[i][2] = Sideupgrades[Spells.find(ChosenSpell)]
+				gotten = true
 	if gotten != true:
 		if active == false:
 			Global.PlayerSpells.append([ChosenSpell, 0, 0])

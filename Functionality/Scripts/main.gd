@@ -73,7 +73,7 @@ func enemy_killed():
 		Global.current_wave += 1
 
 func _on_temporary_button_pressed():
-	Global.WaveCompleted = true
+	Global.BossWaveCompleted = true
 
 func _on_temporary_button_2_pressed():
 	Global.DruidMenu = true
@@ -100,3 +100,7 @@ func _on_button_4_pressed() -> void:
 func update_names():
 	if Global.ActivePlayerSpells.size() > 0:
 		$CanvasLayer/Active_1/Label.text = GameData.Spells[Global.ActivePlayerSpells[0][0]]["Name"]
+	if Global.ActivePlayerSpells.size() > 1:
+		$CanvasLayer/Active_2/Label.text = GameData.Spells[Global.ActivePlayerSpells[1][0]]["Name"]
+	if Global.ActivePlayerSpells.size() > 2:
+		$CanvasLayer/Active_3/Label.text = GameData.Spells[Global.ActivePlayerSpells[2][0]]["Name"]

@@ -5,11 +5,13 @@ var bullet_load = preload("res://Functionality/Scenes/bullet.tscn")
 var arcane_shove_load = preload("res://Functionality/Scenes/arcane_shove.tscn")
 var magical_golem_load = preload("res://Functionality/Scenes/magical_golem.tscn")
 var meteor_strike_load = preload("res://Functionality/Scenes/meteor_strike.tscn")
+var ray_of_annihilation_load =  preload("res://Functionality/Scenes/ray_of_annihilation.tscn")
 var spell_list: Array
 var shove_active = false
 var golem_active = false
 var shield_active = false
 var meteor_strike_active = false
+var ray_of_annihilation_active = false
 var enemies_in_range = 0
 
 func _ready():
@@ -43,12 +45,17 @@ func _physics_process(delta):
 		#divine_protection()
 	
 	if Input.is_action_just_pressed("1"):
-		var UsedActive = Global.ActivePlayerSpells[0][0]
-		if UsedActive == 5 and meteor_strike_active == false:  
-			meteor_strike_active = true
-			get_tree().current_scene.add_child(meteor_strike_load.instantiate())
-			await get_tree().create_timer(5).timeout
-			meteor_strike_active = false
+		if Global.ActivePlayerSpells.size() > 0:
+			var UsedActive = Global.ActivePlayerSpells[0][0]
+			UseActive(UsedActive)
+	elif Input.is_action_just_pressed("2"):
+		if Global.ActivePlayerSpells.size() > 1:
+			var UsedActive = Global.ActivePlayerSpells[1][0]
+			UseActive(UsedActive)
+	elif Input.is_action_just_pressed("3"):
+		if Global.ActivePlayerSpells.size() > 2:
+			var UsedActive = Global.ActivePlayerSpells[2][0]
+			UseActive(UsedActive)
 	
 	move_and_slide() #Special function for characterbody2D that makes it schmove.
 	
@@ -105,3 +112,15 @@ func _on_attack_range_body_entered(body: Node2D) -> void:
 func _on_attack_range_body_exited(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
 		enemies_in_range -= 1
+
+func UseActive(UsedActive):
+	if UsedActive == 5 and meteor_strike_active == false:  
+		meteor_strike_active = true
+		get_tree().current_scene.add_child(meteor_strike_load.instantiate())
+		await get_tree().create_timer(5).timeout
+		meteor_strike_active = false
+	elif UsedActive == 7 and ray_of_annihilation_active == false:  
+		ray_of_annihilation_active = true
+		get_tree().current_scene.add_child(ray_of_annihilation_load.instantiate())
+		await get_tree().create_timer(8).timeout
+		ray_of_annihilation_active = false

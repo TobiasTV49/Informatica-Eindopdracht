@@ -37,7 +37,7 @@ var Spells = {
 	},
 	7: {
 		"Name" = "Ray of annihilation",
-		"Damage" = 5,
+		"Damage" = 2.5,
 		"Active" = true,
 	},
 }
