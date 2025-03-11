@@ -1,13 +1,14 @@
 extends CharacterBody2D
 
-var attacking
+var attacking = false
 var SPEED = 15
 var damage = 10
-var health = 50
+var health = 75
 var kback = false
 var locked = false
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
 var bullet_load = preload("res://Functionality/Scenes/enemy_bullet.tscn")
+const SKELETON_MINION = preload("res://Functionality/Scenes/skeleton_minion.tscn")
 
 func _ready() -> void:
 	$ProgressBar.max_value = health
@@ -34,11 +35,13 @@ func _on_attack_range_body_entered(body: Node2D) -> void:
 		attacking = true
 		velocity = Vector2(0, 0)
 		$Attacktimer.start()
+		$SpawnTimer.start()
 
 func _on_attack_range_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		attacking = false
 		$Attacktimer.stop()
+		$SpawnTimer.stop()
 
 
 func _on_attacktimer_timeout() -> void:
@@ -61,10 +64,11 @@ func knocked_back(knockback, length, body):
 
 func _on_hit_box_body_entered(body: Node2D) -> void:
 	locked = false
-	await get_tree().create_timer(0.02).timeout
-	if body.get_meta("bullet_type") == "player bullet" and locked == false:
-		body.queue_free()
-		damaged(10, self)
+	await get_tree().create_timer(0.05).timeout
+	if is_instance_valid(body) == true:
+		if body.get_meta("bullet_type") == "player bullet" and locked == false:
+			body.queue_free()
+			damaged(10, self)
 		
 func damaged(damage, target):
 	if target == self:
@@ -81,4 +85,7 @@ func _on_hit_box_body_exited(body: Node2D) -> void:
 
 
 func _on_spawn_timer_timeout() -> void:
-	pass # Replace with function body.
+	var minion = SKELETON_MINION.instantiate()
+	var spawn_pos: Array = [self.position + Vector2(40, 0), self.position + Vector2(-40, 0), self.position + Vector2(0, 40), self.position + Vector2(0, 40)]
+	get_parent().add_child(minion)
+	minion.position = spawn_pos.pick_random()
