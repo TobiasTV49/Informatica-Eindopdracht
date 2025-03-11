@@ -2,7 +2,6 @@ extends Node2D
 const MELEE_ENEMY = preload("res://Functionality/Scenes/enemy.tscn")
 const RANGED_ENEMY = preload("res://Functionality/Scenes/ranged_enemy.tscn")
 const NECROMANCER = preload("res://Functionality/Scenes/necromancer_enemy.tscn")
-const SKELETON_MINION = preload("res://Functionality/Scenes/skeleton_minion.tscn")
 @onready var player: CharacterBody2D = $PlayerBody
 @onready var spell_menu: Node2D = $CanvasLayer/SpellMenu
 
@@ -31,6 +30,7 @@ func _process(delta: float) -> void:
 		$CanvasLayer/DruidMenu.show()
 	else:
 		$CanvasLayer/DruidMenu.hide()
+	update_names()
 
 #Function that makes the waves
 func start_wave(wave_number):
@@ -52,6 +52,7 @@ func start_wave(wave_number):
 				enemy = RANGED_ENEMY.instantiate()
 		spawn_enemy(enemy)
 		wave_array.remove_at(0)
+		print(wave_array)
 
 #The actual spawning of the enemies is regulated with this function
 func spawn_enemy(enemy):
@@ -78,6 +79,7 @@ func _on_temporary_button_2_pressed():
 
 
 func _on_wave_starter_pressed() -> void:
+	print(Global.current_wave)
 	start_wave(Global.current_wave)
 
 
@@ -90,7 +92,6 @@ func _on_button_3_pressed() -> void:
 	var necromancer = NECROMANCER.instantiate()
 	$Enemies.add_child(necromancer)
 
-
-func _on_button_4_pressed() -> void:
-	var skeleton_minion = SKELETON_MINION.instantiate()
-	$Enemies.add_child(skeleton_minion)
+func update_names():
+	if Global.ActivePlayerSpells.size() > 0:
+		$CanvasLayer/Active_1/Label.text = GameData.Spells[Global.ActivePlayerSpells[0][0]]["Name"]

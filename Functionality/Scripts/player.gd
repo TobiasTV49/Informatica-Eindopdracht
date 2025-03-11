@@ -4,10 +4,12 @@ extends CharacterBody2D
 var bullet_load = preload("res://Functionality/Scenes/bullet.tscn")
 var arcane_shove_load = preload("res://Functionality/Scenes/arcane_shove.tscn")
 var magical_golem_load = preload("res://Functionality/Scenes/magical_golem.tscn")
+var meteor_strike_load = preload("res://Functionality/Scenes/meteor_strike.tscn")
 var spell_list: Array
 var shove_active = false
 var golem_active = false
 var shield_active = false
+var meteor_strike_active = false
 var enemies_in_range = 0
 
 func _ready():
@@ -39,6 +41,14 @@ func _physics_process(delta):
 	
 	#if spell_list.has("Divine protection"):
 		#divine_protection()
+	
+	if Input.is_action_just_pressed("1"):
+		var UsedActive = Global.ActivePlayerSpells[0][0]
+		if UsedActive == 5 and meteor_strike_active == false:  
+			meteor_strike_active = true
+			get_tree().current_scene.add_child(meteor_strike_load.instantiate())
+			await get_tree().create_timer(5).timeout
+			meteor_strike_active = false
 	
 	move_and_slide() #Special function for characterbody2D that makes it schmove.
 	
