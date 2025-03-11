@@ -6,9 +6,10 @@ var damage = 10
 var health = 50
 var kback = false
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
+var bullet_load = preload("res://Functionality/Scenes/enemy_bullet.tscn")
 
 func _ready() -> void:
-	attacking = false
+	$ProgressBar.max_value = health
 	Global.knockback.connect(knocked_back)
 	Global.damage_enemy.connect(damaged)
 
@@ -20,7 +21,7 @@ func _physics_process(delta: float) -> void:
 			$enemy_sprite.flip_h = false
 		else:
 			$enemy_sprite.flip_h = true
-		
+			
 		if attacking == false:
 			velocity = (player.position - position).normalized() * SPEED
 
@@ -30,6 +31,7 @@ func _physics_process(delta: float) -> void:
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		attacking = true
+		velocity = Vector2(0, 0)
 		$Attacktimer.start()
 
 func _on_attack_range_body_exited(body: Node2D) -> void:
@@ -38,15 +40,13 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 		$Attacktimer.stop()
 
 
-func _on_attacktimer_timeout() -> void:
-	Global.damage_enemy.emit(damage)
-
-
-func _on_hit_box_body_entered(body: Node2D) -> void:
-	if body.get_meta("bullet_type") == "player bullet":
-		body.queue_free()
-		damaged(10, self)
-
+func _on_attacktimer_timeout() -> void: #temp inactive because it breaks alot
+	pass
+	var bullet = bullet_load.instantiate()
+	var enemy_bullets = get_tree().current_scene.get_node("enemy_bullets")
+	enemy_bullets.add_child(bullet)
+	Global.enemy_shoot.emit("player", self.position, bullet.name, damage)
+	
 func knocked_back(knockback, length, body):
 	if body == self and kback == false:
 		kback = true
@@ -54,11 +54,17 @@ func knocked_back(knockback, length, body):
 		var temp_a = attacking
 		SPEED = knockback
 		attacking = false
+		print(SPEED)
 		await get_tree().create_timer(length).timeout
 		kback = false
 		SPEED = temp_s
 		attacking = temp_a
 
+func _on_hit_box_body_entered(body: Node2D) -> void:
+	if body.get_meta("bullet_type") == "player bullet":
+		body.queue_free()
+		damaged(10, self)
+		
 func damaged(damage, target):
 	if target == self:
 		health -= damage

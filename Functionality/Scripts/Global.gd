@@ -18,6 +18,7 @@ signal enemy_shoot
 signal enemy_killed()
 signal knockback(speed, duration, body)
 signal damage_enemy(damage, enemy)
+signal damage_player(damage)
 
 func get_index_from_name(name, dictionary):
 	for i in range(dictionary.size()):

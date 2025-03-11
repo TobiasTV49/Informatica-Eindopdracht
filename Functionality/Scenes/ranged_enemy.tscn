@@ -51,7 +51,7 @@ func _on_attacktimer_timeout() -> void: #temp inactive because it breaks alot
 	var bullet = bullet_load.instantiate()
 	var enemy_bullets = get_tree().current_scene.get_node(\"enemy_bullets\")
 	enemy_bullets.add_child(bullet)
-	Global.enemy_shoot.emit(\"player\", self.position, bullet.name)
+	Global.enemy_shoot.emit(\"player\", self.position, bullet.name, damage)
 	
 func knocked_back(knockback, length, body):
 	if body == self and kback == false:

@@ -1,6 +1,7 @@
 extends Node2D
 const MELEE_ENEMY = preload("res://Functionality/Scenes/enemy.tscn")
 const RANGED_ENEMY = preload("res://Functionality/Scenes/ranged_enemy.tscn")
+const NECROMANCER = preload("res://Functionality/Scenes/necromancer_enemy.tscn")
 @onready var player: CharacterBody2D = $PlayerBody
 @onready var spell_menu: Node2D = $CanvasLayer/SpellMenu
 
@@ -84,3 +85,8 @@ func _on_wave_starter_pressed() -> void:
 func _on_button_2_pressed() -> void:
 	var ranged_enemy = RANGED_ENEMY.instantiate()
 	$Enemies.add_child(ranged_enemy)
+
+
+func _on_button_3_pressed() -> void:
+	var necromancer = NECROMANCER.instantiate()
+	$Enemies.add_child(necromancer)

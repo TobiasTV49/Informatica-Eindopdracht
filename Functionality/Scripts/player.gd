@@ -7,10 +7,12 @@ var magical_golem_load = preload("res://Functionality/Scenes/magical_golem.tscn"
 var spell_list: Array
 var shove_active = false
 var golem_active = false
+var shield_active = false
 var enemies_in_range = 0
 
 func _ready():
 	$AttackTimer.start()
+	Global.damage_player.connect(damaged)
 	Global.PlayerSpells.append([2, 0, 0]) #adding the arcane shove spell for testing
 	Global.PlayerSpells.append([4, 0, 0]) #adding the summon golem spell for testing
 
@@ -35,6 +37,9 @@ func _physics_process(delta):
 	if spell_list.has("Summon golem"):
 		summon_golem()
 	
+	#if spell_list.has("Divine protection"):
+		#divine_protection()
+	
 	move_and_slide() #Special function for characterbody2D that makes it schmove.
 	
 
@@ -50,12 +55,10 @@ func _on_attack_timer_timeout() -> void:
 		Global.shoot.emit(bullet_target, source)
 
 
-func _on_player_hit_box_body_entered(body: Node2D) -> void:
-	if body.is_in_group("damages_player"):
-		body.queue_free()
-		Global.player_health -= 10
-		if Global.player_health < 1:
-			self.queue_free()
+func damaged(damage):
+	Global.player_health -= damage
+	if Global.player_health < 1:
+		self.queue_free()
 
 func arcane_shove(lenght: float, cooldown: float):
 	if shove_active == false:
@@ -76,6 +79,13 @@ func summon_golem():
 		golem.position = position
 		golem.position.y += 50
 
+func divine_protection():
+	var protection = preload("res://Functionality/Scenes/divine_protection.tscn").instantiate()
+	if shield_active == false:
+		add_child(protection)
+	
+	
+	
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):

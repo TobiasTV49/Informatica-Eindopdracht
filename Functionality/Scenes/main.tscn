@@ -47,6 +47,15 @@ offset_bottom = 32.0
 theme_override_font_sizes/font_size = 16
 text = "Spawn Ranged Enemy"
 
+[node name="Button3" type="Button" parent="CanvasLayer"]
+offset_left = 394.0
+offset_top = 31.0
+offset_right = 561.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 16
+text = "Spawn Necromancer
+"
+
 [node name="SpellMenu" parent="CanvasLayer" instance=ExtResource("5_ipgrs")]
 visible = false
 
@@ -144,6 +153,7 @@ offset_bottom = 32.0
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="CanvasLayer/Temporary button" to="." method="_on_temporary_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Temporary button2" to="." method="_on_temporary_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/WaveStarter" to="." method="_on_wave_starter_pressed"]
