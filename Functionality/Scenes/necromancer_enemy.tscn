@@ -11,8 +11,8 @@ size = Vector2(30, 30)
 radius = 181.069
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_27s32"]
-radius = 17.0
-height = 34.0
+radius = 22.0
+height = 52.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_waxoo"]
 bg_color = Color(1, 0, 0, 1)
@@ -54,7 +54,12 @@ show_percentage = false
 [node name="Attacktimer" type="Timer" parent="."]
 wait_time = 1.5
 
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="body_exited" from="HitBox" to="." method="_on_hit_box_body_exited"]
 [connection signal="timeout" from="Attacktimer" to="." method="_on_attacktimer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

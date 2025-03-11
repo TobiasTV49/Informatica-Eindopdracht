@@ -1,0 +1,138 @@
+[gd_scene load_steps=18 format=3 uid="uid://1h3h622765m4"]
+
+[ext_resource type="Script" path="res://Functionality/Scripts/skeleton_minion.gd" id="1_v2fjm"]
+[ext_resource type="Texture2D" uid="uid://cbs3mvlkaowvo" path="res://Assets/pixilart-sprite.png" id="2_u52ea"]
+[ext_resource type="FontFile" uid="uid://crm5aodm5xa2d" path="res://at01.ttf" id="3_82fd1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdv6v"]
+atlas = ExtResource("2_u52ea")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n3m7"]
+atlas = ExtResource("2_u52ea")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n20mr"]
+atlas = ExtResource("2_u52ea")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mi1i7"]
+atlas = ExtResource("2_u52ea")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tovx"]
+atlas = ExtResource("2_u52ea")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5ho5"]
+atlas = ExtResource("2_u52ea")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k4r7"]
+atlas = ExtResource("2_u52ea")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xh6it"]
+atlas = ExtResource("2_u52ea")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqis4"]
+atlas = ExtResource("2_u52ea")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_45qqu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdv6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n3m7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n20mr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mi1i7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tovx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5ho5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k4r7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xh6it")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqis4")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h27yl"]
+height = 44.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_btrc3"]
+radius = 38.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tpn3t"]
+radius = 14.0
+height = 46.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bryv"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="skeleton_minion" type="CharacterBody2D" groups=["enemies"]]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_v2fjm")
+
+[node name="enemy_sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_45qqu")
+animation = &"walking"
+autoplay = "walking"
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 0)
+shape = SubResource("CapsuleShape2D_h27yl")
+
+[node name="AttackRange" type="Area2D" parent="."]
+position = Vector2(-4, -1)
+scale = Vector2(0.720001, 0.720001)
+
+[node name="RangeShape" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_btrc3")
+
+[node name="Attacktimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 6
+
+[node name="HitBoxShape" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-3, 0)
+shape = SubResource("CapsuleShape2D_tpn3t")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -11.0
+offset_top = -32.0
+offset_right = 36.0
+offset_bottom = -15.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("3_82fd1")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/fill = SubResource("StyleBoxFlat_0bryv")
+max_value = 50.0
+show_percentage = false
+
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
+[connection signal="timeout" from="Attacktimer" to="." method="_on_attacktimer_timeout"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
