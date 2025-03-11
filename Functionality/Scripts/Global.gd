@@ -9,6 +9,7 @@ var player_position = null
 var enemy_position = null
 var nearest_enemy = null
 var PlayerSpells = []
+var ActivePlayerSpells = []
 var PlayerItems = []
 var PlayerCoins = 300
 var coinsPerEnemy = 10
