@@ -27,7 +27,7 @@ var Spells = {
 	},
 	5: {
 		"Name" = "Meteor strike",
-		"Damage" = 50,
+		"Damage" = 25,
 		"Active" = true,
 	},
 	6: {

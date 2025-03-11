@@ -30,6 +30,7 @@ func _process(delta: float) -> void:
 		$CanvasLayer/DruidMenu.show()
 	else:
 		$CanvasLayer/DruidMenu.hide()
+	update_names()
 
 #Function that makes the waves
 func start_wave(wave_number):
@@ -90,3 +91,7 @@ func _on_button_2_pressed() -> void:
 func _on_button_3_pressed() -> void:
 	var necromancer = NECROMANCER.instantiate()
 	$Enemies.add_child(necromancer)
+
+func update_names():
+	if Global.ActivePlayerSpells.size() > 0:
+		$CanvasLayer/Active_1/Label.text = GameData.Spells[Global.ActivePlayerSpells[0][0]]["Name"]
