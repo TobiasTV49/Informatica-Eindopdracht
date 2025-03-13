@@ -18,8 +18,6 @@ func _process(delta: float) -> void:
 		if shot == true:
 			var move_vector = Vector2(1, 0).rotated(rotation)
 			velocity = move_vector * SPEED
-			print("bullet: " + str(position))
-			print("player: " + str(player.position))
 		
 	else:
 		queue_free()

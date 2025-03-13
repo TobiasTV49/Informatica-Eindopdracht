@@ -32,7 +32,6 @@ func _physics_process(delta: float) -> void:
 				$golem_sprite.flip_h = true
 			
 			if position.distance_to(player.position) > 50:
-				print(position.distance_to(player.position))
 				velocity = (player.position - position).normalized() * SPEED
 
 	move_and_slide()

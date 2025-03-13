@@ -23,8 +23,8 @@ func _physics_process(delta: float) -> void:
 		
 		if attacking == false:
 			velocity = (player.position - position).normalized() * SPEED
-
-	move_and_slide()
+	if Global.TimeStop == false:
+		move_and_slide()
 
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
@@ -39,7 +39,8 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 
 
 func _on_attacktimer_timeout() -> void:
-	Global.damage_enemy.emit(damage)
+	if Global.TimeStop == false:
+		Global.damage_enemy.emit(damage)
 
 
 func _on_hit_box_body_entered(body: Node2D) -> void:

@@ -14,6 +14,8 @@ var PlayerItems = []
 var PlayerCoins = 300
 var coinsPerEnemy = 10
 var DruidMenu = false
+var TimeStop = false
+var stunned = false
 signal shoot
 signal enemy_shoot
 signal enemy_killed()
@@ -35,3 +37,8 @@ func get_nearest_enemy(source):
 			var temp_distance = source.distance_to(i.position)
 			if temp_distance < source.distance_to(Global.nearest_enemy.position):
 				Global.nearest_enemy = i
+
+func GetSpellIndex(spell):
+	for i in Global.ActivePlayerSpells.size():
+		if spell == Global.ActivePlayerSpells[i][0]:
+			return i

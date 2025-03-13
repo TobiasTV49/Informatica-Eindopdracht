@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://crx478qvku6vp"]
+
+[ext_resource type="Script" path="res://Functionality/Scripts/time_stop.gd" id="1_lvxpx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ypgxf"]
+size = Vector2(250, 250)
+
+[node name="time_stop" type="Area2D"]
+script = ExtResource("1_lvxpx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(125, 125)
+shape = SubResource("RectangleShape2D_ypgxf")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.607843)
+offset_right = 250.0
+offset_bottom = 250.0
+color = Color(0.239216, 0.564706, 0.564706, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

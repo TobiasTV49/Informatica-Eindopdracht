@@ -5,12 +5,14 @@ var bullet_load = preload("res://Functionality/Scenes/bullet.tscn")
 var arcane_shove_load = preload("res://Functionality/Scenes/arcane_shove.tscn")
 var magical_golem_load = preload("res://Functionality/Scenes/magical_golem.tscn")
 var meteor_strike_load = preload("res://Functionality/Scenes/meteor_strike.tscn")
+var time_stop_load = preload("res://Functionality/Scenes/time_stop.tscn")
 var ray_of_annihilation_load =  preload("res://Functionality/Scenes/ray_of_annihilation.tscn")
 var spell_list: Array
 var shove_active = false
 var golem_active = false
 var shield_active = false
 var meteor_strike_active = false
+var time_stop_active = false
 var ray_of_annihilation_active = false
 var enemies_in_range = 0
 
@@ -56,8 +58,8 @@ func _physics_process(delta):
 		if Global.ActivePlayerSpells.size() > 2:
 			var UsedActive = Global.ActivePlayerSpells[2][0]
 			UseActive(UsedActive)
-	
-	move_and_slide() #Special function for characterbody2D that makes it schmove.
+	if Global.stunned == false:
+		move_and_slide() #Special function for characterbody2D that makes it schmove.
 	
 
 
@@ -119,6 +121,11 @@ func UseActive(UsedActive):
 		get_tree().current_scene.add_child(meteor_strike_load.instantiate())
 		await get_tree().create_timer(5).timeout
 		meteor_strike_active = false
+	if UsedActive == 6 and time_stop_active == false:  
+		time_stop_active = true
+		get_tree().current_scene.add_child(time_stop_load.instantiate())
+		await get_tree().create_timer(10).timeout
+		time_stop_active = false
 	elif UsedActive == 7 and ray_of_annihilation_active == false:  
 		ray_of_annihilation_active = true
 		get_tree().current_scene.add_child(ray_of_annihilation_load.instantiate())

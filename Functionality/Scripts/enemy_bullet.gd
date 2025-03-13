@@ -14,7 +14,8 @@ func _process(delta: float) -> void:
 	if shot == true:
 		var move_vector = Vector2(1, 0).rotated(rotation)
 		velocity = move_vector * speed
-	move_and_slide()
+	if Global.TimeStop == false:
+		move_and_slide()
 
 
 func enemy_shot_fired(bullet_target, source, bullet_name, damage):

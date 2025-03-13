@@ -26,8 +26,8 @@ func _physics_process(delta: float) -> void:
 			
 		if attacking == false:
 			velocity = (player.position - position).normalized() * SPEED
-
-	move_and_slide()
+	if Global.TimeStop == false:
+		move_and_slide()
 
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
@@ -45,10 +45,11 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 
 
 func _on_attacktimer_timeout() -> void:
-	var bullet = bullet_load.instantiate()
-	var enemy_bullets = get_tree().current_scene.get_node("enemy_bullets")
-	enemy_bullets.add_child(bullet)
-	Global.enemy_shoot.emit("player", self.position, bullet.name, damage)
+	if Global.TimeStop == false:
+		var bullet = bullet_load.instantiate()
+		var enemy_bullets = get_tree().current_scene.get_node("enemy_bullets")
+		enemy_bullets.add_child(bullet)
+		Global.enemy_shoot.emit("player", self.position, bullet.name, damage)
 	
 func knocked_back(knockback, length, body):
 	if body == self and kback == false:
@@ -85,7 +86,8 @@ func _on_hit_box_body_exited(body: Node2D) -> void:
 
 
 func _on_spawn_timer_timeout() -> void:
-	var minion = SKELETON_MINION.instantiate()
-	var spawn_pos: Array = [self.position + Vector2(40, 0), self.position + Vector2(-40, 0), self.position + Vector2(0, 40), self.position + Vector2(0, 40)]
-	get_parent().add_child(minion)
-	minion.position = spawn_pos.pick_random()
+	if Global.TimeStop == false:
+		var minion = SKELETON_MINION.instantiate()
+		var spawn_pos: Array = [self.position + Vector2(40, 0), self.position + Vector2(-40, 0), self.position + Vector2(0, 40), self.position + Vector2(0, 40)]
+		get_parent().add_child(minion)
+		minion.position = spawn_pos.pick_random()
