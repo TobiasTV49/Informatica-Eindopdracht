@@ -6,6 +6,10 @@ var aim = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.show()
+	var index = Global.GetSpellIndex(7)
+	if Global.ActivePlayerSpells[index][2] == 2:
+		self.scale.x = 1.5
+		self.scale.y = 1.5
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,6 +32,8 @@ func ray_of_annihilation():
 	elif Global.ActivePlayerSpells[index][2] == 2:
 		damage *= 1.75
 		Global.stunned = true
+		self.scale.x = 1.5
+		self.scale.y = 1.5
 	var x = 0
 	print(damage)
 	while x < hits:
