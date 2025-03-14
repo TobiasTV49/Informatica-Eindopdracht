@@ -12,6 +12,7 @@ height = 34.0
 radius = 38.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tpn3t"]
+radius = 9.0
 height = 34.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bryv"]

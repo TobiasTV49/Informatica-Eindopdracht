@@ -51,6 +51,8 @@ func start_wave(wave_number):
 				enemy = MELEE_ENEMY.instantiate()
 			"ranged_enemy":
 				enemy = RANGED_ENEMY.instantiate()
+			"necromancer":
+				enemy = NECROMANCER.instantiate()
 		spawn_enemy(enemy)
 		wave_array.remove_at(0)
 		print(wave_array)

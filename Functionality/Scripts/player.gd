@@ -7,20 +7,29 @@ var magical_golem_load = preload("res://Functionality/Scenes/magical_golem.tscn"
 var meteor_strike_load = preload("res://Functionality/Scenes/meteor_strike.tscn")
 var time_stop_load = preload("res://Functionality/Scenes/time_stop.tscn")
 var ray_of_annihilation_load =  preload("res://Functionality/Scenes/ray_of_annihilation.tscn")
+var protection_load = preload("res://Functionality/Scenes/divine_protection.tscn")
+var arcane_construct_load = preload("res://Functionality/Scenes/arcane_construct.tscn")
 var spell_list: Array
 var shove_active = false
+var construct_active = false
 var golem_active = false
 var shield_active = false
 var meteor_strike_active = false
 var time_stop_active = false
 var ray_of_annihilation_active = false
+var shield_spawnable = true
 var enemies_in_range = 0
+var protection
+signal protection_break
 
 func _ready():
 	$AttackTimer.start()
 	Global.damage_player.connect(damaged)
+	protection_break.connect(protection_broken)
 	Global.PlayerSpells.append([2, 0, 0]) #adding the arcane shove spell for testing
 	Global.PlayerSpells.append([4, 0, 0]) #adding the summon golem spell for testing
+	Global.PlayerSpells.append([1, 0, 0]) #adding the divine protection spell for testing
+	Global.PlayerSpells.append([3, 0, 0]) #adding the arcane construct spell for testing
 
 func get_input(): #Pulls input directions and sets the velocity using them.
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -43,8 +52,11 @@ func _physics_process(delta):
 	if spell_list.has("Summon golem"):
 		summon_golem()
 	
-	#if spell_list.has("Divine protection"):
-		#divine_protection()
+	if spell_list.has("Divine protection"):
+		divine_protection()
+	
+	if spell_list.has("Arcane constuct"):
+		arcane_construct()
 	
 	if Input.is_action_just_pressed("1"):
 		if Global.ActivePlayerSpells.size() > 0:
@@ -71,13 +83,24 @@ func _on_attack_timer_timeout() -> void:
 		var source = self.position
 		player_bullets.add_child(bullet)
 		bullet.position = position
-		Global.shoot.emit(bullet_target, source)
+		Global.shoot.emit(bullet_target, source, 10, 200, 1)
+						  #target, source, damage, speed, scale
 
 
 func damaged(damage):
-	Global.player_health -= damage
-	if Global.player_health < 1:
-		self.queue_free()
+	if shield_active == false:
+		Global.player_health -= damage
+		if Global.player_health < 1:
+			self.queue_free()
+	elif shield_active == true:
+		protection_break.emit()
+
+func arcane_construct():
+	if construct_active == false:
+		construct_active = true
+		var construct = arcane_construct_load.instantiate()
+		add_child(construct)
+	
 
 func arcane_shove(lenght: float, cooldown: float):
 	if shove_active == false:
@@ -99,11 +122,20 @@ func summon_golem():
 		golem.position.y += 50
 
 func divine_protection():
-	var protection = preload("res://Functionality/Scenes/divine_protection.tscn").instantiate()
-	if shield_active == false:
+	if shield_spawnable == true and shield_active == false:
+		protection = protection_load.instantiate()
 		add_child(protection)
+		shield_active = true
+		shield_spawnable = false
+	elif shield_active == true:
+		protection.position = Vector2(0, 0)
 	
-	
+func protection_broken():
+	var cooldown = 20 #cooldown in seconds
+	protection.queue_free()
+	shield_active = false
+	await get_tree().create_timer(cooldown).timeout
+	shield_spawnable = true
 	
 
 func _on_attack_range_body_entered(body: Node2D) -> void:

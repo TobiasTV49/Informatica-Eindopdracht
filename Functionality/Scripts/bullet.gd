@@ -5,7 +5,8 @@ var shot: bool = false
 var enemy
 var direction
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
-const SPEED = 200
+var SPEED = 200
+var bullet_damage: int
 
 func _ready():
 	Global.shoot.connect(shot_fired)
@@ -18,14 +19,16 @@ func _process(delta: float) -> void:
 		if shot == true:
 			var move_vector = Vector2(1, 0).rotated(rotation)
 			velocity = move_vector * SPEED
-		
 	else:
 		queue_free()
 	move_and_slide()
 
 
-func shot_fired(bullet_target, source):
+func shot_fired(bullet_target, source, damage, speed, bullet_scale):
 	position = source
+	bullet_damage = damage
+	SPEED = speed
+	scale = Vector2(bullet_scale, bullet_scale)
 	Global.shoot.disconnect(shot_fired)
 	Global.get_nearest_enemy(self.position)
 	if bullet_target == "enemy" and Global.nearest_enemy != null:

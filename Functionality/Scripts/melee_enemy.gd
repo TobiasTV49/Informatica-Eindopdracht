@@ -46,7 +46,7 @@ func _on_attacktimer_timeout() -> void:
 func _on_hit_box_body_entered(body: Node2D) -> void:
 	if body.get_meta("bullet_type") == "player bullet":
 		body.queue_free()
-		damaged(10, self)
+		damaged(body.bullet_damage, self)
 
 func knocked_back(knockback, length, body):
 	if body == self and kback == false:

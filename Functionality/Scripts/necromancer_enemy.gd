@@ -69,7 +69,7 @@ func _on_hit_box_body_entered(body: Node2D) -> void:
 	if is_instance_valid(body) == true:
 		if body.get_meta("bullet_type") == "player bullet" and locked == false:
 			body.queue_free()
-			damaged(10, self)
+			damaged(body.bullet_damage, self)
 		
 func damaged(damage, target):
 	if target == self:
