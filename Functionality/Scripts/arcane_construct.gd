@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var enemies_in_range = 0
 var bullet_load = preload("res://Functionality/Scenes/bullet.tscn")
-var damage = 2
+var damage
 var bullet_speed = 400
 var player
 const SPEED = 300 #very fast so it can keep up with the player
@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	position = player.position + Vector2(25, -25)
-
+	damage = GameData.Spells[3]["Damage"]
 	move_and_slide()
 
 func _on_attack_range_body_entered(body: Node2D) -> void:

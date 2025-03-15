@@ -79,9 +79,6 @@ func enemy_killed():
 
 func _on_temporary_button_pressed():
 	Global.BossWaveCompleted = true
-	#_____________________________
-	#TEMPORARY FOR TESTING ONLY
-	Global.PlayerSpells[0][1] += 1
 
 func _on_temporary_button_2_pressed():
 	Global.DruidMenu = true

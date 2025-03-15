@@ -1,5 +1,4 @@
 extends Area2D
-var knockback = -200
 var duration = 0.5
 
 func _on_body_entered(body: Node2D) -> void:

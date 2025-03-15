@@ -132,7 +132,7 @@ func divine_protection():
 		protection.position = Vector2(0, 0)
 	
 func protection_broken():
-	var cooldown = 20 #cooldown in seconds
+	var cooldown = GameData.Spells[1]["Cooldown"] #cooldown in seconds
 	protection.queue_free()
 	shield_active = false
 	await get_tree().create_timer(cooldown).timeout
