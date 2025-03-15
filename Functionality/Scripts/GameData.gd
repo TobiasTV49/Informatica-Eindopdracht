@@ -3,26 +3,32 @@ var Spells = {
 	0: {
 		"Name" = "Magic missile",
 		"Damage" = 30,
+		"Levelup" = [["Damage", 8, 30]], #what scales, how much it scales with and what the base stat is
 		"Active" = false,
 	},
 	1: {
 		"Name" = "Divine protection",
-		"Damage" = 0,
+		"Cooldown" = 20, #cooldown in seconds
+		"Levelup" = [["Cooldown", -2, 20]],
 		"Active" = false,
 	},
 	2: {
 		"Name" = "Arcane shove",
-		"Damage" = 5,
+		"Damage" = 10,
+		"Knockback" = -200, #the speed at which the enemy moves back
+		"Levelup" = [["Knockback", -25, -200]],
 		"Active" = false,
 	},
 	3: {
 		"Name" = "Arcane construct",
-		"Damage" = 0,
+		"Damage" = 3,
+		"Levelup" = [["Damage", 1, 3]],
 		"Active" = false,
 	},
 	4: {
 		"Name" = "Summon golem",
-		"Damage" = 0,
+		"Damage" = 15,
+		"Levelup" = [["Damage", 3, 15]],
 		"Active" = false,
 	},
 	5: {

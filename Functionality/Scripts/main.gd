@@ -31,6 +31,8 @@ func _process(delta: float) -> void:
 		$CanvasLayer/DruidMenu.show()
 	else:
 		$CanvasLayer/DruidMenu.hide()
+	
+	update_stats()
 	update_names()
 
 #Function that makes the waves
@@ -64,6 +66,7 @@ func spawn_enemy(enemy):
 	$Enemies.add_child(enemy)
 	enemy.position = spawner.position
 
+
 func _on_button_pressed() -> void:
 	var melee_enemy = MELEE_ENEMY.instantiate()
 	$Enemies.add_child(melee_enemy)
@@ -76,6 +79,9 @@ func enemy_killed():
 
 func _on_temporary_button_pressed():
 	Global.BossWaveCompleted = true
+	#_____________________________
+	#TEMPORARY FOR TESTING ONLY
+	Global.PlayerSpells[0][1] += 1
 
 func _on_temporary_button_2_pressed():
 	Global.DruidMenu = true
@@ -98,6 +104,14 @@ func _on_button_3_pressed() -> void:
 func _on_button_4_pressed() -> void:
 	var skeleton_minion = SKELETON_MINION.instantiate()
 	$Enemies.add_child(skeleton_minion)
+
+func update_stats():
+	for i in Global.PlayerSpells:
+		for x in GameData.Spells[i[0]]["Levelup"]:
+			var upgradestat = x[0]
+			var upgradeamount = x[1]
+			var basestat = x[2]
+			GameData.Spells[i[0]][upgradestat] = basestat + upgradeamount * i[1]
 
 func update_names():
 	if Global.ActivePlayerSpells.size() > 0:

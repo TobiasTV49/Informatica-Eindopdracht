@@ -107,6 +107,7 @@ func arcane_shove(lenght: float, cooldown: float):
 		shove_active = true
 		var arcane_shove = arcane_shove_load.instantiate()
 		add_child(arcane_shove)
+		print(GameData.Spells[2]["Knockback"])
 		arcane_shove.get_node("Animator").play("grow")
 		await get_tree().create_timer(lenght).timeout
 		arcane_shove.queue_free()

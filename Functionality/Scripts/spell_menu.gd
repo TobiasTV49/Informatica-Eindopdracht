@@ -121,7 +121,7 @@ func GoBack():
 			Global.ActivePlayerSpells.append([ChosenSpell, 0, 0])
 	Spells = [-1, -1, -1]
 	Sideupgrades = [null, null, null]
-									#spell, level, sideupgrade
+					#spell, level, sideupgrade
 
 func UpdateNames():
 	$SpellMenu_BG/Spell1.text = GameData.Spells[Spells[0]]["Name"]
