@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 			$enemy_sprite.flip_h = true
 		
 		if attacking == false:
-			velocity = (player.position - position).normalized() * SPEED
+			velocity = (player.position - position).normalized() * SPEED * Global.enemy_speed_mult
 	if Global.TimeStop == false:
 		move_and_slide()
 

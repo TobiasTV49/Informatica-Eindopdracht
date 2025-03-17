@@ -1,6 +1,7 @@
 extends Area2D
 var targets = []
 var damage = GameData.Spells[5]["Damage"]
+var lock = false
 
 func _ready() -> void:
 	self.show()
@@ -15,9 +16,10 @@ func _ready() -> void:
 		damage *= 1.5
 
 func _process(delta: float) -> void:
-	var mousepos = get_viewport().get_mouse_position()
-	self.position = Vector2(mousepos.x * 0.80, mousepos.y * 0.80)
-	if Input.is_action_just_pressed("click"):
+	var mousepos = get_viewport().get_camera_2d().get_global_mouse_position()
+	self.position = Vector2(mousepos.x, mousepos.y)
+	if Input.is_action_just_pressed("click") and lock == false:
+		lock = true
 		meteor_strike()
 
 func meteor_strike():

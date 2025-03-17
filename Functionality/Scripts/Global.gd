@@ -16,6 +16,8 @@ var coinsPerEnemy = 10
 var DruidMenu = false
 var TimeStop = false
 var stunned = false
+var enemy_speed_mult = 1
+var player_speed_mult = 1
 signal shoot
 signal enemy_shoot
 signal enemy_killed()

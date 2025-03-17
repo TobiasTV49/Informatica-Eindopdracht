@@ -29,7 +29,7 @@ func _physics_process(delta: float) -> void:
 			$enemy_sprite.flip_h = true
 			
 		if attacking == false:
-			velocity = (player.position - position).normalized() * SPEED
+			velocity = (player.position - position).normalized() * SPEED * Global.enemy_speed_mult
 	if Global.TimeStop == false:
 		move_and_slide()
 
@@ -48,6 +48,7 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 
 func _on_attacktimer_timeout() -> void: #temp inactive because it breaks alot
 	if Global.TimeStop == false:
+		$Attacktimer.wait_time = 1.2 / Global.enemy_speed_mult
 		var bullet = bullet_load.instantiate()
 		var enemy_bullets = get_tree().current_scene.get_node(\"enemy_bullets\")
 		enemy_bullets.add_child(bullet)

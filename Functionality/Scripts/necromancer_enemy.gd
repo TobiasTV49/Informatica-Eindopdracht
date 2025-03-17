@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 			$enemy_sprite.flip_h = true
 			
 		if attacking == false:
-			velocity = (player.position - position).normalized() * SPEED
+			velocity = (player.position - position).normalized() * SPEED * Global.enemy_speed_mult
 	if Global.TimeStop == false:
 		move_and_slide()
 
@@ -46,6 +46,7 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 
 func _on_attacktimer_timeout() -> void:
 	if Global.TimeStop == false:
+		$Attacktimer.wait_time = 1.5 / Global.enemy_speed_mult
 		var bullet = bullet_load.instantiate()
 		var enemy_bullets = get_tree().current_scene.get_node("enemy_bullets")
 		enemy_bullets.add_child(bullet)
@@ -87,6 +88,7 @@ func _on_hit_box_body_exited(body: Node2D) -> void:
 
 func _on_spawn_timer_timeout() -> void:
 	if Global.TimeStop == false:
+		$SpawnTimer.wait_time = 3 / Global.enemy_speed_mult
 		var minion = SKELETON_MINION.instantiate()
 		var spawn_pos: Array = [self.position + Vector2(40, 0), self.position + Vector2(-40, 0), self.position + Vector2(0, 40), self.position + Vector2(0, 40)]
 		get_parent().add_child(minion)

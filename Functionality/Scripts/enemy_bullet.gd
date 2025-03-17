@@ -13,7 +13,7 @@ func _ready():
 func _process(delta: float) -> void:
 	if shot == true:
 		var move_vector = Vector2(1, 0).rotated(rotation)
-		velocity = move_vector * speed
+		velocity = move_vector * speed * Global.enemy_speed_mult
 	if Global.TimeStop == false:
 		move_and_slide()
 

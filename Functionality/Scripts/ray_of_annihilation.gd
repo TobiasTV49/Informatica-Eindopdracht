@@ -2,6 +2,7 @@ extends Area2D
 var targets = []
 var shot = false
 var aim = false
+var lock = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,8 +17,9 @@ func _ready():
 func _process(delta):
 	self.position = get_tree().get_nodes_in_group("Player")[0].position
 	if shot == false or aim == true:
-		look_at(get_viewport().get_mouse_position())
-	if Input.is_action_just_pressed("click"):
+		look_at(get_viewport().get_camera_2d().get_global_mouse_position())
+	if Input.is_action_just_pressed("click") and lock == false:
+		lock = true
 		ray_of_annihilation()
 
 func ray_of_annihilation():
