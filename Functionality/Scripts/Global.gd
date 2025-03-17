@@ -17,7 +17,12 @@ var DruidMenu = false
 var TimeStop = false
 var stunned = false
 var enemy_speed_mult = 1
-var player_speed_mult = 1
+var player_range_mult = 1
+var player_movement_speed_mult = 1 
+var player_dodge_mult = 1
+var player_damage_reduction_mult = 1
+var player_attack_speed_mult = 1 
+var player_damage_mult = 1
 signal shoot
 signal enemy_shoot
 signal enemy_killed()
@@ -43,4 +48,9 @@ func get_nearest_enemy(source):
 func GetSpellIndex(spell):
 	for i in Global.ActivePlayerSpells.size():
 		if spell == Global.ActivePlayerSpells[i][0]:
+			return i
+
+func GetItemIndex(item):
+	for i in Global.PlayerItems.size():
+		if item == Global.PlayerItems[i][0]:
 			return i

@@ -28,7 +28,7 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 
 func _on_attack_timer_timeout() -> void:
 	if enemies_in_range > 0: #only shoots when there are enemies in attack range
-		$AttackTimer.wait_time = 0.5 / Global.player_speed_mult
+		$AttackTimer.wait_time = 0.5 / Global.player_attack_speed_mult
 		var bullet = bullet_load.instantiate()
 		var player_bullets = get_tree().current_scene.get_node("player_bullets")
 		var bullet_target = "enemy"

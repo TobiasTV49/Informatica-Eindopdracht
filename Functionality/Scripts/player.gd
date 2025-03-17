@@ -33,7 +33,7 @@ func _ready():
 
 func get_input(): #Pulls input directions and sets the velocity using them.
 	var input_direction = Input.get_vector("left", "right", "up", "down")
-	velocity = input_direction * speed * Global.player_speed_mult
+	velocity = input_direction * speed * Global.player_movement_speed_mult
 
 func _physics_process(delta):
 	if Global.player_death == true:
@@ -47,7 +47,7 @@ func _physics_process(delta):
 			spell_list.append(GameData.Spells[index]["Name"])
 	
 	if spell_list.has("Arcane shove"):
-		arcane_shove(0.5, 2 / Global.player_speed_mult) #calls arcane shove. 1st value = effect lenght, 2nd value = effect cooldown
+		arcane_shove(0.5, 2 / Global.player_attack_speed_mult) #calls arcane shove. 1st value = effect lenght, 2nd value = effect cooldown
 	
 	if spell_list.has("Summon golem"):
 		summon_golem()
@@ -77,7 +77,7 @@ func _physics_process(delta):
 
 func _on_attack_timer_timeout() -> void:
 	if enemies_in_range > 0 and spell_list.has("Magic missile"): #only shoots when there are enemies in attack range
-		$AttackTimer.wait_time = 1 / Global.player_speed_mult
+		$AttackTimer.wait_time = 1 / Global.player_attack_speed_mult
 		var bullet = bullet_load.instantiate()
 		var player_bullets = get_tree().current_scene.get_node("player_bullets")
 		var bullet_target = "enemy"
@@ -133,7 +133,7 @@ func divine_protection():
 		protection.position = Vector2(0, 0)
 	
 func protection_broken():
-	var cooldown = GameData.Spells[1]["Cooldown"] / Global.player_speed_mult #cooldown in seconds
+	var cooldown = GameData.Spells[1]["Cooldown"] / Global.player_attack_speed_mult #cooldown in seconds
 	protection.queue_free()
 	shield_active = false
 	await get_tree().create_timer(cooldown).timeout

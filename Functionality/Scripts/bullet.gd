@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 		Global.get_nearest_enemy(self.position)
 		if shot == true:
 			var move_vector = Vector2(1, 0).rotated(rotation)
-			velocity = move_vector * SPEED
+			velocity = move_vector * SPEED 
 	else:
 		queue_free()
 	move_and_slide()

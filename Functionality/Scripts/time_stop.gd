@@ -21,9 +21,11 @@ func time_stop():
 		await get_tree().create_timer(6).timeout
 		Global.enemy_speed_mult *= 2
 	elif Global.ActivePlayerSpells[index][2] == 2:
-		Global.player_speed_mult *= 2
+		Global.player_attack_speed_mult *= 2
+		Global.player_movement_speed_mult *= 2
 		await get_tree().create_timer(6).timeout
-		Global.player_speed_mult /= 2
+		Global.player_attack_speed_mult /= 2
+		Global.player_movement_speed_mult /= 2
 	elif Global.ActivePlayerSpells[index][2] == 0:
 		Global.TimeStop = true
 		await get_tree().create_timer(4).timeout

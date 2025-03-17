@@ -59,22 +59,27 @@ var Items = {
 	1: {
 		"Name" = "Hawk's sight",
 		"Cost" = 20,
+		"Effect" = 0.1,
 	},
 	2: {
 		"Name" = "Panther's dexterity",
 		"Cost" = 25,
+		"Effect" = 0.1,
 	},
 	3: {
 		"Name" = "Armadillo's resistance",
 		"Cost" = 15,
+		"Effect" = 0.1,
 	},
 	4: {
 		"Name" = "Hummingbird's haste",
 		"Cost" = 10,
+		"Effect" = 0.1,
 	},
 	5: {
 		"Name" = "Gorilla's brawn",
 		"Cost" = 30,
+		"Effect" = 0.1,
 	}
 }
 

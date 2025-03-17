@@ -23,7 +23,7 @@ func _physics_process(delta: float) -> void:
 				$golem_sprite.flip_h = true
 			
 			if attacking == false:
-				velocity = (nearest_enemy.position - position).normalized() * SPEED * Global.player_speed_mult
+				velocity = (nearest_enemy.position - position).normalized() * SPEED * Global.player_movement_speed_mult
 		else:
 			var direction = player.position.x - position.x
 			if direction > 0:
@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 				$golem_sprite.flip_h = true
 			
 			if position.distance_to(player.position) > 50:
-				velocity = (player.position - position).normalized() * SPEED * Global.player_speed_mult
+				velocity = (player.position - position).normalized() * SPEED * Global.player_movement_speed_mult
 
 	move_and_slide()
 
@@ -48,7 +48,6 @@ func get_nearest_enemy():
 	else:
 		velocity = Vector2(0, 0)
 
-
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
 		attacking = true
@@ -61,5 +60,5 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 		$Attacktimer.stop()
 
 func _on_attacktimer_timeout() -> void:
-	$Attacktimer.wait_time = 1 / Global.player_speed_mult
+	$Attacktimer.wait_time = 1 / Global.player_attack_speed_mult
 	Global.damage_enemy.emit(damage, target)
