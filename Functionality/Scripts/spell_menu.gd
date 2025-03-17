@@ -124,15 +124,36 @@ func GoBack():
 					#spell, level, sideupgrade
 
 func UpdateNames():
-	$SpellMenu_BG/Spell1.text = GameData.Spells[Spells[0]]["Name"]
+	$SpellMenu_BG/Spell1.text = spell_text(0)
 	if Sideupgrades[0] != null:
 		$SpellMenu_BG/Spell1.text += "\n sidegrade " + str(Sideupgrades[0])
-	$SpellMenu_BG/Spell2.text = GameData.Spells[Spells[1]]["Name"]
+	$SpellMenu_BG/Spell2.text = spell_text(1)
 	if Sideupgrades[1] != null:
 		$SpellMenu_BG/Spell2.text += "\n sidegrade " + str(Sideupgrades[1])
-	$SpellMenu_BG/Spell3.text = GameData.Spells[Spells[2]]["Name"]
+	$SpellMenu_BG/Spell3.text = spell_text(2)
 	if Sideupgrades[2] != null:
 		$SpellMenu_BG/Spell3.text += "\n sidegrade " + str(Sideupgrades[2])
+
+func spell_text(spell_number):
+	var name: String = GameData.Spells[Spells[spell_number]]["Name"]
+	var level_stats: Array
+	var string_parts: Array
+	var final_string: String = name
+	for i in GameData.Spells[Spells[spell_number]]["Levelup"]:
+		level_stats.append([i[0], i[1]])
+	
+	for i in level_stats:
+		var key = str(i[0])
+		if key == "Duration":
+			print(GameData.Spells[Spells[spell_number]][key])
+		var temp_string = "\n" + key + " = " + str(GameData.Spells[Spells[spell_number]][key]) + " + " + str(i[1])
+		if string_parts.has(temp_string) == false:
+			string_parts.append(temp_string)
+	
+	for i in string_parts:
+		final_string += i
+	
+	return final_string
 
 func CheckPlayerSpells(i):
 	var lock = false

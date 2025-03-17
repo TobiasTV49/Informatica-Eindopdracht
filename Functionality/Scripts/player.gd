@@ -76,7 +76,7 @@ func _physics_process(delta):
 
 
 func _on_attack_timer_timeout() -> void:
-	if enemies_in_range > 0: #only shoots when there are enemies in attack range
+	if enemies_in_range > 0 and spell_list.has("Magic missile"): #only shoots when there are enemies in attack range
 		$AttackTimer.wait_time = 1 / Global.player_speed_mult
 		var bullet = bullet_load.instantiate()
 		var player_bullets = get_tree().current_scene.get_node("player_bullets")

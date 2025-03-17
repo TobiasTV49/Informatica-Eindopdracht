@@ -10,6 +10,7 @@ const SKELETON_MINION = preload("res://Functionality/Scenes/skeleton_minion.tscn
 func _ready() -> void:
 	Global.player_death = false
 	Global.enemy_killed.connect(enemy_killed)
+	Global.PlayerSpells.append([0, 0, 0])
 	for i in $"enemy spawners".get_children(): #Hides the enemy spawners when starting
 		i.visible = false
 

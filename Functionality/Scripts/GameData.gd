@@ -2,8 +2,8 @@ extends Node
 var Spells = {
 	0: {
 		"Name" = "Magic missile",
-		"Damage" = 30,
-		"Levelup" = [["Damage", 8, 30]], #what scales, how much it scales with and what the base stat is
+		"Damage" = 10,
+		"Levelup" = [["Damage", 3, 10]], #what scales, how much it scales with and what the base stat is
 		"Active" = false,
 	},
 	1: {
@@ -34,16 +34,20 @@ var Spells = {
 	5: {
 		"Name" = "Meteor strike",
 		"Damage" = 25,
+		"Levelup" = [["Damage", 7, 25]],
 		"Active" = true,
 	},
 	6: {
 		"Name" = "Time stop",
-		"Damage" = 0,
+		"Duration" = 5,
+		"Levelup" = [["Duration", 1, 5]],
 		"Active" = true,
 	},
 	7: {
 		"Name" = "Ray of annihilation",
 		"Damage" = 0.75,
+		"Duration" = 3,
+		"Levelup" = [["Damage", 0.25, 0.75], ["Duration", 0.5, 3]],
 		"Active" = true,
 	},
 }
