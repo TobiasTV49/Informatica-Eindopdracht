@@ -13,9 +13,10 @@ func _ready() -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	position = player.position + Vector2(25, -25)
-	damage = GameData.Spells[3]["Damage"]
-	move_and_slide()
+	if Global.player_death == false:
+		position = player.position + Vector2(25, -25)
+		damage = GameData.Spells[3]["Damage"]
+		move_and_slide()
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):

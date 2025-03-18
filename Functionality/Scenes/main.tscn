@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://2bkx1y5hcu02"]
+[gd_scene load_steps=14 format=3 uid="uid://2bkx1y5hcu02"]
 
 [ext_resource type="Script" path="res://Functionality/Scripts/main.gd" id="1_oydpu"]
 [ext_resource type="PackedScene" uid="uid://ghvrtut8se0h" path="res://Functionality/Scenes/player.tscn" id="2_d5emv"]
@@ -8,6 +8,46 @@
 [ext_resource type="PackedScene" uid="uid://og50mlvkyoml" path="res://Functionality/Scenes/druid_menu.tscn" id="5_k2n5o"]
 [ext_resource type="PackedScene" uid="uid://bfvfnvjqjy84k" path="res://Functionality/Scenes/arcane_construct.tscn" id="7_euxtv"]
 [ext_resource type="PackedScene" uid="uid://bfmrjeoeuu5ak" path="res://Functionality/Scenes/boss.tscn" id="7_hjjco"]
+[ext_resource type="Texture2D" uid="uid://cthqkyqy2bak3" path="res://Assets/pixil-frame-0 (16).png" id="7_ww3yw"]
+[ext_resource type="Texture2D" uid="uid://cqcyrguw4fdne" path="res://Assets/pixil-frame-0 (20).png" id="8_awvwx"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5wg2b"]
+texture = ExtResource("7_ww3yw")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v0x07"]
+texture = ExtResource("8_awvwx")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_h7hel"]
+sources/0 = SubResource("TileSetAtlasSource_5wg2b")
+sources/1 = SubResource("TileSetAtlasSource_v0x07")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_oydpu")
@@ -246,6 +286,7 @@ offset_bottom = 32.0
 [node name="enemy_bullets" type="Node2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_h7hel")
 format = 2
 
 [node name="arcane_construct" parent="." instance=ExtResource("7_euxtv")]
