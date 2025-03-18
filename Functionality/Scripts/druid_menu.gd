@@ -21,6 +21,7 @@ func _process(delta: float) -> void:
 
 func _on_item_1_pressed() -> void:
 	ChosenItem = Items[0]
+	Global.player_health += 15
 	Checkout()
 	Bought[0] = true
 
@@ -54,6 +55,7 @@ func _on_close_pressed():
 	lock = false
 	Items = [0, -1, -1, -1, -1, -1]
 	Bought = [false, false, false, false, false, false]
+	update_item_stats()
 
 func RandomizeChoices(x):
 	var check = null
@@ -107,3 +109,17 @@ func Checkout():
 			Global.PlayerItems.append([ChosenItem, 1])
 	else:
 		print("You don't have enough money")
+
+func update_item_stats():
+	if Global.PlayerItems.size() > 0:
+		if Global.CheckPlayerItems(1) == true:
+			Global.player_range_mult = 1 + (GameData.Items[1]["Effect"] * Global.PlayerItems[Global.GetItemIndex(1)][1])
+		if Global.CheckPlayerItems(2) == true:
+			Global.player_movement_speed_mult = 1 + (GameData.Items[2]["Effect"] * Global.PlayerItems[Global.GetItemIndex(2)][1])
+			Global.player_dodge = 2 + (2 * Global.PlayerItems[Global.GetItemIndex(2)][1])
+		if Global.CheckPlayerItems(3) == true:
+			Global.player_damage_reduction_mult = 1 + (GameData.Items[3]["Effect"] * Global.PlayerItems[Global.GetItemIndex(3)][1])
+		if Global.CheckPlayerItems(4) == true:
+			Global.player_attack_speed_mult = 1 + (GameData.Items[4]["Effect"] * Global.PlayerItems[Global.GetItemIndex(4)][1])
+		if Global.CheckPlayerItems(5) == true:
+			Global.player_damage_mult = 1 + (GameData.Items[5]["Effect"] * Global.PlayerItems[Global.GetItemIndex(5)][1])

@@ -35,7 +35,6 @@ func _process(delta: float) -> void:
 	
 	update_stats()
 	update_names()
-	update_item_stats()
 
 #Function that makes the waves
 func start_wave(wave_number):
@@ -95,7 +94,6 @@ func _on_button_2_pressed() -> void:
 	var ranged_enemy = RANGED_ENEMY.instantiate()
 	$Enemies.add_child(ranged_enemy)
 
-
 func _on_button_3_pressed() -> void:
 	var necromancer = NECROMANCER.instantiate()
 	$Enemies.add_child(necromancer)
@@ -119,17 +117,3 @@ func update_names():
 		$CanvasLayer/Active_2/Label.text = GameData.Spells[Global.ActivePlayerSpells[1][0]]["Name"]
 	if Global.ActivePlayerSpells.size() > 2:
 		$CanvasLayer/Active_3/Label.text = GameData.Spells[Global.ActivePlayerSpells[2][0]]["Name"]
-
-func update_item_stats():
-	if Global.PlayerItems.size() > 0:
-		if Global.CheckPlayerItems(1) == true:
-			Global.player_range_mult = 1 + (GameData.Items[1]["Effect"] * Global.PlayerItems[Global.GetItemIndex(1)][1])
-		if Global.CheckPlayerItems(2) == true:
-			Global.player_movement_speed_mult = 1 + (GameData.Items[2]["Effect"] * Global.PlayerItems[Global.GetItemIndex(2)][1])
-			Global.player_dodge_mult = 1 + (GameData.Items[2]["Effect"] * Global.PlayerItems[Global.GetItemIndex(2)][1])
-		if Global.CheckPlayerItems(3) == true:
-			Global.player_damage_reduction_mult = 1 + (GameData.Items[3]["Effect"] * Global.PlayerItems[Global.GetItemIndex(3)][1])
-		if Global.CheckPlayerItems(4) == true:
-			Global.player_attack_speed_mult = 1 + (GameData.Items[4]["Effect"] * Global.PlayerItems[Global.GetItemIndex(4)][1])
-		if Global.CheckPlayerItems(5) == true:
-			Global.player_damage_mult = 1 + (GameData.Items[5]["Effect"] * Global.PlayerItems[Global.GetItemIndex(5)][1])

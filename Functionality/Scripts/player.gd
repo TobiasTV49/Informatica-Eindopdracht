@@ -90,9 +90,13 @@ func _on_attack_timer_timeout() -> void:
 
 func damaged(damage):
 	if shield_active == false:
-		Global.player_health -= damage
-		if Global.player_health < 1:
-			self.queue_free()
+		if Global.player_dodge <= randi_range(1,100):
+			damage /= Global.player_damage_reduction_mult
+			Global.player_health -= damage
+			if Global.player_health < 1:
+				self.queue_free()
+		else:
+			print("attack dodged")
 	elif shield_active == true:
 		protection_break.emit()
 
