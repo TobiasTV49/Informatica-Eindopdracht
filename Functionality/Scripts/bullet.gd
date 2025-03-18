@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 
 func shot_fired(bullet_target, source, damage, speed, bullet_scale):
 	position = source
-	bullet_damage = damage
+	bullet_damage = damage * Global.player_damage_mult
 	SPEED = speed
 	scale = Vector2(bullet_scale, bullet_scale)
 	Global.shoot.disconnect(shot_fired)

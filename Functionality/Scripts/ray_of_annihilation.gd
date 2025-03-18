@@ -8,9 +8,11 @@ var lock = false
 func _ready():
 	self.show()
 	var index = Global.GetSpellIndex(7)
+	self.scale.x = 1 * Global.player_range_mult
+	self.scale.y = 1 * Global.player_range_mult
 	if Global.ActivePlayerSpells[index][2] == 2:
-		self.scale.x = 1.5
-		self.scale.y = 1.5
+		self.scale.x = 1.5 * Global.player_range_mult
+		self.scale.y = 1.5 * Global.player_range_mult
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -24,7 +26,7 @@ func _process(delta):
 
 func ray_of_annihilation():
 	shot = true
-	var damage = GameData.Spells[7]["Damage"]
+	var damage = GameData.Spells[7]["Damage"] * Global.player_damage_mult
 	var index = Global.GetSpellIndex(7)
 	var hits = 30
 	if Global.ActivePlayerSpells[index][2] == 1:
@@ -34,8 +36,6 @@ func ray_of_annihilation():
 	elif Global.ActivePlayerSpells[index][2] == 2:
 		damage *= 1.75
 		Global.stunned = true
-		self.scale.x = 1.5
-		self.scale.y = 1.5
 	var x = 0
 	print(damage)
 	while x < hits:

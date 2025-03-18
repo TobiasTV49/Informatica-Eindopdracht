@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	position = player.position + Vector2(25, -25)
-	damage = GameData.Spells[3]["Damage"]
+	damage = GameData.Spells[3]["Damage"] * Global.player_damage_mult
 	move_and_slide()
 
 func _on_attack_range_body_entered(body: Node2D) -> void:

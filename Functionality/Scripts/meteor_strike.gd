@@ -7,13 +7,13 @@ func _ready() -> void:
 	self.show()
 	var index = Global.GetSpellIndex(5)
 	if Global.ActivePlayerSpells[index][2] == 1:
-		self.scale.x = 1.25
-		self.scale.y = 1.25
-		damage *= 0.75
+		self.scale.x = 1.25 * Global.player_range_mult
+		self.scale.y = 1.25 * Global.player_range_mult
+		damage *= 0.75 * Global.player_damage_mult
 	elif Global.ActivePlayerSpells[index][2] == 2:
-		self.scale.x = 0.75
-		self.scale.y = 0.75
-		damage *= 1.5
+		self.scale.x = 0.75 * Global.player_range_mult
+		self.scale.y = 0.75 * Global.player_range_mult
+		damage *= 1.5 * Global.player_damage_mult
 
 func _process(delta: float) -> void:
 	var mousepos = get_viewport().get_camera_2d().get_global_mouse_position()

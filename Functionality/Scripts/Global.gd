@@ -16,13 +16,13 @@ var coinsPerEnemy = 10
 var DruidMenu = false
 var TimeStop = false
 var stunned = false
-var enemy_speed_mult = 1
-var player_range_mult = 1
-var player_movement_speed_mult = 1 
-var player_dodge_mult = 1
-var player_damage_reduction_mult = 1
-var player_attack_speed_mult = 1 
-var player_damage_mult = 1
+var enemy_speed_mult:float = 1
+var player_range_mult:float = 1
+var player_movement_speed_mult:float = 1 
+var player_dodge_mult:float = 1
+var player_damage_reduction_mult:float = 1
+var player_attack_speed_mult:float = 1 
+var player_damage_mult:float = 1
 signal shoot
 signal enemy_shoot
 signal enemy_killed()
@@ -54,3 +54,14 @@ func GetItemIndex(item):
 	for i in Global.PlayerItems.size():
 		if item == Global.PlayerItems[i][0]:
 			return i
+
+func CheckPlayerItems(i):
+	var lock = false
+	var inside = false
+	for x in Global.PlayerItems.size():
+		if i == Global.PlayerItems[x][0] and lock == false:
+			inside = true
+			return inside
+		else:
+			inside = false
+			return inside

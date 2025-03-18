@@ -61,4 +61,4 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 
 func _on_attacktimer_timeout() -> void:
 	$Attacktimer.wait_time = 1 / Global.player_attack_speed_mult
-	Global.damage_enemy.emit(damage, target)
+	Global.damage_enemy.emit(damage * Global.player_damage_mult, target)

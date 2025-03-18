@@ -121,13 +121,15 @@ func update_names():
 		$CanvasLayer/Active_3/Label.text = GameData.Spells[Global.ActivePlayerSpells[2][0]]["Name"]
 
 func update_item_stats():
-	pass
-	#if Global.PlayerItems.size() > 0:
-		#print(str(GameData.Items[1]["Effect"]) + "aa")
-		#print(str(Global.PlayerItems[Global.GetItemIndex(1)][1]) + "bb")
-		#Global.player_range_mult = 1 + (GameData.Items[1]["Effect"] * Global.PlayerItems[Global.GetItemIndex(1)][1])
-		#Global.player_movement_speed_mult = 1 + (GameData.Items[2]["Effect"] * Global.PlayerItems[Global.GetItemIndex(2)][1])
-		#Global.player_dodge_mult = 1 + (GameData.Items[2]["Effect"] * Global.PlayerItems[Global.GetItemIndex(2)][1])
-		#Global.player_damage_reduction_mult = 1 + (GameData.Items[3]["Effect"] * Global.PlayerItems[Global.GetItemIndex(3)][1])
-		#Global.player_attack_speed_mult = 1 + (GameData.Items[4]["Effect"] * Global.PlayerItems[Global.GetItemIndex(4)][1])
-		#Global.player_damage_mult = 1 + (GameData.Items[5]["Effect"] * Global.PlayerItems[Global.GetItemIndex(5)][1])
+	if Global.PlayerItems.size() > 0:
+		if Global.CheckPlayerItems(1) == true:
+			Global.player_range_mult = 1 + (GameData.Items[1]["Effect"] * Global.PlayerItems[Global.GetItemIndex(1)][1])
+		if Global.CheckPlayerItems(2) == true:
+			Global.player_movement_speed_mult = 1 + (GameData.Items[2]["Effect"] * Global.PlayerItems[Global.GetItemIndex(2)][1])
+			Global.player_dodge_mult = 1 + (GameData.Items[2]["Effect"] * Global.PlayerItems[Global.GetItemIndex(2)][1])
+		if Global.CheckPlayerItems(3) == true:
+			Global.player_damage_reduction_mult = 1 + (GameData.Items[3]["Effect"] * Global.PlayerItems[Global.GetItemIndex(3)][1])
+		if Global.CheckPlayerItems(4) == true:
+			Global.player_attack_speed_mult = 1 + (GameData.Items[4]["Effect"] * Global.PlayerItems[Global.GetItemIndex(4)][1])
+		if Global.CheckPlayerItems(5) == true:
+			Global.player_damage_mult = 1 + (GameData.Items[5]["Effect"] * Global.PlayerItems[Global.GetItemIndex(5)][1])

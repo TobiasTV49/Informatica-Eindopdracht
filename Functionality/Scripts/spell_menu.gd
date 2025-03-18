@@ -59,7 +59,7 @@ func _on_spell_3_pressed() -> void:
 
 func RandomizeChoices(x):
 	var check = null
-	if randi_range(1, 10) > 4 and UpgradeSpells.size() != 0:
+	if randi_range(1, 10) > 4 and UpgradeSpells.size() != 0 or NewSpells.size() == 0:
 		check = randi_range(0, UpgradeSpells.size() - 1)
 		if UpgradeSpells[check] not in Spells:
 			Spells[x] = UpgradeSpells[check]

@@ -104,6 +104,6 @@ func Checkout():
 				Global.PlayerItems[i][1] += 1
 				gotten = true
 		if gotten == false:
-			Global.PlayerItems.append([ChosenItem, 0])
+			Global.PlayerItems.append([ChosenItem, 1])
 	else:
 		print("You don't have enough money")
