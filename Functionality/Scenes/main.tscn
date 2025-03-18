@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://2bkx1y5hcu02"]
+[gd_scene load_steps=9 format=3 uid="uid://2bkx1y5hcu02"]
 
 [ext_resource type="Script" path="res://Functionality/Scripts/main.gd" id="1_oydpu"]
 [ext_resource type="PackedScene" uid="uid://ghvrtut8se0h" path="res://Functionality/Scenes/player.tscn" id="2_d5emv"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bxotcyclcovoj" path="res://Functionality/Scenes/SpellMenu.tscn" id="5_ipgrs"]
 [ext_resource type="PackedScene" uid="uid://og50mlvkyoml" path="res://Functionality/Scenes/druid_menu.tscn" id="5_k2n5o"]
 [ext_resource type="PackedScene" uid="uid://bfvfnvjqjy84k" path="res://Functionality/Scenes/arcane_construct.tscn" id="7_euxtv"]
+[ext_resource type="PackedScene" uid="uid://bfmrjeoeuu5ak" path="res://Functionality/Scenes/boss.tscn" id="7_hjjco"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_oydpu")
@@ -249,6 +250,9 @@ format = 2
 
 [node name="arcane_construct" parent="." instance=ExtResource("7_euxtv")]
 position = Vector2(107, 78)
+
+[node name="Boss" parent="." instance=ExtResource("7_hjjco")]
+position = Vector2(388, 141)
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Button2" to="." method="_on_button_2_pressed"]
