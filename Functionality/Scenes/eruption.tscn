@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bl10cn56s358q"]
+
+[ext_resource type="Script" path="res://Functionality/Scripts/eruption.gd" id="1_atokh"]
+[ext_resource type="Texture2D" uid="uid://25208j4vr6r" path="res://Assets/TEMP-arcane_shove.png" id="1_ela8g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vrkcp"]
+radius = 22.0
+
+[node name="Eruption" type="Node2D"]
+script = ExtResource("1_atokh")
+
+[node name="EruptionSprite" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 0.392157)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_ela8g")
+
+[node name="EruptionArea" type="Area2D" parent="."]
+
+[node name="EruptionAreaShape" type="CollisionShape2D" parent="EruptionArea"]
+shape = SubResource("CircleShape2D_vrkcp")
+
+[connection signal="body_entered" from="EruptionArea" to="." method="_on_eruption_area_body_entered"]
