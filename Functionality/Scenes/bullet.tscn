@@ -3,10 +3,6 @@
 [ext_resource type="Script" path="res://Functionality/Scripts/bullet.gd" id="1_vt3w6"]
 [ext_resource type="Texture2D" uid="uid://mjns86redull" path="res://Assets/basicBulletSheet.png" id="3_vh2bl"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tob7u"]
-radius = 5.0
-height = 23.3333
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_685gp"]
 atlas = ExtResource("3_vh2bl")
 region = Rect2(0, 0, 32, 16)
@@ -57,16 +53,15 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tob7u"]
+radius = 5.0
+height = 23.3333
+
 [node name="bullet" type="CharacterBody2D" groups=["bullets"]]
-collision_layer = 4
+collision_layer = 12
 collision_mask = 2
 script = ExtResource("1_vt3w6")
 metadata/bullet_type = ""
-
-[node name="bulletCollision" type="CollisionShape2D" parent="."]
-rotation = 1.5708
-scale = Vector2(0.6, 0.6)
-shape = SubResource("CapsuleShape2D_tob7u")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-3, -1)
@@ -74,3 +69,13 @@ rotation = 3.14159
 sprite_frames = SubResource("SpriteFrames_38001")
 autoplay = "default"
 frame_progress = 0.272363
+
+[node name="CollisionArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="bulletCollision" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.6, 0.6)
+shape = SubResource("CapsuleShape2D_tob7u")
+
+[connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]

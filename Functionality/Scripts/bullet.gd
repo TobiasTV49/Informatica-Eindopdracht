@@ -38,3 +38,7 @@ func shot_fired(bullet_target, source, damage, speed, bullet_scale):
 		shot = true
 	else:
 		pass
+
+
+func _on_collision_area_body_entered(body: Node2D) -> void:
+	queue_free()
