@@ -3,6 +3,7 @@ const MELEE_ENEMY = preload("res://Functionality/Scenes/enemy.tscn")
 const RANGED_ENEMY = preload("res://Functionality/Scenes/ranged_enemy.tscn")
 const NECROMANCER = preload("res://Functionality/Scenes/necromancer_enemy.tscn")
 const SKELETON_MINION = preload("res://Functionality/Scenes/skeleton_minion.tscn")
+const BOSS = preload("res://Functionality/Scenes/boss.tscn")
 @onready var player: CharacterBody2D = $PlayerBody
 @onready var spell_menu: Node2D = $CanvasLayer/SpellMenu
 
@@ -11,6 +12,7 @@ func _ready() -> void:
 	Global.player_death = false
 	Global.enemy_killed.connect(enemy_killed)
 	Global.PlayerSpells.append([0, 0, 0])
+	$CanvasLayer/BossBar.visible = false
 	for i in $"enemy spawners".get_children(): #Hides the enemy spawners when starting
 		i.visible = false
 
@@ -33,6 +35,7 @@ func _process(delta: float) -> void:
 	else:
 		$CanvasLayer/DruidMenu.hide()
 	
+	print($CanvasLayer/BossBar.max_value)
 	update_stats()
 	update_names()
 
@@ -102,6 +105,11 @@ func _on_button_4_pressed() -> void:
 	var skeleton_minion = SKELETON_MINION.instantiate()
 	$Enemies.add_child(skeleton_minion)
 
+func _on_button_5_pressed() -> void:
+	var boss = BOSS.instantiate()
+	$Enemies.add_child(boss)
+	boss.position = Vector2(360, 64)
+
 func update_stats():
 	for i in Global.PlayerSpells:
 		for x in GameData.Spells[i[0]]["Levelup"]:
@@ -117,3 +125,9 @@ func update_names():
 		$CanvasLayer/Active_2/Label.text = GameData.Spells[Global.ActivePlayerSpells[1][0]]["Name"]
 	if Global.ActivePlayerSpells.size() > 2:
 		$CanvasLayer/Active_3/Label.text = GameData.Spells[Global.ActivePlayerSpells[2][0]]["Name"]
+
+
+func _on_bullet_killer_left_body_entered(body: Node2D) -> void:
+	if body.is_in_group("bullets"):
+		print("cheese")
+		body.queue_free()
