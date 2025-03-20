@@ -2,6 +2,7 @@ extends Node
 
 var WaveCompleted = false
 var BossWaveCompleted = true
+var chosen_character = null
 var current_wave = 0
 var player_health: int = 50
 var player_death: bool

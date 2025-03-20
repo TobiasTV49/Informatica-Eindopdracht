@@ -79,7 +79,7 @@ func enemy_killed():
 		Global.current_wave += 1
 
 func _on_temporary_button_pressed():
-	Global.BossWaveCompleted = true
+	Global.WaveCompleted = true
 
 func _on_temporary_button_2_pressed():
 	Global.DruidMenu = true

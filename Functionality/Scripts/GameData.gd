@@ -90,3 +90,26 @@ var Waves = {
 	3: [["melee_enemy", 4], ["ranged_enemy", 4], ["necromancer", 2]],
 	4: [["melee_enemy", 10], ["necromancer", 4]]
 }
+
+var Wizards = {
+	0: {
+		"Name" = "Wizard Wizard",
+		"Starting weapon" = 0, #magic missile
+		"Bonusses" = [["player_damage_mult", 1.05]], #the wizards' positive and negative perks
+	},
+	1: {
+		"Name" = "Artificer Wizard",
+		"Starting weapon" = 3, #arcane construct
+		"Bonusses" = [["player_attack_speed_mult", 1.25], ["player_movement_speed_mult", 0.75]], #the wizards' positive and negative perks
+	},
+	2: {
+		"Name" = "Necromancer Wizard",
+		"Starting weapon" = 4, #summon golem
+		"Bonusses" = [["player_damage_mult", 1.25], ["player_damage_reduction_mult", 0.75]], #the wizards' positive and negative perks
+	},
+	3: {
+		"Name" = "Rogue Wizard",
+		"Starting weapon" = 0, #magic missile
+		"Bonusses" = [["player_movement_speed_mult", 1.25], ["player_dodge", 10], ["player_damage_reduction_mult", 0.85], ["player_range_mult", 0.75]], #the wizards' positive and negative perks
+	},
+}
