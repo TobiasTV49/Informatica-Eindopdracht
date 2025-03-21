@@ -35,7 +35,6 @@ func _process(delta: float) -> void:
 	else:
 		$CanvasLayer/DruidMenu.hide()
 	
-	print($CanvasLayer/BossBar.max_value)
 	update_stats()
 	update_names()
 
@@ -61,7 +60,6 @@ func start_wave(wave_number):
 				enemy = NECROMANCER.instantiate()
 		spawn_enemy(enemy)
 		wave_array.remove_at(0)
-		print(wave_array)
 
 #The actual spawning of the enemies is regulated with this function
 func spawn_enemy(enemy):
@@ -89,7 +87,6 @@ func _on_temporary_button_2_pressed():
 
 
 func _on_wave_starter_pressed() -> void:
-	print(Global.current_wave)
 	start_wave(Global.current_wave)
 
 
@@ -129,5 +126,4 @@ func update_names():
 
 func _on_bullet_killer_left_body_entered(body: Node2D) -> void:
 	if body.is_in_group("bullets"):
-		print("cheese")
 		body.queue_free()

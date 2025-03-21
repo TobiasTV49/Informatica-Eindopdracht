@@ -37,4 +37,3 @@ func _on_attack_timer_timeout() -> void:
 		player_bullets.add_child(bullet)
 		bullet.position = position
 		Global.shoot.emit(bullet_target, source, damage, bullet_speed, 0.5)
-		print("balls")

@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const max_health = 300
+const max_health = 500
 var SPEED = 600.0
 var health
 var eruption_spawn_areaX = [20, 620] #x-coords waarin eruptions kunnen spawnen
@@ -8,6 +8,7 @@ var eruption_spawn_areaY = [20, 340] #x-coords waarin eruptions kunnen spawnen
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
 var dashing = false
 var boss_bar = null
+var phase = 1
 
 func _ready() -> void:
 	health = max_health
@@ -17,7 +18,6 @@ func _ready() -> void:
 	$AttackTimer.start()
 	$EruptionTimer.start()
 	boss_bar = get_parent().get_parent().get_node("CanvasLayer/BossBar")
-	print(boss_bar.name)
 	boss_bar.max_value = max_health
 
 
@@ -26,6 +26,11 @@ func _physics_process(delta: float) -> void:
 	if boss_bar != null:
 		boss_bar.visible = true
 		boss_bar.value = health
+	
+	if health <= (max_health/2):
+		phase = 2
+	else:
+		phase = 1
 	
 	move_and_slide()
 
@@ -67,7 +72,6 @@ func boss_dash():
 
 func _on_dash_damage_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		print("balls")
 		Global.damage_player.emit(25)
 
 
@@ -78,4 +82,5 @@ func _on_attack_timer_timeout() -> void:
 
 
 func _on_eruption_timer_timeout() -> void:
-	spawn_eruption()
+	if phase == 2:
+		spawn_eruption()
