@@ -4,6 +4,12 @@ const RANGED_ENEMY = preload("res://Functionality/Scenes/ranged_enemy.tscn")
 const NECROMANCER = preload("res://Functionality/Scenes/necromancer_enemy.tscn")
 const SKELETON_MINION = preload("res://Functionality/Scenes/skeleton_minion.tscn")
 const BOSS = preload("res://Functionality/Scenes/boss.tscn")
+var meteor_strike_load = preload("res://Functionality/Scenes/meteor_strike.tscn")
+var time_stop_load = preload("res://Functionality/Scenes/time_stop.tscn")
+var ray_of_annihilation_load =  preload("res://Functionality/Scenes/ray_of_annihilation.tscn")
+var active = [false, false, false]
+var timer = [false, false, false]
+var active_input = null
 @onready var player: CharacterBody2D = $PlayerBody
 @onready var spell_menu: Node2D = $CanvasLayer/SpellMenu
 
@@ -35,7 +41,48 @@ func _process(delta: float) -> void:
 		$CanvasLayer/DruidMenu.show()
 	else:
 		$CanvasLayer/DruidMenu.hide()
-	
+	if Input.is_action_just_pressed("1"):
+		if Global.ActivePlayerSpells.size() > 0 and active[0] == false:
+			var UsedActive = Global.ActivePlayerSpells[0][0]
+			active[0] = true
+			$CanvasLayer/Active_1/Timer.wait_time = GameData.Spells[UsedActive]["Cooldown"]
+			UseActive(UsedActive)
+			while not Input.is_action_just_pressed("click"):
+				await get_tree().process_frame
+			timer[0] = true
+			$CanvasLayer/Active_1/Timer.start()
+			await $CanvasLayer/Active_1/Timer.timeout
+			active[0] = false
+			timer[0] = false
+			$CanvasLayer/Active_1/Timer.stop()
+	elif Input.is_action_just_pressed("2") and active[1] == false:
+		if Global.ActivePlayerSpells.size() > 1:
+			var UsedActive = Global.ActivePlayerSpells[1][0]
+			active[1] = true
+			$CanvasLayer/Active_2/Timer.wait_time = GameData.Spells[UsedActive]["Cooldown"]
+			UseActive(UsedActive)
+			while not Input.is_action_just_pressed("click"):
+				await get_tree().process_frame
+			timer[1] = true
+			$CanvasLayer/Active_2/Timer.start()
+			await $CanvasLayer/Active_2/Timer.timeout
+			active[1] = false
+			timer[1] = false
+			$CanvasLayer/Active_2/Timer.stop()
+	elif Input.is_action_just_pressed("3"):
+		if Global.ActivePlayerSpells.size() > 2 and active[2] == false:
+			var UsedActive = Global.ActivePlayerSpells[2][0]
+			active[2] = true
+			$CanvasLayer/Active_3/Timer.wait_time = GameData.Spells[UsedActive]["Cooldown"]
+			UseActive(UsedActive)
+			while not Input.is_action_just_pressed("click"):
+				await get_tree().process_frame
+			timer[2] = true
+			$CanvasLayer/Active_3/Timer.start()
+			await $CanvasLayer/Active_3/Timer.timeout
+			active[2] = false
+			timer[2] = false
+			$CanvasLayer/Active_3/Timer.stop()
 	update_stats()
 	update_names()
 
@@ -82,7 +129,7 @@ func enemy_killed():
 		Global.current_wave += 1
 
 func _on_temporary_button_pressed():
-	Global.WaveCompleted = true
+	Global.BossWaveCompleted = true
 
 func _on_temporary_button_2_pressed():
 	Global.DruidMenu = true
@@ -119,13 +166,27 @@ func update_stats():
 
 func update_names():
 	if Global.ActivePlayerSpells.size() > 0:
-		$CanvasLayer/Active_1/Label.text = GameData.Spells[Global.ActivePlayerSpells[0][0]]["Name"]
+		$CanvasLayer/Active_1/Label.text = str(GameData.Spells[Global.ActivePlayerSpells[0][0]]["Name"])
+		if timer[0] == true:
+			$CanvasLayer/Active_1/Label.text += "\n" + str(int($CanvasLayer/Active_1/Timer.get_time_left()))
 	if Global.ActivePlayerSpells.size() > 1:
-		$CanvasLayer/Active_2/Label.text = GameData.Spells[Global.ActivePlayerSpells[1][0]]["Name"]
+		$CanvasLayer/Active_2/Label.text = str(GameData.Spells[Global.ActivePlayerSpells[1][0]]["Name"])
+		if timer[1] == true:
+			$CanvasLayer/Active_2/Label.text += "\n" + str(int($CanvasLayer/Active_2/Timer.get_time_left()))
 	if Global.ActivePlayerSpells.size() > 2:
-		$CanvasLayer/Active_3/Label.text = GameData.Spells[Global.ActivePlayerSpells[2][0]]["Name"]
+		$CanvasLayer/Active_3/Label.text = str(GameData.Spells[Global.ActivePlayerSpells[2][0]]["Name"])
+		if timer[2] == true:
+			$CanvasLayer/Active_3/Label.text += "\n" + str(int($CanvasLayer/Active_3/Timer.get_time_left()))
 
 
 func _on_bullet_killer_left_body_entered(body: Node2D) -> void:
 	if body.is_in_group("bullets"):
 		body.queue_free()
+
+func UseActive(UsedActive):
+	if UsedActive == 5:
+		get_tree().current_scene.add_child(meteor_strike_load.instantiate())
+	if UsedActive == 6:  
+		get_tree().current_scene.add_child(time_stop_load.instantiate())
+	elif UsedActive == 7:  
+		get_tree().current_scene.add_child(ray_of_annihilation_load.instantiate())

@@ -191,8 +191,9 @@ self_modulate = Color(1, 1, 1, 0.607843)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
+offset_top = -50.0
 offset_right = 40.0
+offset_bottom = -10.0
 grow_vertical = 0
 color = Color(0.245984, 0.245984, 0.245984, 1)
 
@@ -213,14 +214,17 @@ theme_override_fonts/font = ExtResource("3_bg0tj")
 text = "1"
 autowrap_mode = 2
 
+[node name="Timer" type="Timer" parent="CanvasLayer/Active_1"]
+
 [node name="Active_2" type="ColorRect" parent="CanvasLayer"]
 self_modulate = Color(1, 1, 1, 0.607843)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 50.0
-offset_top = -40.0
+offset_top = -50.0
 offset_right = 90.0
+offset_bottom = -10.0
 grow_vertical = 0
 color = Color(0.245984, 0.245984, 0.245984, 1)
 
@@ -241,14 +245,17 @@ theme_override_fonts/font = ExtResource("3_bg0tj")
 text = "2"
 autowrap_mode = 2
 
+[node name="Timer" type="Timer" parent="CanvasLayer/Active_2"]
+
 [node name="Active_3" type="ColorRect" parent="CanvasLayer"]
 self_modulate = Color(1, 1, 1, 0.607843)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 100.0
-offset_top = -40.0
+offset_top = -50.0
 offset_right = 140.0
+offset_bottom = -10.0
 grow_vertical = 0
 color = Color(0.245984, 0.245984, 0.245984, 1)
 
@@ -268,6 +275,8 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_bg0tj")
 text = "3"
 autowrap_mode = 2
+
+[node name="Timer" type="Timer" parent="CanvasLayer/Active_3"]
 
 [node name="WaveCounter" type="Label" parent="CanvasLayer"]
 anchors_preset = 5

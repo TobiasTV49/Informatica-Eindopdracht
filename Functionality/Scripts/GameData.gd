@@ -36,12 +36,14 @@ var Spells = {
 		"Damage" = 25,
 		"Levelup" = [["Damage", 7, 25]],
 		"Active" = true,
+		"Cooldown" = 5,
 	},
 	6: {
 		"Name" = "Time stop",
 		"Duration" = 5,
 		"Levelup" = [["Duration", 1, 5]],
 		"Active" = true,
+		"Cooldown" = 10,
 	},
 	7: {
 		"Name" = "Ray of annihilation",
@@ -49,6 +51,7 @@ var Spells = {
 		"Duration" = 3,
 		"Levelup" = [["Damage", 0.25, 0.75], ["Duration", 0.5, 3]],
 		"Active" = true,
+		"Cooldown" = 8,
 	},
 }
 var Items = {
