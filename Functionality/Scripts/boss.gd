@@ -17,6 +17,7 @@ func _ready() -> void:
 	await get_tree().create_timer(2).timeout
 	$AttackTimer.start()
 	$EruptionTimer.start()
+	
 	boss_bar = get_parent().get_parent().get_node("CanvasLayer/BossBar")
 	boss_bar.max_value = max_health
 
@@ -83,4 +84,5 @@ func _on_attack_timer_timeout() -> void:
 
 func _on_eruption_timer_timeout() -> void:
 	if phase == 2:
+		spawn_eruption() #spawns 2 eruptions every x seconds when the boss has < 1/2 max health
 		spawn_eruption()

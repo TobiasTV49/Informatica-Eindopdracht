@@ -5,12 +5,14 @@ var SPEED = 25
 var damage = 10
 var health = 50
 var kback = false
-@onready var player = get_tree().get_nodes_in_group("Player")[0]
+var player
 
 func _ready() -> void:
 	attacking = false
 	Global.knockback.connect(knocked_back)
 	Global.damage_enemy.connect(damaged)
+	if Global.player_death == false:
+		player = get_tree().get_nodes_in_group("Player")[0]
 
 func _physics_process(delta: float) -> void:
 	$ProgressBar.value = health

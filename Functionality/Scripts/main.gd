@@ -13,6 +13,7 @@ func _ready() -> void:
 	Global.enemy_killed.connect(enemy_killed)
 	Global.PlayerSpells.append([0, 0, 0])
 	$CanvasLayer/BossBar.visible = false
+	$CanvasLayer/WaveCounter.text = "Wave " + str(Global.current_wave + 1)
 	for i in $"enemy spawners".get_children(): #Hides the enemy spawners when starting
 		i.visible = false
 
@@ -42,6 +43,7 @@ func _process(delta: float) -> void:
 func start_wave(wave_number):
 	var wave_array: Array
 	var enemy
+	$CanvasLayer/WaveCounter.text = "Wave " + str(Global.current_wave + 1)
 	for i in GameData.Waves[wave_number]: #Makes an array with all the enemies in the wave
 		while i[1] > 0:
 			wave_array.append(i[0])
