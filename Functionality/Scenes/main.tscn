@@ -138,12 +138,13 @@ theme_override_font_sizes/font_size = 16
 text = "Spawn Boss
 "
 
-[node name="SpellMenu" parent="CanvasLayer" instance=ExtResource("5_ipgrs")]
-visible = false
-
 [node name="DruidMenu" parent="CanvasLayer" instance=ExtResource("5_k2n5o")]
 visible = false
+top_level = true
 position = Vector2(118, 55)
+
+[node name="SpellMenu" parent="CanvasLayer" instance=ExtResource("5_ipgrs")]
+visible = false
 
 [node name="Temporary button" type="Button" parent="CanvasLayer"]
 texture_filter = 1

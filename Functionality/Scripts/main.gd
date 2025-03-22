@@ -9,7 +9,7 @@ var time_stop_load = preload("res://Functionality/Scenes/time_stop.tscn")
 var ray_of_annihilation_load =  preload("res://Functionality/Scenes/ray_of_annihilation.tscn")
 var active = [false, false, false]
 var timer = [false, false, false]
-var active_input = null
+var druid_timer = 0
 @onready var player: CharacterBody2D = $PlayerBody
 @onready var spell_menu: Node2D = $CanvasLayer/SpellMenu
 
@@ -127,9 +127,20 @@ func enemy_killed():
 	if get_node("Enemies").get_child_count() < 1:
 		Global.WaveCompleted = true
 		Global.current_wave += 1
+		druid_timer += 1
+		if druid_timer == 3 and 1 == randi_range(1, 3):
+			Global.DruidMenu = true
+			druid_timer = 0
+		elif druid_timer == 4 and 1 == randi_range(1, 2):
+			Global.DruidMenu = true
+			druid_timer = 0
+		elif druid_timer == 5:
+			Global.DruidMenu = true
+			druid_timer = 0
+
 
 func _on_temporary_button_pressed():
-	Global.BossWaveCompleted = true
+	Global.WaveCompleted = true
 
 func _on_temporary_button_2_pressed():
 	Global.DruidMenu = true

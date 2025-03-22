@@ -20,10 +20,10 @@ func _ready():
 	$AttackTimer.start()
 	Global.damage_player.connect(damaged)
 	protection_break.connect(protection_broken)
-	Global.PlayerSpells.append([2, 0, 0]) #adding the arcane shove spell for testing
-	Global.PlayerSpells.append([4, 0, 0]) #adding the summon golem spell for testing
+	#Global.PlayerSpells.append([2, 0, 0]) #adding the arcane shove spell for testing
+	#Global.PlayerSpells.append([4, 0, 0]) #adding the summon golem spell for testing
 	#Global.PlayerSpells.append([1, 0, 0]) #adding the divine protection spell for testing
-	Global.PlayerSpells.append([3, 0, 0]) #adding the arcane construct spell for testing
+	#Global.PlayerSpells.append([3, 0, 0]) #adding the arcane construct spell for testing
 
 func get_input(): #Pulls input directions and sets the velocity using them.
 	var input_direction = Input.get_vector("left", "right", "up", "down")

@@ -145,14 +145,14 @@ func spell_text(spell_number):
 	var final_string: String = name
 	for i in GameData.Spells[Spells[spell_number]]["Levelup"]:
 		level_stats.append([i[0], i[1]])
-	
-	for i in level_stats:
-		var key = str(i[0])
-		if key == "Duration":
-			print(GameData.Spells[Spells[spell_number]][key])
-		var temp_string = "\n" + key + " = " + str(GameData.Spells[Spells[spell_number]][key]) + " + " + str(i[1])
-		if string_parts.has(temp_string) == false:
-			string_parts.append(temp_string)
+	if Spells[spell_number] in UpgradeSpells:
+		for i in level_stats:
+			var key = str(i[0])
+			if key == "Duration":
+				print(GameData.Spells[Spells[spell_number]][key])
+			var temp_string = "\n" + key + " = " + str(GameData.Spells[Spells[spell_number]][key]) + " + " + str(i[1])
+			if string_parts.has(temp_string) == false:
+				string_parts.append(temp_string)
 	
 	for i in string_parts:
 		final_string += i
