@@ -40,7 +40,7 @@ func _on_attack_range_body_exited(body: Node2D) -> void:
 
 func _on_attacktimer_timeout() -> void:
 	if Global.TimeStop == false:
-		Global.damage_enemy.emit(damage)
+		Global.damage_player.emit(damage)
 
 
 func _on_hit_box_body_entered(body: Node2D) -> void:
