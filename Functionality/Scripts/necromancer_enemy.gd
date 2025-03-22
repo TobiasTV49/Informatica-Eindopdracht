@@ -8,6 +8,7 @@ var kback = false
 var locked = false
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
 var bullet_load = preload("res://Functionality/Scenes/enemy_bullet.tscn")
+var minions: Array
 const SKELETON_MINION = preload("res://Functionality/Scenes/skeleton_minion.tscn")
 
 func _ready() -> void:
@@ -77,6 +78,9 @@ func damaged(damage, target):
 		health -= damage
 		if health < 1:
 			self.queue_free()
+			for i in minions: #kills all the minions when the necromancer dies
+				i.queue_free()
+				Global.enemy_killed.emit()
 
 func _on_tree_exited() -> void:
 	Global.enemy_killed.emit()
@@ -91,5 +95,6 @@ func _on_spawn_timer_timeout() -> void:
 		$SpawnTimer.wait_time = 3 / Global.enemy_speed_mult
 		var minion = SKELETON_MINION.instantiate()
 		var spawn_pos: Array = [self.position + Vector2(40, 0), self.position + Vector2(-40, 0), self.position + Vector2(0, 40), self.position + Vector2(0, 40)]
+		minions.append(minion)
 		get_parent().add_child(minion)
 		minion.position = spawn_pos.pick_random()

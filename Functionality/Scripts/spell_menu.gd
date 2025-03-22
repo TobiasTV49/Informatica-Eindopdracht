@@ -90,6 +90,8 @@ func GoBack():
 	NewSpells = []
 	if active == false:
 		Global.WaveCompleted = false
+		await get_tree().create_timer(3).timeout
+		Global.wave_start.emit(Global.current_wave)
 	else:
 		Global.BossWaveCompleted = false
 	if active == false:

@@ -24,12 +24,15 @@ var player_dodge = 2
 var player_damage_reduction_mult:float = 1
 var player_attack_speed_mult:float = 1 
 var player_damage_mult:float = 1
+var room_coords_x = [0, 640]
+
 signal shoot
 signal enemy_shoot
 signal enemy_killed()
 signal knockback(speed, duration, body)
 signal damage_enemy(damage, enemy)
 signal damage_player(damage)
+signal wave_start()
 
 func get_index_from_name(name, dictionary):
 	for i in range(dictionary.size()):
