@@ -10,6 +10,8 @@ var ray_of_annihilation_load =  preload("res://Functionality/Scenes/ray_of_annih
 var active = [false, false, false]
 var timer = [false, false, false]
 var druid_timer = 0
+var active_input = null
+var boss_waves = [2, 5] #all boss waves will be in this array, but we only have 1 boss right now
 @onready var player: CharacterBody2D = $PlayerBody
 @onready var spell_menu: Node2D = $CanvasLayer/SpellMenu
 
@@ -29,6 +31,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Global.player_health <= 0 and Global.player_death == false: #player is about to die
 		Global.player_death = true
+		get_tree().change_scene_to_file("res://Functionality/Scenes/death_screen.tscn")
 	
 	if Global.player_death == false:
 		$CanvasLayer/Coins.text = str(Global.PlayerCoins) + " Coins"
@@ -89,29 +92,33 @@ func _process(delta: float) -> void:
 
 #Function that makes the waves
 func start_wave(wave_number):
-	var wave_array: Array
-	var enemy
-	for i in GameData.Waves[wave_number]: #Makes an array with all the enemies in the wave
-		while i[1] > 0:
-			wave_array.append(i[0])
-			i[1] -= 1
-	
-	wave_array.shuffle()
-	$CanvasLayer/WaveCounter.text = "Wave " + str(Global.current_wave + 1)
-	$CanvasLayer/WaveCounter/ProgressBar.max_value = wave_array.size()
-	$CanvasLayer/WaveCounter/ProgressBar.value = wave_array.size()
+	if boss_waves.has(wave_number):
+		start_boss_wave()
+		print("starting boss wave")
+	else:
+		var wave_array: Array
+		var enemy
+		for i in GameData.Waves[wave_number]: #Makes an array with all the enemies in the wave
+			while i[1] > 0:
+				wave_array.append(i[0])
+				i[1] -= 1
+		
+		wave_array.shuffle()
+		$CanvasLayer/WaveCounter.text = "Wave " + str(Global.current_wave + 1)
+		$CanvasLayer/WaveCounter/ProgressBar.max_value = wave_array.size()
+		$CanvasLayer/WaveCounter/ProgressBar.value = wave_array.size()
 
-	while wave_array.size() > 0: #Sets up all the enemies and calls the spawn_enemy function
-		await get_tree().create_timer(2).timeout
-		match wave_array[0]:
-			"melee_enemy":
-				enemy = MELEE_ENEMY.instantiate()
-			"ranged_enemy":
-				enemy = RANGED_ENEMY.instantiate()
-			"necromancer":
-				enemy = NECROMANCER.instantiate()
-		spawn_enemy(enemy)
-		wave_array.remove_at(0)
+		while wave_array.size() > 0: #Sets up all the enemies and calls the spawn_enemy function
+			await get_tree().create_timer(2).timeout
+			match wave_array[0]:
+				"melee_enemy":
+					enemy = MELEE_ENEMY.instantiate()
+				"ranged_enemy":
+					enemy = RANGED_ENEMY.instantiate()
+				"necromancer":
+					enemy = NECROMANCER.instantiate()
+			spawn_enemy(enemy)
+			wave_array.remove_at(0)
 
 #The actual spawning of the enemies is regulated with this function
 func spawn_enemy(enemy):

@@ -50,6 +50,7 @@ shape = SubResource("CircleShape2D_1dgia")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attackRange"]
 shape = SubResource("CircleShape2D_qjipj")
 
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="playerHitBox" to="." method="_on_player_hit_box_body_entered"]
 [connection signal="body_entered" from="attackRange" to="." method="_on_attack_range_body_entered"]
