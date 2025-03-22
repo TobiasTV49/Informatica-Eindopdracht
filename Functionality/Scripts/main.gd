@@ -17,6 +17,7 @@ var active_input = null
 func _ready() -> void:
 	Global.player_death = false
 	Global.enemy_killed.connect(enemy_killed)
+	Global.wave_start.connect(start_wave)
 	Global.PlayerSpells.append([0, 0, 0])
 	$CanvasLayer/BossBar.visible = false
 	$CanvasLayer/WaveCounter.text = "Wave " + str(Global.current_wave + 1)
@@ -90,13 +91,15 @@ func _process(delta: float) -> void:
 func start_wave(wave_number):
 	var wave_array: Array
 	var enemy
-	$CanvasLayer/WaveCounter.text = "Wave " + str(Global.current_wave + 1)
 	for i in GameData.Waves[wave_number]: #Makes an array with all the enemies in the wave
 		while i[1] > 0:
 			wave_array.append(i[0])
 			i[1] -= 1
 	
 	wave_array.shuffle()
+	$CanvasLayer/WaveCounter.text = "Wave " + str(Global.current_wave + 1)
+	$CanvasLayer/WaveCounter/ProgressBar.max_value = wave_array.size()
+	$CanvasLayer/WaveCounter/ProgressBar.value = wave_array.size()
 
 	while wave_array.size() > 0: #Sets up all the enemies and calls the spawn_enemy function
 		await get_tree().create_timer(2).timeout
@@ -124,9 +127,11 @@ func _on_button_pressed() -> void:
 
 func enemy_killed():
 	Global.PlayerCoins += Global.coinsPerEnemy
+	$CanvasLayer/WaveCounter/ProgressBar.value -= 1
 	if get_node("Enemies").get_child_count() < 1:
 		Global.WaveCompleted = true
 		Global.current_wave += 1
+
 
 func _on_temporary_button_pressed():
 	Global.BossWaveCompleted = true
@@ -152,9 +157,7 @@ func _on_button_4_pressed() -> void:
 	$Enemies.add_child(skeleton_minion)
 
 func _on_button_5_pressed() -> void:
-	var boss = BOSS.instantiate()
-	$Enemies.add_child(boss)
-	boss.position = Vector2(360, 64)
+	start_boss_wave()
 
 func update_stats():
 	for i in Global.PlayerSpells:
@@ -182,6 +185,20 @@ func update_names():
 func _on_bullet_killer_left_body_entered(body: Node2D) -> void:
 	if body.is_in_group("bullets"):
 		body.queue_free()
+
+func start_boss_wave():
+	$CanvasLayer/WaveCounter.visible = false
+	for i in range(0, 35):
+		$Player/Camera2D.zoom -= Vector2(0.005, 0.005)
+		await get_tree().create_timer(0.05).timeout
+	var boss = BOSS.instantiate()
+	$Enemies.add_child(boss)
+	$CanvasLayer/BossBar.visible = true
+	$CanvasLayer/WaveCounter.text = "The Molten Guardian"
+	$CanvasLayer/WaveCounter.add_theme_color_override("font_color", Color(255, 0, 0))
+	$CanvasLayer/WaveCounter.visible = true
+	$CanvasLayer/WaveCounter/ProgressBar.visible = false
+	boss.position = Vector2(360, 64)
 
 func UseActive(UsedActive):
 	if UsedActive == 5:

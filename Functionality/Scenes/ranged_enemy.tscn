@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://53grnwnr4rie"]
+[gd_scene load_steps=9 format=3 uid="uid://53grnwnr4rie"]
 
-[ext_resource type="Texture2D" uid="uid://c4snuhiqix0ih" path="res://icon.svg" id="2_0qmmn"]
+[ext_resource type="Texture2D" uid="uid://dkqcy7wrd0hts" path="res://Assets/eyeRangedBody.png" id="1_hyft4"]
 [ext_resource type="FontFile" uid="uid://crm5aodm5xa2d" path="res://at01.ttf" id="2_qckd4"]
+[ext_resource type="Texture2D" uid="uid://b3oh5m1a600e2" path="res://Assets/eyeRangedIris.png" id="2_qqevs"]
 
 [sub_resource type="GDScript" id="GDScript_3cn3p"]
 script/source = "extends CharacterBody2D
@@ -11,9 +12,9 @@ var SPEED = 25
 var damage = 10
 var health = 50
 var kback = false
-@onready var player = get_tree().get_nodes_in_group(\"Player\")[0]
 var bullet_load = preload(\"res://Functionality/Scenes/enemy_bullet.tscn\")
 
+@onready var player = get_tree().get_nodes_in_group(\"Player\")[0]
 func _ready() -> void:
 	$ProgressBar.max_value = health
 	Global.knockback.connect(knocked_back)
@@ -23,10 +24,11 @@ func _physics_process(delta: float) -> void:
 	$ProgressBar.value = health
 	if Global.player_death == false:
 		var direction = player.position.x - position.x
+		$eyeball.look_at(player.position)
 		if direction > 0:
-			$enemy_sprite.flip_h = false
-		else:
 			$enemy_sprite.flip_h = true
+		else:
+			$enemy_sprite.flip_h = false
 			
 		if attacking == false:
 			velocity = (player.position - position).normalized() * SPEED * Global.enemy_speed_mult
@@ -67,11 +69,12 @@ func knocked_back(knockback, length, body):
 		SPEED = temp_s
 		attacking = temp_a
 
+
 func _on_hit_box_body_entered(body: Node2D) -> void:
 	if body.get_meta(\"bullet_type\") == \"player bullet\":
 		body.queue_free()
 		damaged(body.bullet_damage, self)
-		
+	
 func damaged(damage, target):
 	if target == self:
 		health -= damage
@@ -82,15 +85,14 @@ func _on_tree_exited() -> void:
 	Global.enemy_killed.emit()
 "
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gphb"]
-size = Vector2(30, 30)
+[sub_resource type="CircleShape2D" id="CircleShape2D_w8mvu"]
+radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gcqi8"]
 radius = 181.069
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ghn0n"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_vwm6w"]
 radius = 14.0
-height = 46.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nxvyk"]
 bg_color = Color(1, 0, 0, 1)
@@ -100,11 +102,16 @@ position = Vector2(23, 23)
 script = SubResource("GDScript_3cn3p")
 
 [node name="enemy_sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_0qmmn")
+texture = ExtResource("1_hyft4")
+
+[node name="eyeball" type="Node2D" parent="."]
+
+[node name="eyeball_sprite" type="Sprite2D" parent="eyeball"]
+position = Vector2(3, 0)
+texture = ExtResource("2_qqevs")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_3gphb")
+shape = SubResource("CircleShape2D_w8mvu")
 
 [node name="AttackRange" type="Area2D" parent="."]
 
@@ -116,11 +123,10 @@ collision_layer = 2
 collision_mask = 6
 
 [node name="HitBoxShape" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(-3, 0)
-shape = SubResource("CapsuleShape2D_ghn0n")
+shape = SubResource("CircleShape2D_vwm6w")
 
 [node name="Attacktimer" type="Timer" parent="."]
-wait_time = 1.2
+wait_time = 1.5
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 offset_left = -12.0

@@ -88,6 +88,8 @@ limit_smoothed = true
 
 [node name="Enemies" type="Node2D" parent="."]
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Button" type="Button" parent="CanvasLayer"]

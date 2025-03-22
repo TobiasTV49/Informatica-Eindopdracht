@@ -17,7 +17,7 @@ func _ready() -> void:
 	await get_tree().create_timer(2).timeout
 	$AttackTimer.start()
 	$EruptionTimer.start()
-	
+	$ConstructSpawnTimer.start()
 	boss_bar = get_parent().get_parent().get_node("CanvasLayer/BossBar")
 	boss_bar.max_value = max_health
 
@@ -25,13 +25,14 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	$Dash/DashEnd.position.x = $Dash/DashWarning.size.x
 	if boss_bar != null:
-		boss_bar.visible = true
 		boss_bar.value = health
 	
 	if health <= (max_health/2):
 		phase = 2
+		get_parent().get_parent().get_node("CanvasModulate").color = Color(1.0, 0.5, 0.0)
 	else:
 		phase = 1
+		get_parent().get_parent().get_node("CanvasModulate").color = Color(1.25, 0.75, 0.2)
 	
 	move_and_slide()
 
@@ -69,8 +70,20 @@ func boss_dash():
 	if Global.player_death == false:
 		$AttackTimer.start()
 		
-
-
+func spawn_constructs():
+	var spawn_pos: Array = [self.position + Vector2(80, 0), self.position + Vector2(-80, 0)]
+	for i in range(0, 2): #spawns 2 constructs
+		var construct = preload("res://Functionality/Scenes/ranged_enemy.tscn").instantiate()
+		construct.get_node("enemy_sprite").texture = load("res://Assets/gorillaBrawnBuff.png") #gorilla brawn texture is TEMPORARY obviously
+		construct.get_node("eyeball").visible = false
+		construct.get_node("Collision").disabled = true
+		construct.get_node("Attacktimer").wait_time = 2.5
+		get_parent().add_child(construct)
+		construct.position = spawn_pos[0]
+		if construct.position.x < Global.room_coords_x[0] or construct.position.x > Global.room_coords_x[1]: #deletes the construct if it spawns outside the room borders
+			construct.queue_free()
+		spawn_pos.remove_at(0)
+		
 func _on_dash_damage_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		Global.damage_player.emit(25)
@@ -83,6 +96,11 @@ func _on_attack_timer_timeout() -> void:
 
 
 func _on_eruption_timer_timeout() -> void:
-	if phase == 2:
+	if phase == 2 and Global.TimeStop == false:
 		spawn_eruption() #spawns 2 eruptions every x seconds when the boss has < 1/2 max health
 		spawn_eruption()
+
+
+func _on_construct_spawn_timer_timeout() -> void:
+	print("spawning constructs")
+	spawn_constructs()
