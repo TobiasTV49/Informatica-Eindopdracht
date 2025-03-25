@@ -24,6 +24,7 @@ func _process(delta: float) -> void:
 
 func meteor_strike():
 	self.hide()
+	Global.active_used.emit()
 	for i in targets.size():
 		Global.damage_enemy.emit(damage, targets[i])
 	queue_free()

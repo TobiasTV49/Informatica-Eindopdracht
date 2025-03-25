@@ -92,7 +92,7 @@ limit_smoothed = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Button" type="Button" parent="CanvasLayer"]
+[node name="Button" type="Button" parent="CanvasLayer" groups=["admin buttons"]]
 offset_left = 513.0
 offset_top = 82.0
 offset_right = 680.0
@@ -101,7 +101,7 @@ scale = Vector2(0.75, 0.75)
 theme_override_font_sizes/font_size = 16
 text = "Spawn Melee Enemy"
 
-[node name="Button2" type="Button" parent="CanvasLayer"]
+[node name="Button2" type="Button" parent="CanvasLayer" groups=["admin buttons"]]
 offset_left = 515.0
 offset_top = 110.0
 offset_right = 682.0
@@ -110,7 +110,7 @@ scale = Vector2(0.75, 0.75)
 theme_override_font_sizes/font_size = 16
 text = "Spawn Ranged Enemy"
 
-[node name="Button3" type="Button" parent="CanvasLayer"]
+[node name="Button3" type="Button" parent="CanvasLayer" groups=["admin buttons"]]
 offset_left = 512.0
 offset_top = 56.0
 offset_right = 679.0
@@ -120,7 +120,7 @@ theme_override_font_sizes/font_size = 16
 text = "Spawn Necromancer
 "
 
-[node name="Button4" type="Button" parent="CanvasLayer"]
+[node name="Button4" type="Button" parent="CanvasLayer" groups=["admin buttons"]]
 offset_left = 512.0
 offset_top = 139.0
 offset_right = 679.0
@@ -130,7 +130,7 @@ theme_override_font_sizes/font_size = 16
 text = "Spawn Skeleton Minion
 "
 
-[node name="Button5" type="Button" parent="CanvasLayer"]
+[node name="Button5" type="Button" parent="CanvasLayer" groups=["admin buttons"]]
 offset_left = 514.0
 offset_top = 168.0
 offset_right = 681.0
@@ -141,14 +141,12 @@ text = "Spawn Boss
 "
 
 [node name="DruidMenu" parent="CanvasLayer" instance=ExtResource("5_k2n5o")]
-visible = false
 top_level = true
-position = Vector2(118, 55)
 
 [node name="SpellMenu" parent="CanvasLayer" instance=ExtResource("5_ipgrs")]
 visible = false
 
-[node name="Temporary button" type="Button" parent="CanvasLayer"]
+[node name="Temporary button" type="Button" parent="CanvasLayer" groups=["admin buttons"]]
 texture_filter = 1
 offset_left = 203.0
 offset_top = 328.0
@@ -157,7 +155,7 @@ offset_bottom = 359.0
 theme_override_font_sizes/font_size = 16
 text = "click for wave completion"
 
-[node name="Temporary button2" type="Button" parent="CanvasLayer"]
+[node name="Temporary button2" type="Button" parent="CanvasLayer" groups=["admin buttons"]]
 texture_filter = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -171,7 +169,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 16
 text = "click for druid shop"
 
-[node name="WaveStarter" type="Button" parent="CanvasLayer"]
+[node name="WaveStarter" type="Button" parent="CanvasLayer" groups=["admin buttons"]]
 offset_left = 528.0
 offset_top = 24.0
 offset_right = 636.0

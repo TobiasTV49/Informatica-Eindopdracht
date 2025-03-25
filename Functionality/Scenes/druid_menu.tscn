@@ -23,14 +23,15 @@ offset_bottom = 36.0
 grow_horizontal = 0
 text = "Close"
 
-[node name="Item1" type="Button" parent="DruidMenu_BG"]
+[node name="Item1" type="Button" parent="DruidMenu_BG" groups=["Items"]]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 40.0
 offset_right = 125.0
 offset_bottom = 105.0
+metadata/item_index = 0
 
-[node name="Item2" type="Button" parent="DruidMenu_BG"]
+[node name="Item2" type="Button" parent="DruidMenu_BG" groups=["Items"]]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -40,8 +41,9 @@ offset_top = 40.0
 offset_right = 32.5
 offset_bottom = 105.0
 grow_horizontal = 2
+metadata/item_index = 1
 
-[node name="Item3" type="Button" parent="DruidMenu_BG"]
+[node name="Item3" type="Button" parent="DruidMenu_BG" groups=["Items"]]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -51,15 +53,17 @@ offset_top = 40.0
 offset_right = 182.5
 offset_bottom = 105.0
 grow_horizontal = 2
+metadata/item_index = 2
 
-[node name="Item4" type="Button" parent="DruidMenu_BG"]
+[node name="Item4" type="Button" parent="DruidMenu_BG" groups=["Items"]]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 140.0
 offset_right = 125.0
 offset_bottom = 205.0
+metadata/item_index = 3
 
-[node name="Item5" type="Button" parent="DruidMenu_BG"]
+[node name="Item5" type="Button" parent="DruidMenu_BG" groups=["Items"]]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -69,8 +73,9 @@ offset_top = 140.0
 offset_right = 32.5
 offset_bottom = 205.0
 grow_horizontal = 2
+metadata/item_index = 4
 
-[node name="Item6" type="Button" parent="DruidMenu_BG"]
+[node name="Item6" type="Button" parent="DruidMenu_BG" groups=["Items"]]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -80,6 +85,7 @@ offset_top = 140.0
 offset_right = 182.5
 offset_bottom = 205.0
 grow_horizontal = 2
+metadata/item_index = 5
 
 [connection signal="pressed" from="DruidMenu_BG/Close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="DruidMenu_BG/Item1" to="." method="_on_item_1_pressed"]

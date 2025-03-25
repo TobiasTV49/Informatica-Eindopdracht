@@ -65,17 +65,11 @@ metadata/bullet_type = ""
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-3, -1)
-rotation = 3.14159
 sprite_frames = SubResource("SpriteFrames_38001")
 autoplay = "default"
 frame_progress = 0.272363
-
-[node name="CollisionArea" type="Area2D" parent="."]
-collision_mask = 2
 
 [node name="bulletCollision" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 scale = Vector2(0.6, 0.6)
 shape = SubResource("CapsuleShape2D_tob7u")
-
-[connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]

@@ -13,7 +13,7 @@ var PlayerSpells = []
 var ActivePlayerSpells = []
 var PlayerItems = []
 var PlayerCoins = 300
-var coinsPerEnemy = 10
+var coinsPerEnemy = 2
 var DruidMenu = false
 var TimeStop = false
 var stunned = false
@@ -33,6 +33,7 @@ signal knockback(speed, duration, body)
 signal damage_enemy(damage, enemy)
 signal damage_player(damage)
 signal wave_start()
+signal active_used
 
 func get_index_from_name(name, dictionary):
 	for i in range(dictionary.size()):

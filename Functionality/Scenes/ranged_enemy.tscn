@@ -13,6 +13,7 @@ var damage = 10
 var health = 50
 var kback = false
 var bullet_load = preload(\"res://Functionality/Scenes/enemy_bullet.tscn\")
+var bullet_type = \"default_bullet\"
 
 @onready var player = get_tree().get_nodes_in_group(\"Player\")[0]
 func _ready() -> void:
@@ -54,6 +55,7 @@ func _on_attacktimer_timeout() -> void: #temp inactive because it breaks alot
 		var bullet = bullet_load.instantiate()
 		var enemy_bullets = get_tree().current_scene.get_node(\"enemy_bullets\")
 		enemy_bullets.add_child(bullet)
+		bullet.bullet_type = bullet_type
 		Global.enemy_shoot.emit(\"player\", self.position, bullet.name, damage)
 	
 func knocked_back(knockback, length, body):

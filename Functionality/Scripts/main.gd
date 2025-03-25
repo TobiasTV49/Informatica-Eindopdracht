@@ -25,6 +25,8 @@ func _ready() -> void:
 	$CanvasLayer/WaveCounter.text = "Wave " + str(Global.current_wave + 1)
 	for i in $"enemy spawners".get_children(): #Hides the enemy spawners when starting
 		i.visible = false
+	for i in get_tree().get_nodes_in_group("admin buttons"):
+		i.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,6 +37,14 @@ func _process(delta: float) -> void:
 	
 	if Global.player_death == false:
 		$CanvasLayer/Coins.text = str(Global.PlayerCoins) + " Coins"
+	
+	if Input.is_action_just_pressed("admin buttons"): #toggles the admin menu (key = M)
+		if $CanvasLayer/Button.visible == true:
+			for i in get_tree().get_nodes_in_group("admin buttons"):
+				i.visible = false
+		else:
+			for i in get_tree().get_nodes_in_group("admin buttons"):
+				i.visible = true
 	
 	if Global.WaveCompleted == true or Global.BossWaveCompleted == true:
 		spell_menu.show()

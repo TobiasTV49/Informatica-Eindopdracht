@@ -15,6 +15,7 @@ func _process(delta):
 
 func time_stop():
 	self.hide()
+	Global.active_used.emit()
 	var index = Global.GetSpellIndex(6)
 	if Global.ActivePlayerSpells[index][2] == 1:
 		print(Global.enemy_speed_mult)

@@ -14,11 +14,13 @@ var shield_active = false
 var shield_spawnable = true
 var enemies_in_range = 0
 var protection
+var using_active = false
 signal protection_break
 
 func _ready():
 	$AttackTimer.start()
 	Global.damage_player.connect(damaged)
+	Global.active_used.connect(active_used)
 	protection_break.connect(protection_broken)
 	#Global.PlayerSpells.append([2, 0, 0]) #adding the arcane shove spell for testing
 	#Global.PlayerSpells.append([4, 0, 0]) #adding the summon golem spell for testing
@@ -28,12 +30,28 @@ func _ready():
 func get_input(): #Pulls input directions and sets the velocity using them.
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	velocity = input_direction * speed * Global.player_movement_speed_mult
-
+	if input_direction.x > 0:
+		$playerUpperBody.flip_h = false
+		$playerLowerBody.flip_h = false
+	elif input_direction.x < 0:
+		$playerUpperBody.flip_h = true
+		$playerLowerBody.flip_h = true
+	
+		
 func _physics_process(delta):
 	if Global.player_death == true:
 		self.queue_free()
 	get_input() #I wonder what this could do, i really have no clue.
 	$ProgressBar.value = Global.player_health
+	
+	if velocity != Vector2(0, 0):
+		$playerLowerBody.play("running")
+		if using_active == false:
+			$playerUpperBody.play("run")
+	else:
+		$playerLowerBody.play("idle")
+		if using_active == false:
+			$playerUpperBody.play("idle")
 	
 	for i in Global.PlayerSpells.size(): #puts the names of all unlocked spells in an array
 		var index = Global.PlayerSpells[i][0]
@@ -50,6 +68,7 @@ func _physics_process(delta):
 		divine_protection()
 	
 	if spell_list.has("Arcane constuct"):
+		print("balls")
 		arcane_construct()
 	
 	if Global.stunned == false:
@@ -69,6 +88,15 @@ func _on_attack_timer_timeout() -> void:
 		Global.shoot.emit(bullet_target, source, 10, 200, 1)
 						  #target, source, damage, speed, scale
 
+func active_used():
+	using_active = true
+	if velocity == Vector2(0, 0):
+		$playerUpperBody.play("active_idle")
+		await $playerUpperBody.animation_finished
+	else:
+		$playerUpperBody.play("active_run")
+		await $playerUpperBody.animation_finished
+	using_active = false
 
 func damaged(damage):
 	if shield_active == false:
@@ -86,6 +114,7 @@ func arcane_construct():
 	if construct_active == false:
 		construct_active = true
 		var construct = arcane_construct_load.instantiate()
+		construct.visible = true
 		add_child(construct)
 	
 

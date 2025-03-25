@@ -26,6 +26,7 @@ func _process(delta):
 
 func ray_of_annihilation():
 	shot = true
+	Global.active_used.emit()
 	var damage = GameData.Spells[7]["Damage"] * Global.player_damage_mult
 	var index = Global.GetSpellIndex(7)
 	var hits = 30

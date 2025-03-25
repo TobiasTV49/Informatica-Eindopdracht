@@ -5,12 +5,17 @@ var direction
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
 var speed = 100
 var bullet_damage
+var bullet_type = "default_bullet"
 
 func _ready():
 	Global.enemy_shoot.connect(enemy_shot_fired)
 	visible = false
+	
 
 func _process(delta: float) -> void:
+	$bulletSprite.play(bullet_type)
+	if bullet_type == "flame_bullet":
+		scale = Vector2(1.5, 1.5)
 	if shot == true:
 		var move_vector = Vector2(1, 0).rotated(rotation)
 		velocity = move_vector * speed * Global.enemy_speed_mult

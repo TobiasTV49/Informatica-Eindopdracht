@@ -64,12 +64,11 @@ func RandomizeChoices(x):
 		Items[x] = check
 
 func UpdateNames():
-	$DruidMenu_BG/Item1.text = str(GameData.Items[Items[0]]["Name"]) + "\n" + str(GameData.Items[Items[0]]["Cost"])
-	$DruidMenu_BG/Item2.text = str(GameData.Items[Items[1]]["Name"]) + "\n" + str(GameData.Items[Items[1]]["Cost"])
-	$DruidMenu_BG/Item3.text = str(GameData.Items[Items[2]]["Name"]) + "\n" + str(GameData.Items[Items[2]]["Cost"])
-	$DruidMenu_BG/Item4.text = str(GameData.Items[Items[3]]["Name"]) + "\n" + str(GameData.Items[Items[3]]["Cost"])
-	$DruidMenu_BG/Item5.text = str(GameData.Items[Items[4]]["Name"]) + "\n" + str(GameData.Items[Items[4]]["Cost"])
-	$DruidMenu_BG/Item6.text = str(GameData.Items[Items[5]]["Name"]) + "\n" + str(GameData.Items[Items[5]]["Cost"])
+	for i in get_tree().get_nodes_in_group("Items"):
+		var x = i.get_meta("item_index")
+		i.text = str(GameData.Items[Items[x]]["Name"]) + "\n" + str(GameData.Items[Items[x]]["Cost"])
+		i.icon = GameData.Items[x]["Icon"]
+
 
 func UpdateSlots():
 	if GameData.Items[Items[0]]["Cost"] > Global.PlayerCoins or Bought[0] == true:

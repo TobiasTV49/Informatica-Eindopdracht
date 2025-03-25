@@ -58,31 +58,37 @@ var Items = {
 	0: {
 		"Name" = "Healing Balm",
 		"Cost" = 10,
+		"Icon" = load("res://Assets/healthPotion.png")
 	},
 	1: {
 		"Name" = "Hawk's sight",
 		"Cost" = 20,
 		"Effect" = 0.1,
+		"Icon" = load("res://Assets/hawkSightBuff.png")
 	},
 	2: {
 		"Name" = "Panther's dexterity",
 		"Cost" = 25,
 		"Effect" = 0.1,
+		"Icon" = load("res://Assets/pantherDexterityBuff.png")
 	},
 	3: {
 		"Name" = "Armadillo's resistance",
 		"Cost" = 15,
 		"Effect" = 0.1,
+		"Icon" = load("res://Assets/armadilloResistanceBuff.png")
 	},
 	4: {
 		"Name" = "Hummingbird's haste",
 		"Cost" = 10,
 		"Effect" = 0.1,
+		"Icon" = load("res://Assets/hummingbirdHasteBuff.png")
 	},
 	5: {
 		"Name" = "Gorilla's brawn",
 		"Cost" = 30,
 		"Effect" = 0.1,
+		"Icon" = load("res://Assets/gorillaBrawnBuff.png")
 	}
 }
 

@@ -79,8 +79,9 @@ func damaged(damage, target):
 		if health < 1:
 			self.queue_free()
 			for i in minions: #kills all the minions when the necromancer dies
-				i.queue_free()
-				Global.enemy_killed.emit()
+				if i != null:
+					i.queue_free()
+					Global.enemy_killed.emit()
 
 func _on_tree_exited() -> void:
 	Global.enemy_killed.emit()

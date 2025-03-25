@@ -14,18 +14,26 @@ func _ready() -> void:
 	health = max_health
 	Global.damage_enemy.connect(damaged)
 	$Dash/dashDamageBox/DamageBoxShape.disabled = true
-	await get_tree().create_timer(2).timeout
+	$Dash.visible = false
 	$AttackTimer.start()
 	$EruptionTimer.start()
 	$ConstructSpawnTimer.start()
 	boss_bar = get_parent().get_parent().get_node("CanvasLayer/BossBar")
 	boss_bar.max_value = max_health
+	await get_tree().create_timer(1).timeout
+	boss_dash()
 
 
 func _physics_process(delta: float) -> void:
 	$Dash/DashEnd.position.x = $Dash/DashWarning.size.x
 	if boss_bar != null:
 		boss_bar.value = health
+	
+	var direction = player.position.x - position.x
+	if direction > 0:
+		$bossUpperBody.flip_h = false
+	else:
+		$bossUpperBody.flip_h = true
 	
 	if health <= (max_health/2):
 		phase = 2
@@ -78,6 +86,7 @@ func spawn_constructs():
 		construct.get_node("eyeball").visible = false
 		construct.get_node("Collision").disabled = true
 		construct.get_node("Attacktimer").wait_time = 2.5
+		construct.bullet_type = "flame_bullet"
 		get_parent().add_child(construct)
 		construct.position = spawn_pos[0]
 		if construct.position.x < Global.room_coords_x[0] or construct.position.x > Global.room_coords_x[1]: #deletes the construct if it spawns outside the room borders
