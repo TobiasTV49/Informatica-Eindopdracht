@@ -76,6 +76,7 @@ func _on_hit_box_body_entered(body: Node2D) -> void:
 func damaged(damage, target):
 	if target == self:
 		health -= damage
+		Global.DamageNumbers(damage, self.position)
 		if health < 1:
 			self.queue_free()
 			for i in minions: #kills all the minions when the necromancer dies

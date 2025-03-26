@@ -85,7 +85,7 @@ func _on_attack_timer_timeout() -> void:
 		var source = self.position
 		player_bullets.add_child(bullet)
 		bullet.position = position
-		Global.shoot.emit(bullet_target, source, 10, 200, 1)
+		Global.shoot.emit(bullet_target, source, GameData.Spells[0]["Damage"], 200, 1)
 						  #target, source, damage, speed, scale
 
 func active_used():
@@ -103,6 +103,7 @@ func damaged(damage):
 		if Global.player_dodge <= randi_range(1,100):
 			damage /= Global.player_damage_reduction_mult
 			Global.player_health -= damage
+			Global.DamageNumbers(damage, self.position)
 			if Global.player_health < 1:
 				self.queue_free()
 		else:

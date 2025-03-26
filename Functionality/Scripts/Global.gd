@@ -70,3 +70,16 @@ func CheckPlayerItems(i):
 		else:
 			inside = false
 			return inside
+
+func DamageNumbers(damage, position):
+	var text = Label.new()
+	text.text = str(damage)
+	text.position = position
+	get_tree().current_scene.add_child(text)
+	var x = 0
+	while x < 20:
+		await get_tree().create_timer(0.05).timeout
+		text.position.y -= 2
+		text.self_modulate.a -= 0.1
+		x += 1
+	text.queue_free()

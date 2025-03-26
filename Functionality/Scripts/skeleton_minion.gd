@@ -63,6 +63,7 @@ func knocked_back(knockback, length, body):
 func damaged(damage, target):
 	if target == self:
 		health -= damage
+		Global.DamageNumbers(damage, self.position)
 		if health < 1:
 			self.queue_free()
 

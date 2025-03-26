@@ -162,7 +162,7 @@ func enemy_killed():
 
 
 func _on_temporary_button_pressed():
-	Global.WaveCompleted = true
+	Global.BossWaveCompleted = true
 
 func _on_temporary_button_2_pressed():
 	Global.DruidMenu = true
@@ -194,6 +194,7 @@ func update_stats():
 			var upgradeamount = x[1]
 			var basestat = x[2]
 			GameData.Spells[i[0]][upgradestat] = basestat + upgradeamount * i[1]
+			print(GameData.Spells)
 
 func update_names():
 	if Global.ActivePlayerSpells.size() > 0:
