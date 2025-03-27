@@ -20,6 +20,7 @@ func _ready() -> void:
 	Global.player_death = false
 	Global.enemy_killed.connect(enemy_killed)
 	Global.wave_start.connect(start_wave)
+	Global.player_death_signal.connect(player_death)
 	Global.PlayerSpells.append([0, 0, 0])
 	$CanvasLayer/BossBar.visible = false
 	$CanvasLayer/WaveCounter.text = "Wave " + str(Global.current_wave + 1)
@@ -27,7 +28,6 @@ func _ready() -> void:
 		i.visible = false
 	for i in get_tree().get_nodes_in_group("admin buttons"):
 		i.visible = false
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -194,7 +194,6 @@ func update_stats():
 			var upgradeamount = x[1]
 			var basestat = x[2]
 			GameData.Spells[i[0]][upgradestat] = basestat + upgradeamount * i[1]
-			print(GameData.Spells)
 
 func update_names():
 	if Global.ActivePlayerSpells.size() > 0:
@@ -211,9 +210,12 @@ func update_names():
 			$CanvasLayer/Active_3/Label.text += "\n" + str(int($CanvasLayer/Active_3/Timer.get_time_left()))
 
 
-func _on_bullet_killer_left_body_entered(body: Node2D) -> void:
+func _on_bullet_killer_left_body_entered(body: Node2D) -> void: #deletes bullet that are out of the screen
 	if body.is_in_group("bullets"):
 		body.queue_free()
+
+func player_death():
+	get_tree().change_scene_to_file("res://Functionality/Scenes/death_screen.tscn")
 
 func start_boss_wave():
 	$CanvasLayer/WaveCounter.visible = false

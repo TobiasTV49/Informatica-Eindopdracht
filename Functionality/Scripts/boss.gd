@@ -29,6 +29,15 @@ func _physics_process(delta: float) -> void:
 	if boss_bar != null:
 		boss_bar.value = health
 	
+	if Global.TimeStop == true:
+		$AttackTimer.paused = true
+		$EruptionTimer.paused = true
+		$ConstructSpawnTimer.paused = true
+	else:
+		$AttackTimer.paused = false
+		$EruptionTimer.paused = false
+		$ConstructSpawnTimer.paused = false
+	
 	var direction = player.position.x - position.x
 	if direction > 0:
 		$bossUpperBody.flip_h = false
@@ -71,7 +80,8 @@ func boss_dash():
 	await get_tree().create_timer(1.5).timeout
 	$Dash.visible = false
 	$Dash/dashDamageBox/DamageBoxShape.disabled = false
-	velocity = direction * SPEED * Global.enemy_speed_mult
+	if Global.TimeStop == false:
+		velocity = direction * SPEED * Global.enemy_speed_mult
 	await get_tree().create_timer(0.5).timeout
 	velocity = Vector2(0, 0)
 	$Dash/dashDamageBox/DamageBoxShape.disabled = true

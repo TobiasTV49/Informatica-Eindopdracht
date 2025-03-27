@@ -14,8 +14,17 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if Global.player_death == false:
-		position = player.position + Vector2(25, -25)
+		position = Vector2(25, -25)
 		damage = GameData.Spells[3]["Damage"]
+		var nearest_enemy = Global.get_nearest_enemy(self.position)
+		if nearest_enemy != null:
+			var direction = nearest_enemy.position.x - position.x
+			if direction > 0:
+				$ConstructSprite.flip_h = true
+				print('"balls"')
+			else:
+				$ConstructSprite.flip_h = false
+				print("Balls")
 		move_and_slide()
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
@@ -33,7 +42,6 @@ func _on_attack_timer_timeout() -> void:
 		var bullet = bullet_load.instantiate()
 		var player_bullets = get_tree().current_scene.get_node("player_bullets")
 		var bullet_target = "enemy"
-		var source = self.position
+		var source = player.position + position
 		player_bullets.add_child(bullet)
-		bullet.position = position
 		Global.shoot.emit(bullet_target, source, damage, bullet_speed, 0.5)

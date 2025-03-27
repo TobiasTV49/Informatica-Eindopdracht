@@ -39,8 +39,6 @@ func get_input(): #Pulls input directions and sets the velocity using them.
 	
 		
 func _physics_process(delta):
-	if Global.player_death == true:
-		self.queue_free()
 	get_input() #I wonder what this could do, i really have no clue.
 	$ProgressBar.value = Global.player_health
 	
@@ -58,6 +56,7 @@ func _physics_process(delta):
 		if spell_list.has(GameData.Spells[index]["Name"]) == false:
 			spell_list.append(GameData.Spells[index]["Name"])
 	
+	
 	if spell_list.has("Arcane shove"):
 		arcane_shove(0.5, 2 / Global.player_attack_speed_mult) #calls arcane shove. 1st value = effect lenght, 2nd value = effect cooldown
 	
@@ -67,8 +66,7 @@ func _physics_process(delta):
 	if spell_list.has("Divine protection"):
 		divine_protection()
 	
-	if spell_list.has("Arcane constuct"):
-		print("balls")
+	if spell_list.has("Arcane construct"):
 		arcane_construct()
 	
 	if Global.stunned == false:
@@ -103,9 +101,10 @@ func damaged(damage):
 		if Global.player_dodge <= randi_range(1,100):
 			damage /= Global.player_damage_reduction_mult
 			Global.player_health -= damage
-			Global.DamageNumbers(damage, self.position)
 			if Global.player_health < 1:
+				Global.player_death = true
 				self.queue_free()
+			Global.DamageNumbers(damage, self.position)
 		else:
 			print("attack dodged")
 	elif shield_active == true:
@@ -155,6 +154,9 @@ func protection_broken():
 	await get_tree().create_timer(cooldown).timeout
 	shield_spawnable = true
 	
+func _on_tree_exited():
+	Global.player_death_signal.emit()
+	Global.player_death = true
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):

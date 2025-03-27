@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bfvfnvjqjy84k"]
 
 [ext_resource type="Script" path="res://Functionality/Scripts/arcane_construct.gd" id="1_i8kvs"]
-[ext_resource type="Texture2D" uid="uid://c4snuhiqix0ih" path="res://icon.svg" id="2_pcj6y"]
+[ext_resource type="Texture2D" uid="uid://bj5wy60bohvoo" path="res://Assets/arcaneConstruct.png" id="2_0kkvk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jrtyj"]
 radius = 128.141
@@ -9,10 +9,9 @@ radius = 128.141
 [node name="arcane_construct" type="CharacterBody2D"]
 script = ExtResource("1_i8kvs")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 0, 1)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("2_pcj6y")
+[node name="ConstructSprite" type="Sprite2D" parent="."]
+position = Vector2(3, -2)
+texture = ExtResource("2_0kkvk")
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 0.5

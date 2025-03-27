@@ -90,7 +90,7 @@ func GoBack():
 	NewSpells = []
 	if active == false:
 		Global.WaveCompleted = false
-		await get_tree().create_timer(3).timeout
+		await get_tree().create_timer(2).timeout
 		Global.wave_start.emit(Global.current_wave)
 	else:
 		Global.BossWaveCompleted = false
@@ -128,6 +128,8 @@ func GoBack():
 	Spells = [-1, -1, -1]
 	Sideupgrades = [null, null, null]
 					#spell, level, sideupgrade
+	if Global.current_wave == 0:
+		Global.wave_start.emit(Global.current_wave)
 
 func UpdateNames():
 	$SpellMenu_BG/Spell1.text = spell_text(0)

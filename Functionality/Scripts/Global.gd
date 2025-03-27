@@ -34,6 +34,7 @@ signal damage_enemy(damage, enemy)
 signal damage_player(damage)
 signal wave_start()
 signal active_used
+signal player_death_signal
 
 func get_index_from_name(name, dictionary):
 	for i in range(dictionary.size()):
@@ -49,6 +50,7 @@ func get_nearest_enemy(source):
 			var temp_distance = source.distance_to(i.position)
 			if temp_distance < source.distance_to(Global.nearest_enemy.position):
 				Global.nearest_enemy = i
+	return Global.nearest_enemy
 
 func GetSpellIndex(spell):
 	for i in Global.ActivePlayerSpells.size():
@@ -79,7 +81,9 @@ func DamageNumbers(damage, position):
 	var x = 0
 	while x < 20:
 		await get_tree().create_timer(0.05).timeout
-		text.position.y -= 2
-		text.self_modulate.a -= 0.1
+		if Global.player_death == false: #was crashing so i needed to add some locks
+			text.position.y -= 2
+			text.self_modulate.a -= 0.1
 		x += 1
-	text.queue_free()
+	if Global.player_death == false:
+		text.queue_free()
