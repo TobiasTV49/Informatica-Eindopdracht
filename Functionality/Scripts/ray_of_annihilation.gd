@@ -38,7 +38,6 @@ func ray_of_annihilation():
 		damage *= 1.75
 		Global.stunned = true
 	var x = 0
-	print(damage)
 	while x < hits:
 		for i in targets.size():
 			Global.damage_enemy.emit(damage, targets[i])

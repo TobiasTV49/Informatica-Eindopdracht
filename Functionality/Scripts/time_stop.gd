@@ -18,9 +18,7 @@ func time_stop():
 	Global.active_used.emit()
 	var index = Global.GetSpellIndex(6)
 	if Global.ActivePlayerSpells[index][2] == 1:
-		print(Global.enemy_speed_mult)
 		Global.enemy_speed_mult /= 2
-		print(Global.enemy_speed_mult)
 		await get_tree().create_timer(6).timeout
 		Global.enemy_speed_mult *= 2
 	elif Global.ActivePlayerSpells[index][2] == 2:

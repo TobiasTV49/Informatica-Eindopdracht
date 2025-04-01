@@ -69,7 +69,10 @@ func damaged(damage, target):
 		health -= damage
 		Global.DamageNumbers(damage, self.position)
 		if health < 1:
+			Global.final_boss_beaten = true
+			player.queue_free()
 			self.queue_free()
+
 
 func boss_dash():
 	dashing = true

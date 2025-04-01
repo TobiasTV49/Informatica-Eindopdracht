@@ -160,7 +160,6 @@ func enemy_killed():
 			druid_timer = 0
 
 
-
 func _on_temporary_button_pressed():
 	Global.BossWaveCompleted = true
 

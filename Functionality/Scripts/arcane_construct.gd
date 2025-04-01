@@ -21,10 +21,8 @@ func _physics_process(delta: float) -> void:
 			var direction = nearest_enemy.position.x - position.x
 			if direction > 0:
 				$ConstructSprite.flip_h = true
-				print('"balls"')
 			else:
 				$ConstructSprite.flip_h = false
-				print("Balls")
 		move_and_slide()
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
