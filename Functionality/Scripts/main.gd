@@ -100,8 +100,12 @@ func _process(delta: float) -> void:
 	update_stats()
 	update_names()
 
+func roll_dice():
+	$CanvasLayer/Dice.roll_dice.emit()
+
 #Function that makes the waves
 func start_wave(wave_number):
+	roll_dice() #temporary location for the dice rollin'
 	if boss_waves.has(wave_number):
 		start_boss_wave()
 		print("starting boss wave")
