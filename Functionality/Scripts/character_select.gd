@@ -53,5 +53,5 @@ func leave():
 			Global.player_attack_speed_mult = i[1]
 		elif i[0] == "player_damage_mult":
 			Global.player_damage_mult = i[1]
-	Global.PlayerSpells.append([GameData.Wizards[Global.chosen_character]["Starting weapon"], 0, 0])
+	Global.PlayerSpells.append([GameData.Wizards[Global.chosen_character]["Starting weapon"], 0, 0, true])
 	get_tree().change_scene_to_file("res://Functionality/Scenes/main.tscn")

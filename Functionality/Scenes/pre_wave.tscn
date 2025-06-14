@@ -15,3 +15,13 @@ offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.212305, 0.212305, 0.212305, 1)
+
+[node name="Button" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 220.0
+offset_right = 370.0
+offset_bottom = 270.0
+text = "Continue"
+
+[connection signal="pressed" from="ColorRect/Button" to="." method="_on_button_pressed"]

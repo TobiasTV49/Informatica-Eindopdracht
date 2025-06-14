@@ -57,16 +57,16 @@ func _physics_process(delta):
 			spell_list.append(GameData.Spells[index]["Name"])
 	
 	
-	if spell_list.has("Arcane shove"):
+	if spell_list.has("Arcane shove") and check_spell_active("Arcane shove") == true:
 		arcane_shove(0.5, 2 / Global.player_attack_speed_mult) #calls arcane shove. 1st value = effect lenght, 2nd value = effect cooldown
 	
-	if spell_list.has("Summon golem"):
+	if spell_list.has("Summon golem") and check_spell_active("Summon golem") == true:
 		summon_golem()
 	
-	if spell_list.has("Divine protection"):
+	if spell_list.has("Divine protection") and check_spell_active("Divine protection") == true:
 		divine_protection()
 	
-	if spell_list.has("Arcane construct"):
+	if spell_list.has("Arcane construct") and check_spell_active("Arcane construct") == true:
 		arcane_construct()
 	
 	if Global.stunned == false:
@@ -75,7 +75,7 @@ func _physics_process(delta):
 
 
 func _on_attack_timer_timeout() -> void:
-	if enemies_in_range > 0 and spell_list.has("Magic missile"): #only shoots when there are enemies in attack range
+	if enemies_in_range > 0 and spell_list.has("Magic missile") and check_spell_active("Magic missile") == true: #only shoots when there are enemies in attack range
 		$AttackTimer.wait_time = 1 / Global.player_attack_speed_mult
 		var bullet = bullet_load.instantiate()
 		var player_bullets = get_tree().current_scene.get_node("player_bullets")
@@ -166,3 +166,8 @@ func _on_attack_range_body_entered(body: Node2D) -> void:
 func _on_attack_range_body_exited(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
 		enemies_in_range -= 1
+
+func check_spell_active(name):
+	for i in Global.PlayerSpells.size():
+		if name == GameData.Spells[Global.PlayerSpells[i][0]]["Name"]:
+			return Global.PlayerSpells[i][3]

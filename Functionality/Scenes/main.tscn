@@ -142,6 +142,7 @@ text = "Spawn Boss
 "
 
 [node name="DruidMenu" parent="CanvasLayer" instance=ExtResource("5_k2n5o")]
+visible = false
 top_level = true
 
 [node name="SpellMenu" parent="CanvasLayer" instance=ExtResource("5_ipgrs")]

@@ -21,7 +21,6 @@ func _ready() -> void:
 	Global.enemy_killed.connect(enemy_killed)
 	Global.wave_start.connect(start_wave)
 	Global.player_death_signal.connect(player_death)
-	Global.PlayerSpells.append([0, 0, 0])
 	$CanvasLayer/BossBar.visible = false
 	$CanvasLayer/WaveCounter.text = "Wave " + str(Global.current_wave + 1)
 	for i in $"enemy spawners".get_children(): #Hides the enemy spawners when starting
@@ -100,10 +99,14 @@ func _process(delta: float) -> void:
 	update_stats()
 	update_names()
 
+func roll_dice():
+	$CanvasLayer/Dice.roll_dice.emit()
+
 #Function that makes the waves
 func start_wave(wave_number):
 	while Global.DruidMenu == true:
 		await get_tree().process_frame
+	roll_dice() #temporary location for the dice rollin'
 	if boss_waves.has(wave_number):
 		start_boss_wave()
 		print("starting boss wave")
