@@ -107,6 +107,7 @@ func start_wave(wave_number):
 	while Global.DruidMenu == true:
 		await get_tree().process_frame
 	roll_dice() #temporary location for the dice rollin'
+	await get_tree().create_timer(1.2).timeout #giving the dice time to roll
 	if boss_waves.has(wave_number):
 		start_boss_wave()
 		print("starting boss wave")
