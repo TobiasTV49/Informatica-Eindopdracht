@@ -36,6 +36,7 @@ signal damage_player(damage)
 signal wave_start()
 signal active_used
 signal player_death_signal
+signal pre_wave
 
 func get_index_from_name(name, dictionary):
 	for i in range(dictionary.size()):

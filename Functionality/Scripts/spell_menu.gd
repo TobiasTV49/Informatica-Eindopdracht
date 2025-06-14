@@ -11,7 +11,6 @@ var inside = false
 var sideupgrade = false
 var index = null
 var active = true
-var pre_wave_load = preload("res://Functionality/Scenes/pre_wave.tscn")
 
 
 func _ready():
@@ -126,7 +125,7 @@ func GoBack():
 			Global.ActivePlayerSpells.append([ChosenSpell, 0, 0])
 	Spells = [-1, -1, -1]
 	Sideupgrades = [null, null, null]
-	get_tree().current_scene.add_child(pre_wave_load.instantiate())
+	Global.pre_wave.emit()
 
 
 func UpdateNames():

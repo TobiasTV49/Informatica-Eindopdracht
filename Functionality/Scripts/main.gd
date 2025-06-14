@@ -7,6 +7,7 @@ const BOSS = preload("res://Functionality/Scenes/boss.tscn")
 var meteor_strike_load = preload("res://Functionality/Scenes/meteor_strike.tscn")
 var time_stop_load = preload("res://Functionality/Scenes/time_stop.tscn")
 var ray_of_annihilation_load =  preload("res://Functionality/Scenes/ray_of_annihilation.tscn")
+var pre_wave_load = preload("res://Functionality/Scenes/pre_wave.tscn")
 var active = [false, false, false]
 var timer = [false, false, false]
 var druid_timer = 0
@@ -17,6 +18,7 @@ var boss_waves = [2, 5] #all boss waves will be in this array, but we only have 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.pre_wave.connect(pre_wave)
 	Global.player_death = false
 	Global.enemy_killed.connect(enemy_killed)
 	Global.wave_start.connect(start_wave)
@@ -242,3 +244,6 @@ func UseActive(UsedActive):
 		get_tree().current_scene.add_child(time_stop_load.instantiate())
 	elif UsedActive == 7:  
 		get_tree().current_scene.add_child(ray_of_annihilation_load.instantiate())
+
+func pre_wave():
+	$CanvasLayer.add_child(pre_wave_load.instantiate())
