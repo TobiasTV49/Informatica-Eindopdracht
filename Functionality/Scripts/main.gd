@@ -102,6 +102,8 @@ func _process(delta: float) -> void:
 
 #Function that makes the waves
 func start_wave(wave_number):
+	while Global.DruidMenu == true:
+		await get_tree().process_frame
 	if boss_waves.has(wave_number):
 		start_boss_wave()
 		print("starting boss wave")
@@ -149,13 +151,13 @@ func enemy_killed():
 		Global.WaveCompleted = true
 		Global.current_wave += 1
 		druid_timer += 1
-		if druid_timer == 3 and 1 == randi_range(1, 3):
+		if druid_timer == 2 and 1 == randi_range(1, 3):
 			Global.DruidMenu = true
 			druid_timer = 0
-		elif druid_timer == 4 and 1 == randi_range(1, 2):
+		elif druid_timer == 3 and 1 == randi_range(1, 2):
 			Global.DruidMenu = true
 			druid_timer = 0
-		elif druid_timer == 5:
+		elif druid_timer == 4:
 			Global.DruidMenu = true
 			druid_timer = 0
 

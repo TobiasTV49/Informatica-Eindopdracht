@@ -11,6 +11,7 @@ var inside = false
 var sideupgrade = false
 var index = null
 var active = true
+var pre_wave_load = preload("res://Functionality/Scenes/pre_wave.tscn")
 
 
 func _ready():
@@ -91,6 +92,7 @@ func GoBack():
 	if active == false:
 		Global.WaveCompleted = false
 		await get_tree().create_timer(2).timeout
+		get_tree().current_scene.add_child(pre_wave_load.instantiate())
 		Global.wave_start.emit(Global.current_wave)
 	else:
 		Global.BossWaveCompleted = false

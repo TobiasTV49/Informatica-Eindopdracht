@@ -55,7 +55,6 @@ func _on_close_pressed():
 	lock = false
 	Items = [0, -1, -1, -1, -1, -1]
 	Bought = [false, false, false, false, false, false]
-	update_item_stats()
 
 func RandomizeChoices(x):
 	var check = null
@@ -109,8 +108,6 @@ func Checkout():
 	else:
 		print("You don't have enough money")
 
-func update_item_stats():
-	if Global.PlayerItems.size() > 0:
 		if Global.CheckPlayerItems(1) == true:
 			Global.player_range_mult = 1 + (GameData.Items[1]["Effect"] * Global.PlayerItems[Global.GetItemIndex(1)][1])
 		if Global.CheckPlayerItems(2) == true:
