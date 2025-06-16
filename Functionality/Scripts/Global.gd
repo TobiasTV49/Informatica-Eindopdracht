@@ -26,6 +26,7 @@ var player_attack_speed_mult:float = 1
 var player_damage_mult:float = 1
 var room_coords_x = [0, 640]
 var final_boss_beaten: bool = false
+var penalty = 0
 
 signal shoot
 signal enemy_shoot

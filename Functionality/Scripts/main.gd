@@ -200,7 +200,7 @@ func update_stats():
 			var upgradestat = x[0]
 			var upgradeamount = x[1]
 			var basestat = x[2]
-			GameData.Spells[i[0]][upgradestat] = basestat + upgradeamount * i[1]
+			GameData.Spells[i[0]][upgradestat] = basestat + upgradeamount * i[1] - Global.penalty
 
 func update_names():
 	if Global.ActivePlayerSpells.size() > 0:

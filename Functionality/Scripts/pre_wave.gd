@@ -1,7 +1,6 @@
 extends Node2D
 var redraw = false
 var x = 0
-var penalty = 0
 var count = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,9 +19,8 @@ func _ready():
 		else:
 			_make_label(button.position, button.size, 255, "\n inactive")
 	if _count() >= 3:
-		penalty = (_count() - 2) * 0.05
-	$ColorRect/Button.text = "Continue \n penalty = " + str(penalty)
-	
+		Global.penalty = (_count() - 2) * 0.05
+	$ColorRect/Button.text = "Continue \n penalty = " + str(Global.penalty)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -31,7 +29,7 @@ func _process(delta):
 
 func _on_button_pressed():
 	Global.wave_start.emit(Global.current_wave)
-	Global.player_damage_mult -= penalty
+	Global.player_damage_mult -= Global.penalty
 	queue_free()
 
 func _on_spell_pressed(name):
@@ -42,7 +40,7 @@ func _on_spell_pressed(name):
 			else:
 				Global.PlayerSpells[i][3] = true
 	if _count() >= 3:
-		penalty = (_count() - 2) * 0.05
+		Global.penalty = (_count() - 2) * 0.05
 	_on_h_scroll_bar_value_changed($ColorRect/HScrollBar.value)
 
 func kys(button):
@@ -76,7 +74,7 @@ func _on_h_scroll_bar_value_changed(value):
 			_make_label(button.position, button.size, button.self_modulate.a8, "\n active")
 		else:
 			_make_label(button.position, button.size, button.self_modulate.a8, "\n inactive")
-		$ColorRect/Button.text = "Continue \n penalty = " + str(penalty)
+		$ColorRect/Button.text = "Continue \n penalty = " + str(Global.penalty)
 
 func _make_label(position, size, modulation, active):
 	redraw = true
