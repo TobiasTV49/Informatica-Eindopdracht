@@ -75,7 +75,7 @@ func RandomizeChoices(x):
 				if sideupgrade == false and inside == true:
 					Sideupgrades[x] = randi_range(1, 2)
 			else:
-				if 1 == randi_range(1,5) and sideupgrade == false and inside == true:
+				if 1 == 1 and sideupgrade == false and inside == true:
 					Sideupgrades[x] = randi_range(1, 2)
 	else:
 		check = randi_range(0, NewSpells.size() - 1)

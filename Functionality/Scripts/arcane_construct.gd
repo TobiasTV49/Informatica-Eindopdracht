@@ -16,7 +16,7 @@ func _physics_process(delta: float) -> void:
 	if Global.player_death == false:
 		position = Vector2(25, -25)
 		damage = GameData.Spells[3]["Damage"]
-		var nearest_enemy = Global.get_nearest_enemy(self.position)
+		var nearest_enemy = Global.get_nearest_enemy(self.position, false)
 		if nearest_enemy != null:
 			var direction = nearest_enemy.position.x - position.x
 			if direction > 0:

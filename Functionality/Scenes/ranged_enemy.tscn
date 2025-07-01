@@ -76,6 +76,17 @@ func _on_hit_box_body_entered(body: Node2D) -> void:
 	if body.get_meta(\"bullet_type\") == \"player bullet\":
 		body.queue_free()
 		damaged(body.bullet_damage, self)
+		if Global.PlayerSpells[0][2] == 1:
+			var bullet = bullet_load.instantiate()
+			var player_bullets = get_tree().current_scene.get_node(\"player_bullets\")
+			var bullet_target = \"enemy\"
+			var source = self.position
+			player_bullets.add_child(bullet)
+			bullet.position = position
+			$HitBox/HitBoxShape.call_deferred(\"set\",\"disabled\",true)
+			Global.shoot.emit(bullet_target, source, GameData.Spells[0][\"Damage\"], 200, 1, true)
+			await get_tree().create_timer(0.2).timeout
+			$HitBox/HitBoxShape.call_deferred(\"set\",\"disabled\",false)
 	
 func damaged(damage, target):
 	if target == self:

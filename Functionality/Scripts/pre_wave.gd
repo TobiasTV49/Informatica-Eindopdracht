@@ -21,6 +21,8 @@ func _ready():
 	if _count() >= 3:
 		Global.penalty = (_count() - 2) * 0.05
 	$ColorRect/Button.text = "Continue \n penalty = " + str(Global.penalty)
+	for i in GameData.Waves[Global.current_wave].size():
+		$ColorRect/Label.text += GameData.Waves[Global.current_wave][i][0] + " " + str(GameData.Waves[Global.current_wave][i][1]) + "x, "
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

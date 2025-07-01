@@ -31,5 +31,11 @@ offset_top = 180.0
 offset_right = 480.0
 offset_bottom = 195.0
 
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_right = 642.0
+offset_bottom = 79.0
+text = "Next wave: "
+
 [connection signal="pressed" from="ColorRect/Button" to="." method="_on_button_pressed"]
 [connection signal="value_changed" from="ColorRect/HScrollBar" to="." method="_on_h_scroll_bar_value_changed"]

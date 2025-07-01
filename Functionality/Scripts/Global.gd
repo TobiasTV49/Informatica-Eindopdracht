@@ -28,6 +28,7 @@ var room_coords_x = [0, 640]
 var final_boss_beaten: bool = false
 var penalty = 0
 
+
 signal shoot
 signal enemy_shoot
 signal enemy_killed()
@@ -44,16 +45,23 @@ func get_index_from_name(name, dictionary):
 		if dictionary[i]["Name"] == name:
 			return i
 
-func get_nearest_enemy(source):
+func get_nearest_enemy(source, bounce):
 	var enemy_array = get_tree().get_nodes_in_group("enemies")
+	var array = []
 	if enemy_array.size() > 0:
-		if Global.nearest_enemy == null:
-			Global.nearest_enemy = enemy_array[0]
+		Global.nearest_enemy = true
 		for i in enemy_array:
-			var temp_distance = source.distance_to(i.position)
-			if temp_distance < source.distance_to(Global.nearest_enemy.position):
-				Global.nearest_enemy = i
-	return Global.nearest_enemy
+			var temp_distance: int = source.distance_to(i.position)
+			array.append(temp_distance)
+		if bounce == false:
+			return enemy_array[array.find(array.min())]
+		else:
+			array.remove_at(array.find(array.min()))
+			return enemy_array[array.find(array.min())]
+	else:
+		Global.nearest_enemy = null
+		return null
+
 
 func GetSpellIndex(spell):
 	for i in Global.ActivePlayerSpells.size():
