@@ -6,8 +6,10 @@ var damage = 10
 var health = 75
 var kback = false
 var locked = false
+var vulnerability = 1
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
 var bullet_load = preload("res://Functionality/Scenes/enemy_bullet.tscn")
+var B_bullet_load = preload("res://Functionality/Scenes/bullet.tscn")
 var minions: Array
 const SKELETON_MINION = preload("res://Functionality/Scenes/skeleton_minion.tscn")
 
@@ -73,7 +75,7 @@ func _on_hit_box_body_entered(body: Node2D) -> void:
 			body.queue_free()
 			damaged(body.bullet_damage, self)
 		if Global.PlayerSpells[0][2] == 1:
-			var bullet = bullet_load.instantiate()
+			var bullet = B_bullet_load.instantiate()
 			var player_bullets = get_tree().current_scene.get_node("player_bullets")
 			var bullet_target = "enemy"
 			var source = self.position
@@ -83,8 +85,11 @@ func _on_hit_box_body_entered(body: Node2D) -> void:
 			Global.shoot.emit(bullet_target, source, GameData.Spells[0]["Damage"], 200, 1, true)
 			await get_tree().create_timer(0.2).timeout
 			$HitBox/HitBoxShape.call_deferred("set","disabled",false)
+		elif Global.PlayerSpells[0][2] == 2 and vulnerability < 1.5:
+			vulnerability += 0.1
 		
 func damaged(damage, target):
+	damage *= vulnerability
 	if target == self:
 		health -= damage
 		Global.DamageNumbers(damage, self.position)

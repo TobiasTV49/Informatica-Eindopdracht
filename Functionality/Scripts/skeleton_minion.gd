@@ -5,6 +5,7 @@ var SPEED = 25
 var damage = 10
 var health = 50
 var kback = false
+var vulnerability = 1
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
 var bullet_load = preload("res://Functionality/Scenes/bullet.tscn")
 
@@ -47,7 +48,7 @@ func _on_attacktimer_timeout() -> void:
 func _on_hit_box_body_entered(body: Node2D) -> void:
 	if body.get_meta("bullet_type") == "player bullet":
 		body.queue_free()
-		damaged(10, self)
+		damaged(body.bullet_damage, self)
 		if Global.PlayerSpells[0][2] == 1:
 			var bullet = bullet_load.instantiate()
 			var player_bullets = get_tree().current_scene.get_node("player_bullets")
@@ -59,6 +60,8 @@ func _on_hit_box_body_entered(body: Node2D) -> void:
 			Global.shoot.emit(bullet_target, source, GameData.Spells[0]["Damage"], 200, 1, true)
 			await get_tree().create_timer(0.2).timeout
 			$HitBox/HitBoxShape.call_deferred("set","disabled",false)
+		elif Global.PlayerSpells[0][2] == 2 and vulnerability < 1.5:
+			vulnerability += 0.1
 
 func knocked_back(knockback, length, body):
 	if body == self and kback == false:
@@ -73,6 +76,7 @@ func knocked_back(knockback, length, body):
 		attacking = temp_a
 
 func damaged(damage, target):
+	damage *= vulnerability
 	if target == self:
 		health -= damage
 		Global.DamageNumbers(damage, self.position)

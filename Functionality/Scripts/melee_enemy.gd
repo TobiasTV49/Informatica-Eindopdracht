@@ -7,6 +7,7 @@ var health = 50
 var kback = false
 var player
 var bullet_load = preload("res://Functionality/Scenes/bullet.tscn")
+var vulnerability = 1
 
 func _ready() -> void:
 	attacking = false
@@ -61,6 +62,8 @@ func _on_hit_box_body_entered(body: Node2D) -> void:
 			Global.shoot.emit(bullet_target, source, GameData.Spells[0]["Damage"], 200, 1, true)
 			await get_tree().create_timer(0.2).timeout
 			$HitBox/HitBoxShape.call_deferred("set","disabled",false)
+		elif Global.PlayerSpells[0][2] == 2 and vulnerability < 1.5:
+			vulnerability += 0.1
 
 func knocked_back(knockback, length, body):
 	if body == self and kback == false:
@@ -75,6 +78,7 @@ func knocked_back(knockback, length, body):
 		attacking = temp_a
 
 func damaged(damage, target):
+	damage *= vulnerability
 	if target == self:
 		health -= damage
 		Global.DamageNumbers(damage, self.position)
